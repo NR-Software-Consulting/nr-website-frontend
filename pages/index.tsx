@@ -1,5 +1,4 @@
 import ApiError from "@/components/PageError";
-import Progressbar from "@/components/ProgressBar/Progressbar";
 import Layout from "@/components/layout";
 import { mapSeoData } from "@/utlis/next-seo.config";
 interface Props {
@@ -15,7 +14,7 @@ const Home = ({ seo, error }: Props) => {
         </Layout>
       ) : (
         <Layout seo={mapSeoData(seo)}>
-          <Progressbar />
+          {/* <Progressbar /> */}
         </Layout>
       )}
     </>
