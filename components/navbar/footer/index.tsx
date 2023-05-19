@@ -31,11 +31,11 @@ const Footer = () => {
           xl={10}
           sx={styles.mainGrid}
         >
-          <Grid item xs={12} sm={12} md={12} lg={2} sx={styles.icon}>
+          <Grid item xs={12} sm={3} md={2} lg={2} sx={styles.icon}>
             <Box
               sx={{
                 height: 90,
-                width: 200,
+                width: { xs: 150, lg: 200 },
                 cursor: "pointer",
               }}
               onClick={() => {
@@ -75,7 +75,7 @@ const Footer = () => {
               </Link>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={2}>
+          <Grid item xs={6} sm={1.5} md={2} lg={2}>
             <Typography
               fontSize={"24px"}
               fontWeight={500}
@@ -89,7 +89,7 @@ const Footer = () => {
               );
             })}
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={2}>
+          <Grid item xs={6} sm={2} md={2} lg={2}>
             <Typography
               fontSize={"24px"}
               fontWeight={500}
@@ -103,7 +103,7 @@ const Footer = () => {
               );
             })}
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={2}>
+          <Grid item xs={6} sm={2} md={2} lg={2}>
             <Typography
               fontSize={"24px"}
               fontWeight={500}
@@ -117,7 +117,7 @@ const Footer = () => {
               );
             })}
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={2}>
+          <Grid item xs={6} sm={2} md={2} lg={2}>
             <Typography
               fontSize={"24px"}
               fontWeight={500}
@@ -127,7 +127,17 @@ const Footer = () => {
             </Typography>
             {GetApp.map((data) => {
               return (
-                <Box sx={{ height: 50, width: 180, marginBottom:"10px" }}>
+                <Box
+                  sx={{
+                    height: 50,
+                    width: { xs: 130, lg: 180 },
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                >
                   <NRImage src={data.img} alt="app Icons" />
                 </Box>
               );

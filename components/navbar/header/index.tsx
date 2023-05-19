@@ -22,7 +22,7 @@ const Header = () => {
   const isMatch = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <AppBar elevation={0} sx={styles.Appbar}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-around" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box
           sx={{ height: 110, width: 200, cursor: "pointer" }}
           onClick={() => {
