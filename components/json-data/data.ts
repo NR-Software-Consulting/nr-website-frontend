@@ -19,3 +19,7 @@ export const UserData = [
   { name: "Cart", link: "/contactus" },
   { name: "About Us", link: "/aboutus" },
 ];
+export const GetApp = [
+  { img: "/PlayStore.png", link: "/" },
+  { img: "/AppStore.png", link: "/" },
+];

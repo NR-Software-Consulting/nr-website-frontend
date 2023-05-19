@@ -6,25 +6,41 @@ const config: DefaultSeoProps = {
     locale: "en_IE",
     url: "https://nrmobiles.com/",
     siteName: "NR Mobiles Officials",
-    description: "",
+    description:
+      "Your one-stop destination for cutting-edge smartphones and accessories. Stay connected with the latest tech trends. Where Quality meets Affordability.",
+    images: [
+      {
+        url: "/NRfavicon.jpeg",
+        width: 800,
+        height: 600,
+        alt: "NR Mobiles Officials",
+      },
+      {
+        url: "/NRfavicon.jpeg",
+        width: 800,
+        height: 600,
+        alt: "NR Mobiles Officials",
+      },
+    ],
   },
   titleTemplate: "NR Mobiles Officials",
   defaultTitle: "NR Mobiles Officials",
   title: "NR Mobiles Officials",
-  description: "",
+  description:
+    "Your one-stop destination for cutting-edge smartphones and accessories. Stay connected with the latest tech trends. Where Quality meets Affordability.",
   twitter: {
     handle: "@handle",
-    site: "@site",
+    site: "@Website",
     cardType: "summary_large_image",
   },
   additionalLinkTags: [
     {
       rel: "favicon",
-      href: "public/NRlogo.jpg",
+      href: "public/NRfavicon.jpeg",
     },
     {
       rel: "icon",
-      href: "/NRlogo.jpg",
+      href: "/NRfavicon.jpeg",
       sizes: "76x76",
     },
   ],
@@ -98,11 +114,11 @@ export const mapSeoData = (data: any) => {
     additionalLinkTags: [
       {
         rel: "favicon",
-        href: "/NRlogo.jpg",
+        href: "/NRfavicon.jpeg",
       },
       {
         rel: "apple-touch-icon",
-        href: "/NRlogo.jpg",
+        href: "/NRfavicon.jpeg",
         sizes: "76x76",
       },
     ],

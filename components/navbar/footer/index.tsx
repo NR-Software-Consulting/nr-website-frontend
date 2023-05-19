@@ -9,119 +9,132 @@ import { useRouter } from "next/router";
 import NRImage from "@/components/NRImage";
 import {
   AboutData,
+  GetApp,
   InformationData,
   UserData,
 } from "@/components/json-data/data";
+import { CustomContainer } from "@/components/layout";
 
 const Footer = () => {
   const router = useRouter();
 
   return (
     <Box sx={styles.mainBox}>
-      <Grid
-        container
-        item
-        xs={11.5}
-        sm={11.5}
-        md={11.5}
-        lg={10.5}
-        xl={10}
-        sx={styles.mainGrid}
-      >
+      <CustomContainer>
         <Grid
+          container
           item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={3}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
+          xs={11.5}
+          sm={11.5}
+          md={11.5}
+          lg={11.5}
+          xl={10}
+          sx={styles.mainGrid}
         >
-          <Box
-            sx={{
-              height: 90,
-              width: 200,
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              router.push("/");
-            }}
-          >
-            <NRImage
-              src={FooterLogo}
-              alt="NR Logo"
-              style={{ objectFit: "contain" }}
-            />
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Link
-              href="https://www.facebook.com/nrmobilesofficial/"
-              target="blank"
+          <Grid item xs={12} sm={12} md={12} lg={2} sx={styles.icon}>
+            <Box
+              sx={{
+                height: 90,
+                width: 200,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push("/");
+              }}
             >
-              <Box sx={styles.SocialIcon}>
-                <NRImage src={FbIon} alt="NR Logo" />
-              </Box>
-            </Link>
-            <Link
-              href="https://www.instagram.com/nrmobilesofficial/"
-              target="blank"
+              <NRImage
+                src={FooterLogo}
+                alt="NR Logo"
+                style={{ objectFit: "contain" }}
+              />
+            </Box>
+            <Box sx={{ display: "flex" }}>
+              <Link
+                href="https://www.facebook.com/nrmobilesofficial/"
+                target="blank"
+              >
+                <Box sx={styles.SocialIcon}>
+                  <NRImage src={FbIon} alt="NR Logo" />
+                </Box>
+              </Link>
+              <Link
+                href="https://www.instagram.com/nrmobilesofficial/"
+                target="blank"
+              >
+                <Box sx={styles.SocialIcon}>
+                  <NRImage src={InstaIcon} alt="NR Logo" />
+                </Box>
+              </Link>
+              <Link
+                href="https://www.youtube.com/@mr.nrtech9997"
+                target="blank"
+              >
+                <Box sx={styles.SocialIcon}>
+                  <NRImage src={YtIcon} alt="NR Logo" />
+                </Box>
+              </Link>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={2}>
+            <Typography
+              fontSize={"24px"}
+              fontWeight={500}
+              sx={styles.footerHeadings}
             >
-              <Box sx={styles.SocialIcon}>
-                <NRImage src={InstaIcon} alt="NR Logo" />
-              </Box>
-            </Link>
-            <Link href="https://www.youtube.com/@mr.nrtech9997" target="blank">
-              <Box sx={styles.SocialIcon}>
-                <NRImage src={YtIcon} alt="NR Logo" />
-              </Box>
-            </Link>
-          </Box>
+              About
+            </Typography>
+            {AboutData.map((data) => {
+              return (
+                <Typography sx={{ paddingTop: "5px" }}>{data.name}</Typography>
+              );
+            })}
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={2}>
+            <Typography
+              fontSize={"24px"}
+              fontWeight={500}
+              sx={styles.footerHeadings}
+            >
+              Information
+            </Typography>
+            {InformationData.map((data) => {
+              return (
+                <Typography sx={{ paddingTop: "5px" }}>{data.name}</Typography>
+              );
+            })}
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={2}>
+            <Typography
+              fontSize={"24px"}
+              fontWeight={500}
+              sx={styles.footerHeadings}
+            >
+              For Users
+            </Typography>
+            {UserData.map((data) => {
+              return (
+                <Typography sx={{ paddingTop: "5px" }}>{data.name}</Typography>
+              );
+            })}
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={2}>
+            <Typography
+              fontSize={"24px"}
+              fontWeight={500}
+              sx={styles.footerHeadings}
+            >
+              Get Your App
+            </Typography>
+            {GetApp.map((data) => {
+              return (
+                <Box sx={{ height: 50, width: 200 }}>
+                  <NRImage src={data.img} alt="app Icons" />
+                </Box>
+              );
+            })}
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={3}>
-          <Typography
-            fontSize={"24px"}
-            fontWeight={500}
-            sx={styles.footerHeadings}
-          >
-            About
-          </Typography>
-          {AboutData.map((data) => {
-            return (
-              <Typography sx={{ paddingTop: "5px" }}>{data.name}</Typography>
-            );
-          })}
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={3}>
-          <Typography
-            fontSize={"24px"}
-            fontWeight={500}
-            sx={styles.footerHeadings}
-          >
-            Information
-          </Typography>
-          {InformationData.map((data) => {
-            return (
-              <Typography sx={{ paddingTop: "5px" }}>{data.name}</Typography>
-            );
-          })}
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={3}>
-          <Typography
-            fontSize={"24px"}
-            fontWeight={500}
-            sx={styles.footerHeadings}
-          >
-            For users
-          </Typography>
-          {UserData.map((data) => {
-            return (
-              <Typography sx={{ paddingTop: "5px" }}>{data.name}</Typography>
-            );
-          })}
-        </Grid>
-      </Grid>
+      </CustomContainer>
     </Box>
   );
 };
