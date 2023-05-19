@@ -24,7 +24,7 @@ const Home = ({ seo, error }: Props) => {
             <DiscountsTag />
             <Heading title={"Category:"} />
             <Category />
-            <Heading title={"Hot Selling Products:"} />
+            {/* <Heading title={"Hot Selling Products:"} /> */}
           </Box>
         </Layout>
       )}
