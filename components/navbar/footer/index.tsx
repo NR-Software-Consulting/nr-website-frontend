@@ -127,7 +127,7 @@ const Footer = () => {
             </Typography>
             {GetApp.map((data) => {
               return (
-                <Box sx={{ height: 50, width: 200 }}>
+                <Box sx={{ height: 50, width: 180, marginBottom:"10px" }}>
                   <NRImage src={data.img} alt="app Icons" />
                 </Box>
               );
