@@ -8,16 +8,15 @@ export const styles = {
   mainGrid: {
     margin: "auto",
     display: "flex",
-    justifyContent: "space-around",
-    textAlign: "center",
+    justifyContent: "space-evenly",
   },
   footerHeadings: {
     textDecoration: "underline",
     textDecorationColor: "red",
-    "&:hover": {
-      fontStyle: "italic",
-      fontSize: "26px",
-    },
+  },
+  icon: {
+    display: "flex",
+    flexDirection: "column",
   },
   SocialIcon: {
     height: 30,

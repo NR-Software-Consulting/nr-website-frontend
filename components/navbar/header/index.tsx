@@ -38,7 +38,10 @@ const Header = () => {
         ) : (
           <>
             <Box sx={{ display: "flex" }}>
-              <TextField sx={styles.TextField} />
+              <TextField
+                sx={styles.TextField}
+                placeholder="Search Your Product Here"
+              />
               <SearchButton title={"Search"} />
             </Box>
             <Box sx={styles.headerdata}>
