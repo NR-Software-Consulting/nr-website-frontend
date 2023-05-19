@@ -24,7 +24,7 @@ const Header = () => {
     <AppBar elevation={0} sx={styles.Appbar}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box
-          sx={{ height: 110, width: 200, cursor: "pointer" }}
+          sx={{ height: 100, width: 200, cursor: "pointer" }}
           onClick={() => {
             router.push("/");
           }}
