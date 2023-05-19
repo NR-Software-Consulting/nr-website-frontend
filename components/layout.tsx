@@ -26,7 +26,7 @@ export default Layout;
 export function CustomContainer(props: ContainerProps) {
   const { children } = props;
   return (
-    <Container maxWidth={"xl"} disableGutters {...props}>
+    <Container maxWidth={"lg"} disableGutters {...props}>
       {children}
     </Container>
   );

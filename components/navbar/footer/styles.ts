@@ -1,7 +1,7 @@
 export const styles = {
   mainBox: {
-    paddingTop: { xs: "80px", lg: "150px" },
     paddingBottom: "50px",
+    paddingTop: "50px",
     backgroundColor: "black",
     color: "white",
   },

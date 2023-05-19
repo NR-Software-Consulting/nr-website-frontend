@@ -3,6 +3,7 @@ export const styles = {
     display: "flex",
     backgroundColor: "black",
     color: "white",
+    textAlign: "center",
   },
   headerdata: {
     display: "flex",
