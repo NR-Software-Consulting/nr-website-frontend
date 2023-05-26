@@ -26,14 +26,17 @@ const DiscountsTag = () => {
           sm={11.5}
           md={11.5}
           lg={12}
-          gap={1}
+          columnGap={1.2}
           sx={styles.innergrid}
         >
           <Grid item xs={12} sm={11.9} md={12} lg={1.9}>
             <Card sx={styles.dealscard}>
               <CardContent>
-                <Typography sx={{ fontSize: 22 }}>Deal of the Day</Typography>
-                <Box>
+                <Typography sx={{ fontSize: 20 }}>Deal of the Day</Typography>
+                <Typography sx={{ fontSize: 12 }}>
+                  Hot selling Products
+                </Typography>
+                <Box sx={{paddingTop:"10px"}}>
                   <Countdown date={Date.now() + 2000000000}>
                     <Completionist />
                   </Countdown>
@@ -46,7 +49,7 @@ const DiscountsTag = () => {
               <Grid item xs={12} sm={5.9} md={3.93} lg={1.9}>
                 <Card>
                   <CardContent>
-                    <Box sx={{ height: 150, width: "100%" }}>
+                    <Box sx={{ height: 100, width: "100%" }}>
                       <NRImage src={data.img} alt="deals img" />
                     </Box>
                     <Typography>well meaning and kindly.</Typography>
