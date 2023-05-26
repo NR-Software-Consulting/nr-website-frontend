@@ -19,7 +19,7 @@ const Home = ({ seo, error }: Props) => {
         </Layout>
       ) : (
         <Layout seo={config}>
-          <Box sx={{ marginTop: "100px" }}>
+          <Box sx={{ marginTop: "120px" }}>
             <ImageSlider />
             <DiscountsTag />
             <Heading title={"Category:"} />
