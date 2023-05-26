@@ -48,3 +48,14 @@ export const SubCategories = [
   { img: "/products/image7.jpeg", text: "Details" },
   { img: "/products/image8.jpeg", text: "Details" },
 ];
+export const CategoryList = [
+  { name: "Mobile Phones" },
+  { name: "Mobile Accessories" },
+  { name: "Mobile Watches" },
+  { name: "Watch Protectors" },
+  { name: "Watch straps" },
+  { name: "Mobile tools kit" },
+  { name: "Laptops" },
+  { name: "Laptop Accessories" },
+  { name: "Computer Accessories" },
+];
