@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import ErrorMsg from "../common/error-msg";
 import { getCookie } from "cookies-next";
 import { useTranslations } from "next-intl";
+import IntlTelInput from "react-intl-tel-input";
+import 'react-intl-tel-input/dist/main.css';
 
 const CheckoutBillingArea = ({ register, errors, setValue }) => {
   const t = useTranslations("header");
@@ -31,7 +33,7 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                   id="firstName"
                   type="text"
                   placeholder={t("First Name")}
-                  defaultValue={userInfo?.name}
+                  // defaultValue={userInfo?.name}
                   onChangeCapture={(e) => {
                     setValue(
                       "firstName",
@@ -57,7 +59,7 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                   id="lastName"
                   type="text"
                   placeholder={t("Last Name")}
-                  defaultValue={userInfo?.user_profile?.last_name}
+                  // defaultValue={userInfo?.user_profile?.last_name}
                   onChangeCapture={(e) => {
                     setValue(
                       "lastName",
@@ -173,7 +175,24 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                 <label>
                   {t("Phone")} <span>*</span>
                 </label>
-                <input
+                <div>
+                  <IntlTelInput
+                    containerClassName={`intl-tel-input form-control ${errors.phone ? 'is-invalid' : ''}`}
+                    inputClassName="form-control shadow-none border-0"
+                    id="contactNo"
+                    fieldName="contactNo"
+                    defaultCountry="sa"
+                    onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
+                      setValue("contactNo", fullNumber);
+                    }}
+                    {...register("contactNo", {
+                      required: t("Contact Number is required"),
+
+                    })}
+
+                  />
+                </div>
+                {/* <input
                   {...register("contactNo", {
                     required: t("Contact Number is required"),
                   })}
@@ -189,7 +208,7 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                         .replace(/ +(?= )/g, "")
                     );
                   }}
-                />
+                /> */}
                 <ErrorMsg msg={errors?.contactNo?.message} />
               </div>
             </div>
@@ -204,7 +223,7 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                   id="email"
                   type="email"
                   placeholder={t("Email address")}
-                  defaultValue={userInfo?.email}
+                  // defaultValue={userInfo?.email}
                   onChangeCapture={(e) => {
                     setValue(
                       "email",

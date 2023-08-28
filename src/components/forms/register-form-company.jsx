@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -12,6 +12,9 @@ import { useRouter } from "next/router";
 import { CloseEye, OpenEye } from "@/svg";
 import OtpVerification from "../login-register/otp-verify";
 import { useTranslations } from "next-intl";
+import IntlTelInput from 'react-intl-tel-input';
+import 'react-intl-tel-input/dist/main.css';
+import ErrorMsg from "../common/error-msg";
 
 const schema = yup.object().shape({
   companyName: yup.string().required("Company Name is required"),
@@ -45,6 +48,7 @@ const RegisterFormCompany = ({ formType }) => {
   const [email, setEmail] = useState("");
   const [userData, setUserData] = useState(null);
 
+
   const {
     register,
     handleSubmit,
@@ -56,8 +60,11 @@ const RegisterFormCompany = ({ formType }) => {
   });
 
   const [registerUser, { loading, error }] = useMutation(SIGNUP_USER);
-
+  const selectedCountryRef = useRef(null);
   const onSubmit = async (data) => {
+    const selectedCountryData = selectedCountryRef.current;
+
+
     try {
       const response = await registerUser({
         variables: {
@@ -66,6 +73,8 @@ const RegisterFormCompany = ({ formType }) => {
             username: data.email,
             taxNumber: data.taxNumber,
             CRNumber: data.crNumber,
+            calling_code: selectedCountryData?.dialCode,
+            country_code: selectedCountryData?.iso2,
             phoneNumber: data.phone,
             email: data.email,
             password: data.password,
@@ -189,13 +198,14 @@ const RegisterFormCompany = ({ formType }) => {
               <div className="invalid-feedback">{"CR Number is required"}</div>
             )}
           </div>
-          <div className="mb-md-3 mb-2">
+          {/* <div className="mb-md-3 mb-2">
             <label
               htmlFor="phone"
               className="form-label text-black fw-semibold p-0 m-0"
             >
               {t("Phone")} <span className="text-danger">*</span>
             </label>
+        
             <input
               type="text"
               className={`form-control border-0 bg-light shadow-none ${errors.phone ? "is-invalid" : ""
@@ -217,6 +227,43 @@ const RegisterFormCompany = ({ formType }) => {
             {errors.phone && (
               <div className="invalid-feedback">{errors.phone.message}</div>
             )}
+          </div> */}
+          <div className="mb-md-3 mb-2">
+            <label
+              htmlFor="phone"
+              className="form-label text-black fw-semibold p-0 m-0"
+            >
+              {t("Phone")} <span className="text-danger">*</span>
+            </label>
+            <div>
+              <IntlTelInput
+                containerClassName={`intl-tel-input form-control bg-light ${errors.phone ? 'is-invalid' : ''}`}
+                inputClassName="form-control shadow-none border-0 bg-light"
+                id="phone"
+                fieldName="phone"
+                defaultCountry="sa"
+                ref={selectedCountryRef}
+                onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
+
+                  setValue("phone", value);
+                  selectedCountryRef.current = selectedCountryData;
+                }}
+                {...register("phone")}
+              // onChange={(e) => {
+              //   setValue(
+              //     "phone",
+              //     e?.target?.value
+              //       ?.trimStart()
+              //       .replace(/ +(?= )/g, "")
+              //       .replace(/[^\d\s+]/g, "")
+              //   );
+              // }}
+              />
+            </div>
+            {/* {errors.phone && (
+              <div className="invalid-feedback">{errors.phone.message}</div>
+            )} */}
+            <ErrorMsg msg={errors?.phone?.message} />
           </div>
           <div className="mb-md-3 mb-2">
             <label

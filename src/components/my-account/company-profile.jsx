@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,8 @@ import { useMutation } from "@apollo/client";
 import { getCookie, setCookie } from "cookies-next";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 import { uploadFileClient } from "@/graphql/apollo-client";
+import IntlTelInput from "react-intl-tel-input";
+import 'react-intl-tel-input/dist/main.css';
 
 const schema = Yup.object().shape({
   companyName: Yup.string().label("Company Name").required(),
@@ -32,6 +34,8 @@ const CompanyProfile = ({ data }) => {
   const [updateProfile, { error, data: userProfile, loading }] = useMutation(
     UPDATE_COMPANY_PROFILE
   );
+  const selectedCountryRef = useRef(null);
+
   const [profileImage, setProfileImage] = useState({
     id: data?.attributes.profile_image?.data?.id,
     url: data?.attributes.profile_image?.data?.attributes?.url,
@@ -81,6 +85,7 @@ const CompanyProfile = ({ data }) => {
       profile_image: data?.attributes.profile_image?.data?.attributes?.url,
     },
   });
+
   const [uploading, setUploading] = useState(false);
   const onUploadImage = async ({
     target: {
@@ -103,6 +108,8 @@ const CompanyProfile = ({ data }) => {
     }
   };
   const onSubmit = async (data) => {
+    const selectedCountryData = selectedCountryRef.current;
+
     try {
       await updateProfile({
         variables: {
@@ -110,6 +117,8 @@ const CompanyProfile = ({ data }) => {
             CRNumber: data?.crNumber,
             companyName: data?.companyName,
             taxNumber: data?.taxNumber,
+            calling_code: selectedCountryData?.dialCode,
+            country_code: selectedCountryData?.iso2,
             phoneNumber: data?.phoneNumber,
             shipping_address: data?.shipping_address,
             profile_image: profileImage.id,
@@ -137,8 +146,8 @@ const CompanyProfile = ({ data }) => {
           <div className="row">
             <div className="mb-10 d-flex flex-column justify-content-center align-items-center">
               {uploading ? (
-                <div class="spinner-border text-primary" role="status">
-                  <span class="sr-only">Loading...</span>
+                <div className="spinner-border text-primary" role="status">
+                  <span className="sr-only">Loading...</span>
                 </div>
               ) : (
                 <>
@@ -283,7 +292,22 @@ const CompanyProfile = ({ data }) => {
                   >
                     {t("Phone Number")} <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input
+                  <IntlTelInput
+                    containerClassName={`intl-tel-input form-control   ${errors.phoneNumber ? 'is-invalid' : ''}`}
+                    inputClassName="form-control shadow-none border-0 "
+                    id="phoneNumber"
+                    fieldName="phoneNumber"
+                    defaultCountry={`${data.attributes.country_code}`}
+                    defaultValue={`${data.attributes.phoneNumber}`}
+                    ref={selectedCountryRef}
+                    onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
+                      setValue("phoneNumber", value);
+                      selectedCountryRef.current = selectedCountryData;
+                    }}
+                    {...register("phoneNumber")}
+
+                  />
+                  {/* <input
                     name="phoneNumber"
                     type="text"
                     placeholder="Enter your number"
@@ -297,7 +321,7 @@ const CompanyProfile = ({ data }) => {
                           .replace(/[^\d\s+]/g, "")
                       );
                     }}
-                  />
+                  /> */}
                   <ErrorMsg msg={errors.phoneNumber?.message} />
                 </div>
               </div>

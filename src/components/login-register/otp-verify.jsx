@@ -56,7 +56,7 @@ const OtpVerification = ({ email, userData }) => {
         notifySuccess(message);
         setCookie("token", userData.jwt);
         setCookie("userInfo", JSON.stringify(userData));
-        router.push("/");
+        router.push("/login");
       } else {
         notifyError(message);
         setError("Invalid OTP");
@@ -122,7 +122,7 @@ const OtpVerification = ({ email, userData }) => {
         <div className="d-flex justify-content-center pt-5">
           <button
             type="button"
-            className="btn btn-lg btn-primary form-control shadow-none bg-primary"
+            className="btn btn-lg btn-primary form-control shadow-none bg-primary text-white"
             onClick={handleSubmit}
           >
             {t("Verify")}
