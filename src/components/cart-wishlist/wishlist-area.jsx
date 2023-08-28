@@ -12,7 +12,7 @@ const WishlistArea = () => {
       <section className="tp-cart-area pt-100 pb-100">
         <div className="container">
           {wishlist.length === 0 && (
-            <div className="text-center mt-150 mb-150">
+            <div className="text-center mt-180 mb-180">
               <h3>{t("No Wishlist Items Found")}</h3>
               <Link href="/products" className="tp-cart-checkout-btn mt-20">
                 {t("Continue Shipping")}

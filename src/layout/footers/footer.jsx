@@ -17,8 +17,8 @@ const Footer = ({ socialLinks }) => {
   }, []);
   return (
     <footer>
-      <div className="primary_style">
-        <div className="tp-footer-top pt-100">
+      <div className="primary_style pt-100">
+        <div className="tp-footer-top">
           <div className="container">
             <div className="row">
               <div className="col-xl-4 col-lg-3 col-md-4 col-sm-6">
@@ -38,7 +38,7 @@ const Footer = ({ socialLinks }) => {
                     </div>
                     <p className="tp-footer-desc">
                       {t(
-                        "We are a team of designers and developers that create high quality WordPress"
+                        "Elevate Your Workspace: Where Office Efficiency Meets Quality Excellence"
                       )}
                     </p>
                     <div className="tp-footer-social">

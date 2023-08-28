@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import Link from "next/link";
 import CartCheckout from "./cart-checkout";
 import CartItem from "./cart-item";
 import RenderCartProgress from "../common/render-cart-progress";
 import { getCookie } from "cookies-next";
-import { useMutation } from "@apollo/client";
-import { DELETE_FROM_CART } from "@/graphql/mutation/cart";
 import { useCart } from "@/hooks/use-cart";
 import { useTranslations } from "next-intl";
 
 const CartArea = () => {
-  const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState(null);
-  const token = getCookie("token");
-  const [DeleteCart] = useMutation(DELETE_FROM_CART);
   const { cartItems } = useCart();
   const t = useTranslations("header");
   useEffect(() => {
@@ -25,10 +19,10 @@ const CartArea = () => {
 
   return (
     <>
-      <section className="tp-cart-area pb-100 mt-100">
+      <section className="tp-cart-area pb-100 pt-100">
         <div className="container">
           {cartItems.length === 0 && (
-            <div className="text-center mt-150 mb-150">
+            <div className="text-center mt-180 mb-180">
               <h3>{t("No Cart Items Found")}</h3>
               <Link href="/products" className="tp-cart-checkout-btn mt-20">
                 {t("Continue Shopping")}
