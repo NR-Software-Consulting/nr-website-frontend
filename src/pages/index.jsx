@@ -10,7 +10,6 @@ import AboutPage from "@/components/about-us/about";
 import Accessories from "@/components/products/accessories";
 import Scores from "@/components/scores/scores";
 import Testimonials from "@/components/testimonials/testimonials";
-// import HomeButtons from "@/components/homeButton/homeButtons";
 import client from "@/graphql/apollo-client";
 import { ABOUT_US_DATA } from "@/graphql/query/about";
 import { PRODUCTS_DATA } from "@/graphql/query/products";
