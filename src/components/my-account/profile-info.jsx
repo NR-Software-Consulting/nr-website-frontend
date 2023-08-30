@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,25 +15,32 @@ import {
 import { getCookie, setCookie } from "cookies-next";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 import { uploadFileClient } from "@/graphql/apollo-client";
+import IntlTelInput from "react-intl-tel-input";
+import "react-intl-tel-input/dist/main.css";
 
 const schema = Yup.object().shape({
-  first_name: Yup.string().label("Name").required(),
-  last_name: Yup.string().label("Name").required(),
+  first_name: Yup.string().label("First Name").required(),
+  last_name: Yup.string().label("Last Name").required(),
   email: Yup.string()
     .email()
     .label("Email")
     .matches(/^\S+@\S+\.\S{2,}$/i, "Invalid Email Format"),
-  phoneNumber: Yup.string().label("Phone").required().min(7),
+  phoneNumber: Yup.string().label("Phone Number").required().min(10),
   shipping_address: Yup.string().label("Address").required(),
   profile_image: Yup.string().label("Profile Image").required(),
 });
 const ProfileInfo = ({ data }) => {
+  console.log("data", data);
   const { user } = useSelector((state) => state.auth);
   const t = useTranslations("header");
   const [updateProfile, { data: userProfile, loading }] =
     useMutation(UPDATE_USER_PROFILE);
+  const selectedCountryRef = useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState(
+    data?.attributes?.phoneNumber || ""
+  );
   const [profileImage, setProfileImage] = useState({
-    id: "",
+    id: data?.attributes.profile_image?.data?.id,
     url: data?.attributes.profile_image?.data?.attributes?.url,
   });
   const token = getCookie("token");
@@ -47,14 +54,14 @@ const ProfileInfo = ({ data }) => {
       ...userInfo,
       name: userProfile?.updateUserProfile?.data?.attributes?.first_name,
       profile_image:
-        userProfile?.updateUserProfile?.data?.attributes.profile_image.data
-          .attributes,
+        userProfile?.updateUserProfile?.data?.attributes?.profile_image?.data
+          ?.attributes,
       user_profile: {
         ...userProfile?.updateUserProfile?.data?.attributes,
-        id: userProfile?.updateUserProfile?.data.id,
+        id: userProfile?.updateUserProfile?.data?.id,
         profile_image:
-          userProfile?.updateUserProfile?.data?.attributes.profile_image.data
-            .attributes,
+          userProfile?.updateUserProfile?.data?.attributes?.profile_image?.data
+            ?.attributes,
       },
     };
     dispatch(
@@ -104,12 +111,15 @@ const ProfileInfo = ({ data }) => {
     }
   };
   const onSubmit = async (data) => {
+    const selectedCountryData = selectedCountryRef.current;
     try {
       await updateProfile({
         variables: {
           data: {
             first_name: data.first_name,
             last_name: data.last_name,
+            calling_code: selectedCountryData?.dialCode,
+            country_code: selectedCountryData?.iso2,
             phoneNumber: data.phoneNumber,
             shipping_address: data.shipping_address,
             profile_image: profileImage.id,
@@ -142,7 +152,25 @@ const ProfileInfo = ({ data }) => {
                 </div>
               ) : (
                 <>
-                  {profileImage?.url && (
+                  {!profileImage?.url ? (
+                    <div className="tp-header-login-icon">
+                      <span
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          borderRadius: "50%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img
+                          src={"/assets/img/users/user.jpg"}
+                          style={{ width: "60px", height: "60px" }}
+                        />
+                      </span>
+                    </div>
+                  ) : (
                     <img
                       src={profileImage.url}
                       alt="Uploaded Preview"
@@ -258,7 +286,35 @@ const ProfileInfo = ({ data }) => {
                   >
                     {t("Phone Number")} <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input
+                  <IntlTelInput
+                    containerClassName={`intl-tel-input form-control rounded-0 p-0  ${
+                      errors.phoneNumber ? "is-invalid" : ""
+                    }`}
+                    inputClassName="shadow-none border-0"
+                    id="phoneNumber"
+                    fieldName="phoneNumber"
+                    defaultCountry={`${data?.attributes?.country_code}`}
+                    value={phoneNumber}
+                    ref={selectedCountryRef}
+                    onPhoneNumberChange={(
+                      isValid,
+                      value,
+                      selectedCountryData,
+                      fullNumber,
+                      countryData
+                    ) => {
+                      let temp = value
+                        .trimStart()
+                        .replace(/[^\d\s]/g, "")
+                        .trim()
+                        .replace(/^0+/, "");
+                      setValue("phoneNumber", temp);
+                      setPhoneNumber(temp);
+                      selectedCountryRef.current = selectedCountryData;
+                    }}
+                    {...register("phoneNumber")}
+                  />
+                  {/* <input
                     name="phoneNumber"
                     type="text"
                     placeholder="Enter your number*"
@@ -272,7 +328,7 @@ const ProfileInfo = ({ data }) => {
                           .replace(/[^\d\s+]/g, "")
                       );
                     }}
-                  />
+                  /> */}
                   <ErrorMsg msg={errors.phoneNumber?.message} />
                 </div>
               </div>

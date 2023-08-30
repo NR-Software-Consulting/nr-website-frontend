@@ -19,7 +19,7 @@ const CartArea = () => {
 
   return (
     <>
-      <section className="tp-cart-area pb-100 pt-100">
+      <section className="tp-cart-area pb-150 pt-100">
         <div className="container">
           {cartItems.length === 0 && (
             <div className="text-center mt-180 mb-180">
@@ -33,9 +33,9 @@ const CartArea = () => {
             <div className="row">
               <div className="col-xl-9 col-lg-8">
                 <div className="tp-cart-list mb-25 mr-30">
-                  <div className="cartmini__shipping">
+                  {/* <div className="cartmini__shipping">
                     <RenderCartProgress />
-                  </div>
+                  </div> */}
                   <table className="table">
                     <thead>
                       <tr>
@@ -45,6 +45,9 @@ const CartArea = () => {
                         <th className="tp-cart-header-price">{t("Price")}</th>
                         <th className="tp-cart-header-quantity">
                           {t("Quantity")}
+                        </th>
+                        <th className="tp-cart-header-quantity">
+                          {t("Remove")}
                         </th>
                       </tr>
                     </thead>

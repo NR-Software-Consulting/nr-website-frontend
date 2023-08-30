@@ -33,7 +33,7 @@ const CartCheckout = () => {
           SAR {formattedTotalPrice}
         </span>
       </div>
-      <div className='tp-cart-checkout-shipping'>
+      {/* <div className='tp-cart-checkout-shipping'>
         <h4 className='tp-cart-checkout-shipping-title'>{t("Shipping")}</h4>
         <div className='tp-cart-checkout-shipping-option-wrapper'>
           <div className='tp-cart-checkout-shipping-option'>
@@ -59,11 +59,11 @@ const CartCheckout = () => {
             </label>
           </div>
         </div>
-      </div>
-      <div className='tp-cart-checkout-total d-flex align-items-center justify-content-between'>
+      </div> */}
+      {/* <div className='tp-cart-checkout-total d-flex align-items-center justify-content-between'>
         <span>{t("Total")}</span>
         <span>SAR {formattedTotalPrice}</span>
-      </div>
+      </div> */}
       <div className='tp-cart-checkout-proceed'>
         <Link
           href='/checkout'

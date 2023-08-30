@@ -7,15 +7,17 @@ import { VERIFY_OTP, RESEND_OTP } from "@/graphql/mutation/auth";
 import { setCookie } from "cookies-next";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { useTranslations } from "next-intl";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "@/redux/features/auth/authSlice";
 
 const OtpVerification = ({ email, userData }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [error, setError] = useState("");
   const inputRefs = useRef([]);
   const [verifyOtp] = useMutation(VERIFY_OTP);
   const [resendOtp] = useMutation(RESEND_OTP);
-
   const handleChange = (index, value) => {
     if (value.match(/^[0-9]{0,1}$/)) {
       const newOtp = [...otp];
@@ -53,16 +55,22 @@ const OtpVerification = ({ email, userData }) => {
 
       const { status, message } = verifyOtpResponse.data.verifyOtp;
       if (status === true) {
-        notifySuccess(message);
         setCookie("token", userData.jwt);
         setCookie("userInfo", JSON.stringify(userData));
-        router.push("/login");
+        dispatch(
+          userLoggedIn({
+            accessToken: userData.jwt,
+            user: userData,
+            isAuthenticated: true,
+          })
+        );
+        notifySuccess("User Registered Successfully!");
+        router.push("/");
       } else {
         notifyError(message);
         setError("Invalid OTP");
       }
     } catch (error) {
-      // console.error("OTP verification error", error);
       setError("Error occurred during OTP verification");
     }
     setOtp(["", "", "", ""]);
@@ -86,7 +94,6 @@ const OtpVerification = ({ email, userData }) => {
         notifyError(message);
       }
     } catch (error) {
-      console.error("OTP resend error", error);
       setError("Error occurred while resending OTP");
       notifyError(message);
     }
@@ -108,7 +115,7 @@ const OtpVerification = ({ email, userData }) => {
               <input
                 key={index}
                 type="text"
-                className="form-control otp-input mx-md-2 text-center text-dark bg-light shadow-none"
+                className="form-control otp-input p-2 mx-md-2 text-center text-dark bg-light shadow-none"
                 value={digit}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyUp={(e) => handleKeyPress(e, index)}

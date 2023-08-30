@@ -14,4 +14,8 @@ export const uploadFileClient = new ApolloClient({
   link: uploadLink,
   cache: new InMemoryCache(),
 });
-
+export const apiConfig = {
+  baseUrlMedia: "https://cn.liveurdunews.com",
+  baseUrl: "https://cn.liveurdunews.com/graphql",
+  UPLOAD_FILE: "/api/upload",
+};

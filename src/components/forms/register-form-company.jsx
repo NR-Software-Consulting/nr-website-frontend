@@ -12,15 +12,16 @@ import { useRouter } from "next/router";
 import { CloseEye, OpenEye } from "@/svg";
 import OtpVerification from "../login-register/otp-verify";
 import { useTranslations } from "next-intl";
-import IntlTelInput from 'react-intl-tel-input';
-import 'react-intl-tel-input/dist/main.css';
+import IntlTelInput from "react-intl-tel-input";
+import "react-intl-tel-input/dist/main.css";
 import ErrorMsg from "../common/error-msg";
+import { notifyError } from "@/utils/toast";
 
 const schema = yup.object().shape({
   companyName: yup.string().required("Company Name is required"),
   taxNumber: yup.number().required("Tax Number is required"),
   crNumber: yup.number().required("CR Number is required"),
-  phone: yup.string().required("Phone is required").min(7),
+  phone: yup.string().required("Phone is required").min(10),
   email: yup
     .string()
     .email("Invalid email")
@@ -47,8 +48,6 @@ const RegisterFormCompany = ({ formType }) => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [email, setEmail] = useState("");
   const [userData, setUserData] = useState(null);
-
-
   const {
     register,
     handleSubmit,
@@ -58,13 +57,11 @@ const RegisterFormCompany = ({ formType }) => {
     mode: "all",
     resolver: yupResolver(schema),
   });
-
   const [registerUser, { loading, error }] = useMutation(SIGNUP_USER);
   const selectedCountryRef = useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const onSubmit = async (data) => {
     const selectedCountryData = selectedCountryRef.current;
-
-
     try {
       const response = await registerUser({
         variables: {
@@ -98,6 +95,7 @@ const RegisterFormCompany = ({ formType }) => {
         company_profile: company_profile,
         user_profile: user_profile,
         jwt,
+        formType,
       };
       setUserData(userData);
       setEmail(data.email);
@@ -121,8 +119,9 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.companyName ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.companyName ? "is-invalid" : ""
+              }`}
               id="companyName"
               placeholder={t("Enter your company name here")}
               aria-describedby="companyNameHelp"
@@ -149,8 +148,9 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.taxNumber ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.taxNumber ? "is-invalid" : ""
+              }`}
               id="taxNumber"
               placeholder={t("Enter tax number here")}
               aria-describedby="taxNumberHelp"
@@ -178,8 +178,9 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.crNumber ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.crNumber ? "is-invalid" : ""
+              }`}
               id="crNumber"
               placeholder={t("Enter your CR number here")}
               aria-describedby="crNumberHelp"
@@ -198,36 +199,6 @@ const RegisterFormCompany = ({ formType }) => {
               <div className="invalid-feedback">{"CR Number is required"}</div>
             )}
           </div>
-          {/* <div className="mb-md-3 mb-2">
-            <label
-              htmlFor="phone"
-              className="form-label text-black fw-semibold p-0 m-0"
-            >
-              {t("Phone")} <span className="text-danger">*</span>
-            </label>
-        
-            <input
-              type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.phone ? "is-invalid" : ""
-                }`}
-              id="phone"
-              placeholder={t("Enter your phone here")}
-              aria-describedby="phoneHelp"
-              {...register("phone")}
-              onChangeCapture={(e) => {
-                setValue(
-                  "phone",
-                  e?.currentTarget?.value
-                    ?.trimStart()
-                    .replace(/ +(?= )/g, "")
-                    .replace(/[^\d\s+]/g, "")
-                );
-              }}
-            />
-            {errors.phone && (
-              <div className="invalid-feedback">{errors.phone.message}</div>
-            )}
-          </div> */}
           <div className="mb-md-3 mb-2">
             <label
               htmlFor="phone"
@@ -237,32 +208,35 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <div>
               <IntlTelInput
-                containerClassName={`intl-tel-input form-control bg-light ${errors.phone ? 'is-invalid' : ''}`}
+                containerClassName={`intl-tel-input form-control bg-light border-0 p-0 ${
+                  errors.phone ? "is-invalid" : ""
+                }`}
                 inputClassName="form-control shadow-none border-0 bg-light"
+                type="text"
                 id="phone"
                 fieldName="phone"
                 defaultCountry="sa"
+                value={phoneNumber}
                 ref={selectedCountryRef}
-                onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
-
-                  setValue("phone", value);
+                placeholder={t("Enter your phone here")}
+                onPhoneNumberChange={(
+                  isValid,
+                  value,
+                  selectedCountryData,
+                  fullNumber,
+                  countryData
+                ) => {
+                  let temp = value
+                    .trimStart()
+                    .replace(/[^\d\s]/g, "")
+                    .replace(/^0+/, "");
+                  setValue("phone", temp);
+                  setPhoneNumber(temp);
                   selectedCountryRef.current = selectedCountryData;
                 }}
                 {...register("phone")}
-              // onChange={(e) => {
-              //   setValue(
-              //     "phone",
-              //     e?.target?.value
-              //       ?.trimStart()
-              //       .replace(/ +(?= )/g, "")
-              //       .replace(/[^\d\s+]/g, "")
-              //   );
-              // }}
               />
             </div>
-            {/* {errors.phone && (
-              <div className="invalid-feedback">{errors.phone.message}</div>
-            )} */}
             <ErrorMsg msg={errors?.phone?.message} />
           </div>
           <div className="mb-md-3 mb-2">
@@ -274,8 +248,9 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="email"
-              className={`form-control border-0 bg-light shadow-none ${errors.email ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.email ? "is-invalid" : ""
+              }`}
               id="email"
               placeholder={t("Enter your Email")}
               aria-describedby="emailHelp"
@@ -301,8 +276,9 @@ const RegisterFormCompany = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${errors.password ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.password ? "is-invalid" : ""
+                }`}
                 id="password"
                 placeholder={t("Enter your password here")}
                 aria-describedby="passwordHelp"
@@ -341,8 +317,9 @@ const RegisterFormCompany = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showConfirmPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${errors.confirmPassword ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.confirmPassword ? "is-invalid" : ""
+                }`}
                 id="confirmPassword"
                 placeholder={t("Confirm Password")}
                 aria-describedby="confirmPasswordHelp"

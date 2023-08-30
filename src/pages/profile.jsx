@@ -60,7 +60,9 @@ export const getServerSideProps = async (context) => {
         }),
         client.query({
           query:
-            userInfo.type == "user" ? GET_USER_PROFILE : GET_COMPANY_PROFILE,
+            userInfo.formType == "user"
+              ? GET_USER_PROFILE
+              : GET_COMPANY_PROFILE,
           variables: {
             filters: {
               user: {
@@ -85,13 +87,12 @@ export const getServerSideProps = async (context) => {
       const category = response[0]?.data?.categories?.data;
       const userData = response[1].data;
       const footerLinks = response[2]?.data?.socialMedia?.data;
-
       return {
         props: {
           category,
           messages,
           footerLinks,
-          type: userInfo.type,
+          type: userInfo?.formType,
           data:
             userData?.userProfiles?.data[0] ||
             userData?.companyProfiles?.data[0],

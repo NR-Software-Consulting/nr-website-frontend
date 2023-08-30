@@ -109,7 +109,7 @@ const PasswordVerification = ({ email }) => {
                   <input
                     key={index}
                     type="text"
-                    className="form-control otp-input mx-md-2 text-center text-dark bg-light shadow-none"
+                    className="form-control otp-input p-2 mx-md-2 text-center text-dark bg-light shadow-none"
                     value={digit}
                     onChange={(e) => handleChange(index, e.target.value)}
                     onKeyUp={(e) => handleKeyPress(e, index)}

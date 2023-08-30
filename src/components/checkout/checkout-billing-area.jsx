@@ -8,10 +8,12 @@ import 'react-intl-tel-input/dist/main.css';
 const CheckoutBillingArea = ({ register, errors, setValue }) => {
   const t = useTranslations("header");
   const [userInfo, setUserInfo] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState('')
   useEffect(() => {
     const userCookie = getCookie("userInfo");
     const user = userCookie ? JSON.parse(userCookie) : null;
     setUserInfo(user);
+    setPhoneNumber(user?.company_profile?.phoneNumber || "")
   }, []);
 
   return (
@@ -177,38 +179,34 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                 </label>
                 <div>
                   <IntlTelInput
-                    containerClassName={`intl-tel-input form-control ${errors.phone ? 'is-invalid' : ''}`}
+                    containerClassName={`intl-tel-input form-control rounded-0 p-0`}
                     inputClassName="form-control shadow-none border-0"
+                    type="text"
                     id="contactNo"
                     fieldName="contactNo"
                     defaultCountry="sa"
+                    value={phoneNumber}
+                    defaultValue={userInfo?.phoneNumber || ''}
+                    placeholder={t("Enter your phone here")}
                     onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
-                      setValue("contactNo", fullNumber);
+                      let dialNumber = selectedCountryData?.dialCode
+                      let temp = value.trimStart()
+                        .replace(/[^\d\s]/g, "").trim().replace(/^0+/, '')
+                      if (!temp) {
+                        setPhoneNumber("")
+                        setValue("contactNo", '');
+                        return <ErrorMsg msg={errors?.contactNo?.message} />
+                      } else {
+                        let concatenatedNumber = `${dialNumber}${temp}`;
+                        setValue("contactNo", concatenatedNumber);
+                        setPhoneNumber(temp)
+                      }
                     }}
                     {...register("contactNo", {
                       required: t("Contact Number is required"),
-
                     })}
-
                   />
                 </div>
-                {/* <input
-                  {...register("contactNo", {
-                    required: t("Contact Number is required"),
-                  })}
-                  name="contactNo"
-                  id="contactNo"
-                  type="text"
-                  placeholder={t("Phone")}
-                  onChangeCapture={(e) => {
-                    setValue(
-                      "contactNo",
-                      e?.currentTarget?.value
-                        ?.trimStart()
-                        .replace(/ +(?= )/g, "")
-                    );
-                  }}
-                /> */}
                 <ErrorMsg msg={errors?.contactNo?.message} />
               </div>
             </div>

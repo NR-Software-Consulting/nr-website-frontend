@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,8 +9,12 @@ import { useRouter } from "next/router";
 import { CloseEye, OpenEye } from "@/svg";
 import OtpVerification from "../login-register/otp-verify";
 import { useTranslations } from "next-intl";
+import ErrorMsg from "../common/error-msg";
+import IntlTelInput from "react-intl-tel-input";
+import "react-intl-tel-input/dist/main.css";
 
 const schema = yup.object().shape({
+  phone: yup.string().required("Phone Number is required").min(10),
   email: yup
     .string()
     .email("Invalid email")
@@ -50,7 +54,10 @@ const RegisterFormIndividual = ({ formType }) => {
     resolver: yupResolver(schema),
   });
   const [registerUser, { loading, error }] = useMutation(SIGNUP_USER);
+  const selectedCountryRef = useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const onSubmit = async (data) => {
+    const selectedCountryData = selectedCountryRef.current;
     try {
       const response = await registerUser({
         variables: {
@@ -59,6 +66,9 @@ const RegisterFormIndividual = ({ formType }) => {
             email: data.email,
             first_name: data.first_name,
             last_name: data.last_name,
+            calling_code: selectedCountryData?.dialCode,
+            country_code: selectedCountryData?.iso2,
+            phoneNumber: data.phone,
             password: data.password,
             confirmPassword: data.confirmPassword,
             username: data.email,
@@ -81,6 +91,7 @@ const RegisterFormIndividual = ({ formType }) => {
         company_profile: company_profile,
         user_profile: user_profile,
         jwt,
+        formType,
       };
       setUserData(userData);
       setEmail(data.email);
@@ -184,6 +195,46 @@ const RegisterFormIndividual = ({ formType }) => {
             {errors.email && (
               <div className="invalid-feedback">{errors.email.message}</div>
             )}
+          </div>
+          <div className="mb-md-3 mb-2">
+            <label
+              htmlFor="phone"
+              className="form-label text-black fw-semibold p-0 m-0"
+            >
+              {t("Phone")} <span className="text-danger">*</span>
+            </label>
+            <div>
+              <IntlTelInput
+                containerClassName={`intl-tel-input form-control bg-light border-0  p-0 ${
+                  errors.phone ? "is-invalid" : ""
+                }`}
+                inputClassName="form-control shadow-none border-0 bg-light"
+                type="text"
+                id="phone"
+                fieldName="phone"
+                defaultCountry="sa"
+                value={phoneNumber}
+                ref={selectedCountryRef}
+                placeholder={t("Enter your phone here")}
+                onPhoneNumberChange={(
+                  isValid,
+                  value,
+                  selectedCountryData,
+                  fullNumber,
+                  countryData
+                ) => {
+                  let temp = value
+                    .trimStart()
+                    .replace(/[^\d\s]/g, "")
+                    .replace(/^0+/, "");
+                  setValue("phone", temp);
+                  setPhoneNumber(temp);
+                  selectedCountryRef.current = selectedCountryData;
+                }}
+                {...register("phone")}
+              />
+            </div>
+            <ErrorMsg msg={errors?.phone?.message} />
           </div>
           <div className="mb-md-3 mb-2">
             <label

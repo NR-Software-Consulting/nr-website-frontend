@@ -15,17 +15,17 @@ import { getCookie, setCookie } from "cookies-next";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 import { uploadFileClient } from "@/graphql/apollo-client";
 import IntlTelInput from "react-intl-tel-input";
-import 'react-intl-tel-input/dist/main.css';
-
+import "react-intl-tel-input/dist/main.css";
+// import User from "../../../public/assets/img/users/user-1.png";
 const schema = Yup.object().shape({
   companyName: Yup.string().label("Company Name").required(),
-  crNumber: Yup.string().label("CR Number").required(),
-  taxNumber: Yup.string().label("Tax Number").required(),
+  crNumber: Yup.number().label("CR Number").required(),
+  taxNumber: Yup.number().label("Tax Number").required(),
   email: Yup.string()
     .email()
     .label("Email")
     .matches(/^\S+@\S+\.\S{2,}$/i, "Invalid Email Format"),
-  phoneNumber: Yup.string().label("Phone").required().min(7),
+  phoneNumber: Yup.string().label("Phone Number").required().min(10),
   shipping_address: Yup.string().label("Address").required(),
 });
 const CompanyProfile = ({ data }) => {
@@ -35,6 +35,9 @@ const CompanyProfile = ({ data }) => {
     UPDATE_COMPANY_PROFILE
   );
   const selectedCountryRef = useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState(
+    data?.attributes?.phoneNumber || ""
+  );
 
   const [profileImage, setProfileImage] = useState({
     id: data?.attributes.profile_image?.data?.id,
@@ -51,12 +54,14 @@ const CompanyProfile = ({ data }) => {
       ...userInfo,
       name: userProfile?.updateCompanyProfile?.data?.attributes?.companyName,
       profile_image:
-        userProfile?.updateCompanyProfile?.data?.attributes.profile_image.data.attributes,
+        userProfile?.updateCompanyProfile?.data?.attributes?.profile_image?.data
+          ?.attributes,
       company_profile: {
         ...userProfile?.updateCompanyProfile?.data?.attributes,
-        id: userProfile?.updateCompanyProfile?.data.id,
+        id: userProfile?.updateCompanyProfile?.data?.id,
         profile_image:
-          userProfile?.updateCompanyProfile?.data?.attributes.profile_image.data.attributes,
+          userProfile?.updateCompanyProfile?.data?.attributes?.profile_image
+            ?.data?.attributes,
       },
     };
     dispatch(
@@ -68,6 +73,7 @@ const CompanyProfile = ({ data }) => {
     setCookie("userInfo", userData);
   }, [userProfile, loading]);
 
+  console.log("userInfo", user);
   const {
     register,
     handleSubmit,
@@ -133,11 +139,9 @@ const CompanyProfile = ({ data }) => {
       });
       notifySuccess("Profile Updated successfully!");
     } catch (error) {
-      console.error("Error while sending the message:", error);
       notifyError("Unable to Update Profile!");
     }
   };
-
   return (
     <div className="profile__info">
       <h3 className="profile__info-title">{t("Personal Details")}</h3>
@@ -151,7 +155,25 @@ const CompanyProfile = ({ data }) => {
                 </div>
               ) : (
                 <>
-                  {profileImage?.url && (
+                  {!profileImage?.url ? (
+                    <div className="tp-header-login-icon">
+                      <span
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          borderRadius: "50%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <img
+                          src={"/assets/img/users/user.jpg"}
+                          style={{ width: "60px", height: "60px" }}
+                        />
+                      </span>
+                    </div>
+                  ) : (
                     <img
                       src={profileImage.url}
                       alt="Uploaded Preview"
@@ -168,6 +190,7 @@ const CompanyProfile = ({ data }) => {
               <input
                 name="profile_image"
                 type="file"
+                className="pl-80 mt-10"
                 accept=".png, .jpg, jpeg"
                 onChangeCapture={onUploadImage}
                 {...register("profile_image")}
@@ -240,7 +263,7 @@ const CompanyProfile = ({ data }) => {
                   </label>
                   <input
                     name="crNumber"
-                    type="number"
+                    type="text"
                     placeholder="Enter your CR Number"
                     {...register("crNumber")}
                     onChangeCapture={(e) => {
@@ -249,6 +272,7 @@ const CompanyProfile = ({ data }) => {
                         e?.currentTarget?.value
                           ?.trimStart()
                           .replace(/ +(?= )/g, "")
+                          .replace(/[^\d\s+]/g, "")
                       );
                     }}
                   />
@@ -267,7 +291,7 @@ const CompanyProfile = ({ data }) => {
                   </label>
                   <input
                     name="taxNumber"
-                    type="number"
+                    type="text"
                     placeholder="Enter your Tax Number"
                     {...register("taxNumber")}
                     onChangeCapture={(e) => {
@@ -276,6 +300,7 @@ const CompanyProfile = ({ data }) => {
                         e?.currentTarget?.value
                           ?.trimStart()
                           .replace(/ +(?= )/g, "")
+                          .replace(/[^\d\s+]/g, "")
                       );
                     }}
                   />
@@ -293,35 +318,34 @@ const CompanyProfile = ({ data }) => {
                     {t("Phone Number")} <span style={{ color: "red" }}>*</span>
                   </label>
                   <IntlTelInput
-                    containerClassName={`intl-tel-input form-control   ${errors.phoneNumber ? 'is-invalid' : ''}`}
-                    inputClassName="form-control shadow-none border-0 "
+                    containerClassName={`intl-tel-input form-control rounded-0 p-0  ${
+                      errors.phoneNumber ? "is-invalid" : ""
+                    }`}
+                    inputClassName="shadow-none border-0"
+                    type="text"
                     id="phoneNumber"
+                    value={phoneNumber}
                     fieldName="phoneNumber"
-                    defaultCountry={`${data.attributes.country_code}`}
-                    defaultValue={`${data.attributes.phoneNumber}`}
+                    defaultCountry={`${data?.attributes?.country_code}`}
                     ref={selectedCountryRef}
-                    onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
-                      setValue("phoneNumber", value);
+                    onPhoneNumberChange={(
+                      isValid,
+                      value,
+                      selectedCountryData,
+                      fullNumber,
+                      countryData
+                    ) => {
+                      let temp = value
+                        .trimStart()
+                        .replace(/[^\d\s]/g, "")
+                        .trim()
+                        .replace(/^0+/, "");
+                      setValue("phoneNumber", temp);
+                      setPhoneNumber(temp);
                       selectedCountryRef.current = selectedCountryData;
                     }}
                     {...register("phoneNumber")}
-
                   />
-                  {/* <input
-                    name="phoneNumber"
-                    type="text"
-                    placeholder="Enter your number"
-                    {...register("phoneNumber")}
-                    onChangeCapture={(e) => {
-                      setValue(
-                        "phoneNumber",
-                        e?.currentTarget?.value
-                          ?.trimStart()
-                          .replace(/ +(?= )/g, "")
-                          .replace(/[^\d\s+]/g, "")
-                      );
-                    }}
-                  /> */}
                   <ErrorMsg msg={errors.phoneNumber?.message} />
                 </div>
               </div>

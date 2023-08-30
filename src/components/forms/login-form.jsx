@@ -54,7 +54,7 @@ const LoginForm = () => {
           },
         },
       });
-      const { jwt, user, company_profile, user_profile } = response.data.login;
+      const { jwt, user, company_profile, user_profile } = response?.data?.login;
       let userData = {
         ...user,
         name: company_profile
@@ -65,6 +65,7 @@ const LoginForm = () => {
           : company_profile.profile_image,
         company_profile: company_profile,
         user_profile: user_profile,
+        formType: user?.type
       };
       setCookie("token", jwt);
       setCookie("userInfo", JSON.stringify(userData));

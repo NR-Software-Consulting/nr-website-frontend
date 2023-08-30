@@ -70,18 +70,16 @@ const ProductItem = ({ product, offer_style = false }) => {
   return (
     <>
       <div
-        className={`${offer_style ? "tp-product-offer-item bg-white" : "mb-25"
-          } tp-product-item transition-3`}
+        className={`${
+          offer_style ? "tp-product-offer-item bg-white" : "mb-25"
+        } tp-product-item transition-3`}
         style={{ minHeight: "420px" }}
       >
         <div className="tp-product-thumb p-relative fix">
           <Link href={`/product-details/${product?.attributes?.slug}`}>
             <img
               src={product?.attributes?.images?.data[0]?.attributes?.url}
-              width="0"
-              height="0"
-              sizes="100vw"
-              style={{ width: "100%", height: "250px" }}
+              style={{ width: "100%", height: "250px", objectFit: "fill" }}
               alt="product-electronic"
             />
 
@@ -97,8 +95,9 @@ const ProductItem = ({ product, offer_style = false }) => {
               {isAddedToCart && authChecked ? (
                 <Link
                   href="/cart"
-                  className={`tp-product-action-btn ${isAddedToCart ? "active" : ""
-                    } tp-product-add-cart-btn`}
+                  className={`tp-product-action-btn ${
+                    isAddedToCart ? "active" : ""
+                  } tp-product-add-cart-btn`}
                 >
                   <Cart /> <span className="tp-product-tooltip">View Cart</span>
                 </Link>
@@ -106,8 +105,9 @@ const ProductItem = ({ product, offer_style = false }) => {
                 <button
                   onClick={() => handleAddProduct()}
                   type="button"
-                  className={`tp-product-action-btn ${isAddedToCart ? "active" : ""
-                    } tp-product-add-cart-btn`}
+                  className={`tp-product-action-btn ${
+                    isAddedToCart ? "active" : ""
+                  } tp-product-add-cart-btn`}
                   disabled={status === "out-of-stock"}
                 >
                   <Cart />
@@ -124,13 +124,14 @@ const ProductItem = ({ product, offer_style = false }) => {
               </button>
               <button
                 type="button"
-                className={`tp-product-action-btn ${isAddedToWishlist ? "active" : ""
-                  } tp-product-add-to-wishlist-btn`}
+                className={`tp-product-action-btn ${
+                  isAddedToWishlist ? "active" : ""
+                } tp-product-add-to-wishlist-btn`}
                 onClick={() =>
                   isAddedToWishlist
                     ? removeProductToWishList({
-                      deleteFavouriteId: wishlistItem.id,
-                    })
+                        deleteFavouriteId: wishlistItem.id,
+                      })
                     : handleWishlistProduct(product)
                 }
                 disabled={status === "out-of-stock"}
@@ -148,7 +149,12 @@ const ProductItem = ({ product, offer_style = false }) => {
         <div className="tp-product-content">
           <div className="tp-product-category">
             <a>
-              {product?.attributes?.category?.data?.attributes?.name.length > 30 ? `${product?.attributes?.category?.data?.attributes?.name.slice(0, 30)}...` : product?.attributes?.category?.data?.attributes?.name}
+              {product?.attributes?.category?.data?.attributes?.name.length > 30
+                ? `${product?.attributes?.category?.data?.attributes?.name.slice(
+                    0,
+                    30
+                  )}...`
+                : product?.attributes?.category?.data?.attributes?.name}
             </a>
           </div>
           <h3 className="tp-product-title">
@@ -185,7 +191,7 @@ const ProductItem = ({ product, offer_style = false }) => {
                   {(
                     Number(product?.attributes?.price) -
                     (Number(product?.attributes?.price) * Number(discount)) /
-                    100
+                      100
                   ).toFixed(2)}
                 </span>
               </>

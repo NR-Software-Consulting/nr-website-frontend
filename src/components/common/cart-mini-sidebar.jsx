@@ -35,9 +35,8 @@ const CartMiniSidebar = () => {
   return (
     <>
       <div
-        className={`cartmini__area tp-all-font-roboto ${
-          cartMiniOpen ? "cartmini-opened" : ""
-        }`}
+        className={`cartmini__area tp-all-font-roboto ${cartMiniOpen ? "cartmini-opened" : ""
+          }`}
       >
         <div className="cartmini__wrapper d-flex justify-content-between flex-column">
           <div className="cartmini__top-wrapper">
@@ -55,9 +54,9 @@ const CartMiniSidebar = () => {
                 </button>
               </div>
             </div>
-            <div className="cartmini__shipping">
+            {/* <div className="cartmini__shipping">
               <RenderCartProgress />
-            </div>
+            </div> */}
             {cartItems.length > 0 && (
               <div className="cartmini__widget">
                 {cartItems.map((item) => (
@@ -84,7 +83,7 @@ const CartMiniSidebar = () => {
                         </Link>
                       </h5>
                       <div className="cartmini__price-wrapper">
-                        {item.attributes.product.data.attributes.discount >
+                        {/* {item.attributes.product.data.attributes.discount >
                         0 ? (
                           <span className="cartmini__price">
                             SAR{" "}
@@ -109,9 +108,15 @@ const CartMiniSidebar = () => {
                               2
                             )}
                           </span>
-                        )}
+                        )} */}
+                        <span className="cartmini__price">
+                          SAR{" "}
+                          {item.attributes.product.data.attributes.price?.toFixed(
+                            2
+                          )}
+                        </span>
                         <span className="cartmini__quantity">
-                          x{item.attributes.quantity}
+                          {" "}x{" "}{item.attributes.quantity}
                         </span>
                       </div>
                     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -6,6 +6,9 @@ import { useMutation, gql } from "@apollo/client";
 import { notifySuccess } from "@/utils/toast";
 import { CONTACT_US } from "@/graphql/mutation/contact";
 import { useTranslations } from "next-intl";
+import IntlTelInput from 'react-intl-tel-input';
+import 'react-intl-tel-input/dist/main.css';
+import ErrorMsg from "../common/error-msg";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -16,7 +19,7 @@ const schema = Yup.object().shape({
   phone: Yup.string()
     .required("Phone is required")
     .matches(/^[0-9]+$/gi, "Only number is allowed")
-    .min(7),
+    .min(10),
   message: Yup.string().required("Message is required"),
 });
 const ContactForm = () => {
@@ -32,6 +35,7 @@ const ContactForm = () => {
     resolver: yupResolver(schema),
   });
   const [createContact, { loading, error }] = useMutation(CONTACT_US);
+  const [phoneNumber, setPhoneNumber] = useState('')
   const onSubmit = async (data) => {
     try {
       await createContact({
@@ -62,14 +66,13 @@ const ContactForm = () => {
             htmlFor="name"
             className="form-label text-black fw-semibold p-0 m-0"
           >
-            {t("Name")} <span style={{ color: "red" }}>*</span>
+            {t("Name")} <span className="text-danger">*</span>
           </label>
           <input
             {...register("name")}
             type="text"
-            className={`form-control border-0 bg-light shadow-none ${
-              errors.name ? "is-invalid" : ""
-            }`}
+            className={`form-control border-0 bg-light shadow-none ${errors.name ? "is-invalid" : ""
+              }`}
             id="name"
             placeholder={t("Enter your Name")}
             aria-describedby="nameHelp"
@@ -89,14 +92,13 @@ const ContactForm = () => {
             htmlFor="email"
             className="form-label text-black fw-semibold p-0 m-0"
           >
-            {t("Email")} <span style={{ color: "red" }}>*</span>
+            {t("Email")} <span className="text-danger">*</span>
           </label>
           <input
             {...register("email")}
             type="email"
-            className={`form-control border-0 bg-light shadow-none ${
-              errors.email ? "is-invalid" : ""
-            }`}
+            className={`form-control border-0 bg-light shadow-none ${errors.email ? "is-invalid" : ""
+              }`}
             id="email"
             placeholder={t("Enter Your Email")}
             aria-describedby="emailHelp"
@@ -112,47 +114,56 @@ const ContactForm = () => {
           )}
         </div>
         <div className="mb-md-3 mb-2">
-          <label
-            htmlFor="phone"
-            className="form-label text-black fw-semibold p-0 m-0"
-          >
-            {t("Phone")} <span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            {...register("phone")}
-            type="text"
-            className={`form-control border-0 bg-light shadow-none ${
-              errors.phone ? "is-invalid" : ""
-            }`}
-            id="phone"
-            placeholder={t("Enter Your Number")}
-            aria-describedby="phoneHelp"
-            onChangeCapture={(e) => {
-              setValue(
-                "phone",
-                e?.currentTarget?.value
-                  ?.trimStart()
-                  .replace(/ +(?= )/g, "")
-                  .replace(/[^\d\s+]/g, "")
-              );
-            }}
-          />
-          {errors.phone && (
-            <div className="invalid-feedback">{errors.phone.message}</div>
-          )}
+          <div className="tp-checkout-input">
+            <label
+              htmlFor="phone"
+              className="form-label text-black fw-semibold p-0 m-0"
+            >
+              {t("Phone")} <span className="text-danger">*</span>
+            </label>
+            <IntlTelInput
+              containerClassName={`intl-tel-input form-control border-0 bg-light p-1 ${errors.phone ? 'is-invalid' : ''}`}
+              inputClassName="form-control shadow-none border-0 bg-light"
+              type="text"
+              id="phone"
+              fieldName="phone"
+              defaultCountry="sa"
+              value={phoneNumber}
+              placeholder={t("Enter your phone here")}
+              onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
+                let dialNumber = selectedCountryData?.dialCode
+                let temp = value.trimStart()
+                  .replace(/[^\d\s]/g, "").trim().replace(/^0+/, '')
+                if (!temp) {
+                  setPhoneNumber("")
+                  setValue("phone", '');
+                  return <ErrorMsg msg={errors?.phone?.message} />
+                } else {
+                  let concatenatedNumber = `${dialNumber}${temp}`;
+                  setValue("phone", concatenatedNumber);
+                  setPhoneNumber(temp)
+                }
+              }}
+              {...register("phone", {
+                required: t("Contact Number is required"),
+              })}
+            />
+            {errors.phone && (
+              <div className="invalid-feedback">{errors.phone.message}</div>
+            )}
+          </div>
         </div>
         <div className="mb-md-3 mb-2">
           <label
             htmlFor="message"
             className="form-label text-black fw-semibold p-0 m-0"
           >
-            {t("Message")} <span style={{ color: "red" }}>*</span>
+            {t("Message")} <span className="text-danger">*</span>
           </label>
           <textarea
             {...register("message")}
-            className={`form-control border-0 bg-light shadow-none h-25 ${
-              errors.message ? "is-invalid" : ""
-            }`}
+            className={`form-control border-0 bg-light shadow-none h-25 ${errors.message ? "is-invalid" : ""
+              }`}
             placeholder={t("Write Your Message")}
             id="message"
             rows={5}
@@ -175,7 +186,7 @@ const ContactForm = () => {
         <div className="d-flex flex-column justify-content-center align-items-center">
           <button
             type="submit"
-            className="btn btn-primary form-control py-md-3 py-2 shadow-none bg-primary"
+            className="btn btn-primary form-control py-md-3 py-2 shadow-none bg-primary text-white"
           >
             {loading ? t("Sending") + "..." : t("Send")}
           </button>

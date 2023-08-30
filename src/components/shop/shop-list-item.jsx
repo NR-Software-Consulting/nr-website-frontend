@@ -82,8 +82,7 @@ const ShopListItem = ({ product }) => {
         <Link href={`/product-details/${product?.attributes?.slug}`}>
           <img
             src={product?.attributes?.images?.data[0]?.attributes?.url}
-            width={350}
-            height={250}
+            style={{ width: "100%", height: "250px" }}
             alt="product-Fashion"
           />
         </Link>
@@ -106,8 +105,8 @@ const ShopListItem = ({ product }) => {
               onClick={() =>
                 isAddedToWishlist
                   ? removeProductToWishList({
-                    deleteFavouriteId: wishlistItem.id,
-                  })
+                      deleteFavouriteId: wishlistItem.id,
+                    })
                   : handleWishlistProduct(product)
               }
               className="tp-product-action-btn-2 tp-product-add-to-wishlist-btn"
@@ -153,9 +152,20 @@ const ShopListItem = ({ product }) => {
             </Link>
             <p>{product.attributes.category.data.attributes.name}</p>
           </h3>
-          <p><Link href={`/product-details/${product?.attributes?.slug}`}> {
-            product.attributes?.description?.length > 0 ? <p>{product.attributes?.description?.length > 50 ? `${product.attributes?.description.slice(0, 100)}...` : product.attributes?.description}</p> : <p>No Discription</p>
-          }</Link></p>
+          <p>
+            <Link href={`/product-details/${product?.attributes?.slug}`}>
+              {" "}
+              {product.attributes?.description?.length > 0 ? (
+                <p>
+                  {product.attributes?.description?.length > 50
+                    ? `${product.attributes?.description.slice(0, 100)}...`
+                    : product.attributes?.description}
+                </p>
+              ) : (
+                <p>No Discription</p>
+              )}
+            </Link>
+          </p>
           <div className="tp-product-rating d-flex align-items-center">
             <div className="tp-product-rating-icon">
               <Rating

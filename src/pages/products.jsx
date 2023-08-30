@@ -36,7 +36,6 @@ const ShopPage = ({
   } else {
     product_items = productss;
 
-
     content = (
       <>
         <ShopArea
@@ -47,21 +46,15 @@ const ShopPage = ({
           subCategories={subCategories}
           all_brands={brands}
         />
-        {/* <ShopFilterOffCanvas
-          all_products={productss}
-          otherProps={otherProps}
-          categories={category}
-          subCategories={subCategories}
-        /> */}
       </>
     );
   }
 
   return (
     <Wrapper>
-      <SEO pageTitle="Shop" />
+      <SEO pageTitle="Products" />
       <Header categories={category} />
-      <ShopBreadcrumb title="Shop Grid" subtitle="Shop Grid" />
+      <ShopBreadcrumb title="Products" subtitle="Products" />
       {content}
       <Footer socialLinks={footerLinks} />
     </Wrapper>
@@ -79,7 +72,7 @@ export const getServerSideProps = async (context) => {
           pagination: {
             limit: 100,
           },
-          sort: "updatedAt:desc"
+          sort: "updatedAt:desc",
         },
       }),
       client.query({
