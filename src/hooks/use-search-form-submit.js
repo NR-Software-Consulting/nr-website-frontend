@@ -20,11 +20,10 @@ const useSearchFormSubmit = () => {
       router.push(`/`, null, { scroll: false });
       setSearchText("");
       setCategory("");
-      console.log("value2");
     }
   };
   useEffect(() => {
-    if(serchResult)setSearchText(serchResult);
+    if (serchResult) setSearchText(serchResult);
   }, []);
   return {
     searchText,
