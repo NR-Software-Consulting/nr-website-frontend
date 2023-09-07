@@ -6,7 +6,7 @@ import useCheckoutSubmit from "@/hooks/use-checkout-submit";
 import { useCart } from "@/hooks/use-cart";
 import { useTranslations } from "next-intl";
 
-const CheckoutArea = () => {
+const CheckoutArea = (userData) => {
   const [billingData, setBillingData] = useState(null);
   const [shippingCost, setShippingCost] = useState(0);
   const t = useTranslations("header");
@@ -49,6 +49,7 @@ const CheckoutArea = () => {
                       register={register}
                       errors={errors}
                       updateBillingData={updateBillingData}
+                      userData={userData}
                     />
                   </div>
                   <div className="col-lg-5">

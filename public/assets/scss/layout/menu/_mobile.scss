@@ -81,6 +81,9 @@
       padding: 0;
       padding-left: 20px;
       padding-right: 20px;
+      @include rtl{
+        padding-right: 0px;
+      }
 
       &:not(:last-child) {
         & a {

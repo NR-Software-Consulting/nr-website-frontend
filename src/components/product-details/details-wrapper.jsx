@@ -29,16 +29,16 @@ const DetailsWrapper = ({
   const t = useTranslations("header");
   const product = productItem[0];
   const isAddedToCart =
-    cartItems?.some((prd) => prd.attributes.product.data.id === product.id) ||
+    cartItems?.some((prd) => prd.attributes.product?.data?.id === product?.id) ||
     false;
   const cartItem =
-    cartItems?.find((prd) => prd.attributes.product.data.id === product.id) ||
+    cartItems?.find((prd) => prd.attributes.product?.data?.id === product?.id) ||
     {};
   const isAddedToWishlist = wishlist.some(
-    (prd) => prd?.attributes?.product?.data?.id === product.id
+    (prd) => prd?.attributes?.product?.data?.id === product?.id
   );
   const wishlistItem = wishlist.find(
-    (prd) => prd?.attributes?.product?.data?.id === product.id
+    (prd) => prd?.attributes?.product?.data?.id === product?.id
   );
   const [ratingVal, setRatingVal] = useState(0);
   const [textMore, setTextMore] = useState(false);

@@ -9,12 +9,10 @@ import language_img from "@assets/img/icon/language-flag.png";
 import MobileCategory from "@/layout/headers/header-com/mobile-category";
 import MobileMenus from "./mobile-menus";
 import { useTranslations } from "next-intl";
-import HeaderCategory from "@/layout/headers/header-com/header-category";
 
 const OffCanvas = ({
   isOffCanvasOpen,
   setIsCanvasOpen,
-  categoryType = "electronics",
   categories,
 }) => {
   const t = useTranslations("header");
@@ -72,19 +70,14 @@ const OffCanvas = ({
               </button>
               <div className="tp-category-mobile-menu">
                 <nav
-                  className={`tp-category-menu-content ${
-                    isCategoryActive ? "active" : ""
-                  }`}
+                  className={`tp-category-menu-content ${isCategoryActive ? "active" : ""
+                    }`}
                 >
-                {/* <MobileCategory
-                    categoryType={categoryType}
+                  <MobileCategory
+                    categoryType={categories}
                     isCategoryActive={isCategoryActive}
-                  /> */}
-                <HeaderCategory
-                  categories={categories}
-                  isCategoryActive={isCategoryActive}
-                  toggleCategoryDropdown={toggleCategoryDropdown}
-                />
+                    toggleCategoryDropdown={toggleCategoryDropdown}
+                  />
                 </nav>
               </div>
             </div>

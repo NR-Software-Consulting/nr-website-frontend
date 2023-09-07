@@ -226,6 +226,11 @@
     "Create your new password": "إنشاء كلمة المرور الجديدة",
     "Submit": "يُقدِّم",
     "LogIn": "تسجيل الدخول",
-    "Phone Number": "رقم التليفون"
+    "Phone Number": "رقم التليفون",
+    "Title": "عنوان",
+    "Default Sorting": "الترتيب الافتراضي",
+    "Low to High": "من الأدنى إلى الأعلى",
+    "High to Low": "من الأعلى إلى الأدنى",
+    "New Arrival": "وصل حديثا"
   }
 }

@@ -62,6 +62,11 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 1.44;
+   @media #{$xl,$xxl} {
+     @include rtl{
+      margin-left: 60px
+    }
+   }
     color: var(--tp-common-black);
     margin-bottom: 22px;
   }
@@ -152,6 +157,14 @@
   &-payment {
     & p {
       margin-bottom: 0;
+      @include rtl{
+        text-align: end;
+      }
+      @media #{$sm, $xs} {
+      @include rtl{
+        text-align: start;
+      }
+    }
     }
   }
 }
@@ -168,15 +181,21 @@
 /* footer col design for home 1 */
 .footer-col {
   &-1 {
-    padding-right: 95px;
-
+    padding-right: 45px;
+      @include rtl{
+          padding-right: 0px;
+          padding-left: 10px;
+        }
     @media #{$lg, $md, $sm,$xs} {
       padding-right: 0;
     }
   }
   &-2 {
-    @media #{$md} {
-      padding-left: 25px;
+    @media #{$md,$lg} {
+      padding-left: 35px;
+      @include rtl{
+        padding-right: 35px;
+      }
     }
   }
   &-3 {

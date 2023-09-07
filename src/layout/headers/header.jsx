@@ -41,15 +41,7 @@ const Header = ({ categories } = props) => {
           <div className="tp-header-top black-bg p-relative z-index-1 d-none d-md-block">
             <div className="container">
               <div className="row align-items-center">
-                <div className="col-md-6">
-                  <div className="tp-header-welcome d-flex align-items-center">
-                    <span>
-                      <ShippingCar />
-                    </span>
-                    <p>{t("FREE Express Shipping On Orders SAR 570")} +</p>
-                  </div>
-                </div>
-                <div className="col-md-6">
+                <div className="col-md-12">
                   <div className="tp-header-top-right d-flex align-items-center justify-content-end">
                     <HeaderTopRight />
                   </div>

@@ -17,7 +17,7 @@ const Orders = ({ category, footerLinks }) => {
       <SEO pageTitle="My Orders" />
       <Header categories={category} />
       <CommonBreadcrumb title="My Orders" subtitle="My Orders" />
-      <div className="pt-180 pb-180">
+      <div className="pt-100 pb-100">
         <div className="container">
           <div className="row">
             <div className="col-xl-12 col-lg-12 col-md-12">

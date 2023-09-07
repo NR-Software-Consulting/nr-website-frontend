@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
 import { useTranslations } from "next-intl";
 import useAuthCheck from "@/hooks/use-auth-check";
+import ConfirmationPopup from "@/components/my-account/confirmationPopup";
+import { deleteCookie } from "cookies-next";
+import { notifySuccess } from "@/utils/toast";
 
 // language
 function Language({ active, handleActive }) {
@@ -72,10 +75,20 @@ function ProfileSetting({ active, handleActive }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const authChecked = useAuthCheck();
-  // handle logout
+  const [showPopup, setShowPopup] = useState(false);
+
   const handleLogout = () => {
+    setShowPopup(true);
+  };
+  const confirmLogout = () => {
+    deleteCookie("token");
     dispatch(userLoggedOut());
     router.push("/");
+    setShowPopup(false);
+    notifySuccess("Logged Out successfully!");
+  };
+  const cancelLogout = () => {
+    setShowPopup(false);
   };
   return (
     <div className='tp-header-top-menu-item tp-header-setting'>
@@ -87,7 +100,9 @@ function ProfileSetting({ active, handleActive }) {
       </span>
       <ul className={active === "setting" ? "tp-setting-list-open" : ""}>
         <li>
-          <Link href='/profile'>{t("My Profile")}</Link>
+          <Link href={!authChecked ? "/login" : "/profile"}>
+            {t("My Profile")}
+          </Link>
         </li>
         <li>
           <Link href={!authChecked ? "/login" : "/wishlist"}>
@@ -110,6 +125,14 @@ function ProfileSetting({ active, handleActive }) {
           )}
         </li>
       </ul>
+      {showPopup && (
+        <ConfirmationPopup
+          isOpen={showPopup}
+          message={t("Are you sure you want to logout") + "?"}
+          onConfirm={confirmLogout}
+          onCancel={cancelLogout}
+        />
+      )}
     </div>
   );
 }

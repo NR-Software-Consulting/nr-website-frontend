@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ErrorMsg from "../common/error-msg";
-import { getCookie } from "cookies-next";
 import { useTranslations } from "next-intl";
-import IntlTelInput from "react-intl-tel-input";
-import 'react-intl-tel-input/dist/main.css';
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+import { useSelector } from "react-redux";
 
-const CheckoutBillingArea = ({ register, errors, setValue }) => {
+
+const CheckoutBillingArea = ({ register, errors, setValue, userData }) => {
+  const UserValues = userData?.userData?.attributes
   const t = useTranslations("header");
-  const [userInfo, setUserInfo] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState('')
-  useEffect(() => {
-    const userCookie = getCookie("userInfo");
-    const user = userCookie ? JSON.parse(userCookie) : null;
-    setUserInfo(user);
-    setPhoneNumber(user?.company_profile?.phoneNumber || "")
-  }, []);
-
+  const { user } = useSelector((state) => state.auth);
+  const defultPhoneNumer1 = user?.phoneNumber?.replace(/[^\d]/g, "")
+  const defultPhoneNumer2 = UserValues?.calling_code + UserValues?.phoneNumber
+  const [phone, setPhone] = useState(defultPhoneNumer1 || defultPhoneNumer2);
   return (
     <div className="tp-checkout-bill-area">
       <h3 className="tp-checkout-bill-title">{t("Billing Details")}</h3>
@@ -35,7 +32,6 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                   id="firstName"
                   type="text"
                   placeholder={t("First Name")}
-                  // defaultValue={userInfo?.name}
                   onChangeCapture={(e) => {
                     setValue(
                       "firstName",
@@ -61,7 +57,7 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                   id="lastName"
                   type="text"
                   placeholder={t("Last Name")}
-                  // defaultValue={userInfo?.user_profile?.last_name}
+                  // defaultValue={fullname[1] || fullname1[1]}
                   onChangeCapture={(e) => {
                     setValue(
                       "lastName",
@@ -177,36 +173,35 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                 <label>
                   {t("Phone")} <span>*</span>
                 </label>
-                <div>
-                  <IntlTelInput
-                    containerClassName={`intl-tel-input form-control rounded-0 p-0`}
-                    inputClassName="form-control shadow-none border-0"
-                    type="text"
-                    id="contactNo"
-                    fieldName="contactNo"
-                    defaultCountry="sa"
-                    value={phoneNumber}
-                    defaultValue={userInfo?.phoneNumber || ''}
-                    placeholder={t("Enter your phone here")}
-                    onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
-                      let dialNumber = selectedCountryData?.dialCode
-                      let temp = value.trimStart()
-                        .replace(/[^\d\s]/g, "").trim().replace(/^0+/, '')
-                      if (!temp) {
-                        setPhoneNumber("")
-                        setValue("contactNo", '');
-                        return <ErrorMsg msg={errors?.contactNo?.message} />
-                      } else {
-                        let concatenatedNumber = `${dialNumber}${temp}`;
-                        setValue("contactNo", concatenatedNumber);
-                        setPhoneNumber(temp)
-                      }
-                    }}
-                    {...register("contactNo", {
-                      required: t("Contact Number is required"),
-                    })}
-                  />
-                </div>
+                <PhoneInput
+                  {...register("contactNo", {
+                    required: t("Contact Number is required"),
+                  })}
+                  name="contactNo"
+                  id="contactNo"
+                  className={`form-control rounded-0 p-0`}
+                  style={
+                    {
+                      "--react-international-phone-border-radius": 0,
+                      "--react-international-phone-border-color": "none",
+                      "--react-international-phone-dropdown-item-background-color": "white",
+                      "--react-international-phone-background-color": "transparent",
+                      "--react-international-phone-text-color": "black",
+                      "--react-international-phone-selected-dropdown-item-background-color": "transparent",
+                      "--react-international-phone-selected-dropdown-zindex": "1",
+                      "--react-international-phone-height": "50px"
+                    }
+                  }
+                  placeholder={t("Enter your phone here")}
+                  defaultCountry={"sa"}
+                  value={phone}
+                  forceDialCode={false}
+                  onChange={(phone) => {
+                    const cleanedPhone = phone.replace(/[^\d]/g, "");
+                    setPhone(phone)
+                    setValue("contactNo", cleanedPhone);
+                  }}
+                />
                 <ErrorMsg msg={errors?.contactNo?.message} />
               </div>
             </div>
@@ -221,7 +216,7 @@ const CheckoutBillingArea = ({ register, errors, setValue }) => {
                   id="email"
                   type="email"
                   placeholder={t("Email address")}
-                  // defaultValue={userInfo?.email}
+                  defaultValue={user?.email}
                   onChangeCapture={(e) => {
                     setValue(
                       "email",

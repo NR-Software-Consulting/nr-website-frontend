@@ -8,7 +8,9 @@ import Wrapper from "@/layout/wrapper";
 
 const EmailVerification = ({ params }) => {
   const router = useRouter();
-  const { data, isLoading, isError, error, isSuccess } = useConfirmEmailQuery(params.token)
+  const { data, isLoading, isError, error, isSuccess } = useConfirmEmailQuery(
+    params.token
+  );
 
   useEffect(() => {
     if (isSuccess) {

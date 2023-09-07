@@ -3,12 +3,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useMutation, gql } from "@apollo/client";
-import { notifySuccess } from "@/utils/toast";
+import { notifyError, notifySuccess } from "@/utils/toast";
 import { CONTACT_US } from "@/graphql/mutation/contact";
 import { useTranslations } from "next-intl";
-import IntlTelInput from 'react-intl-tel-input';
-import 'react-intl-tel-input/dist/main.css';
-import ErrorMsg from "../common/error-msg";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -17,8 +16,7 @@ const schema = Yup.object().shape({
     .email("Invalid email")
     .matches(/^\S+@\S+\.\S{2,}$/i, "Invalid Email Format"),
   phone: Yup.string()
-    .required("Phone is required")
-    .matches(/^[0-9]+$/gi, "Only number is allowed")
+    .required("Phone is required").label("Phone")
     .min(10),
   message: Yup.string().required("Message is required"),
 });
@@ -35,23 +33,28 @@ const ContactForm = () => {
     resolver: yupResolver(schema),
   });
   const [createContact, { loading, error }] = useMutation(CONTACT_US);
-  const [phoneNumber, setPhoneNumber] = useState('')
+  const [phone, setPhone] = useState("");
+
   const onSubmit = async (data) => {
+    const phoneNumber = data.phone;
+    const cleanedPhoneNumber = phoneNumber.replace(/[^\d]/g, "");
     try {
       await createContact({
         variables: {
           data: {
             name: data.name,
             email: data.email,
-            phoneNumber: data.phone,
+            phoneNumber: cleanedPhoneNumber,
             message: data.message,
           },
         },
       });
       notifySuccess("Message sent successfully!");
+      setPhone("")
       reset();
     } catch (error) {
       console.error("Error while sending the message:", error);
+      notifyError("Failed to sent Message")
     }
   };
 
@@ -121,32 +124,30 @@ const ContactForm = () => {
             >
               {t("Phone")} <span className="text-danger">*</span>
             </label>
-            <IntlTelInput
-              containerClassName={`intl-tel-input form-control border-0 bg-light p-1 ${errors.phone ? 'is-invalid' : ''}`}
-              inputClassName="form-control shadow-none border-0 bg-light"
-              type="text"
+            <PhoneInput
+              name="phone"
               id="phone"
-              fieldName="phone"
-              defaultCountry="sa"
-              value={phoneNumber}
-              placeholder={t("Enter your phone here")}
-              onPhoneNumberChange={(isValid, value, selectedCountryData, fullNumber, countryData) => {
-                let dialNumber = selectedCountryData?.dialCode
-                let temp = value.trimStart()
-                  .replace(/[^\d\s]/g, "").trim().replace(/^0+/, '')
-                if (!temp) {
-                  setPhoneNumber("")
-                  setValue("phone", '');
-                  return <ErrorMsg msg={errors?.phone?.message} />
-                } else {
-                  let concatenatedNumber = `${dialNumber}${temp}`;
-                  setValue("phone", concatenatedNumber);
-                  setPhoneNumber(temp)
+              style={
+                {
+                  "--react-international-phone-border-radius": 0,
+                  "--react-international-phone-border-color": "none",
+                  "--react-international-phone-dropdown-item-background-color": "white",
+                  "--react-international-phone-background-color": "transparent",
+                  "--react-international-phone-text-color": "black",
+                  "--react-international-phone-selected-dropdown-item-background-color": "transparent",
+                  "--react-international-phone-selected-dropdown-zindex": "1",
+                  "--react-international-phone-height": "50px"
                 }
+              }
+              className={`form-control border-0 bg-light p-1 ${errors.phone ? 'is-invalid' : ''}`}
+              defaultCountry="sa"
+              forceDialCode={true}
+              placeholder={t("Enter your phone here")}
+              value={phone}
+              onChange={(phone) => {
+                setPhone(phone)
+                setValue("phone", phone);
               }}
-              {...register("phone", {
-                required: t("Contact Number is required"),
-              })}
             />
             {errors.phone && (
               <div className="invalid-feedback">{errors.phone.message}</div>

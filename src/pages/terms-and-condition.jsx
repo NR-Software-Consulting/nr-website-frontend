@@ -2,36 +2,33 @@ import CommonBreadcrumb from "@/components/breadcrumb/common-breadcrumb";
 import SEO from "@/components/seo";
 import client from "@/graphql/apollo-client";
 import { SOCIAL_LINKS } from "@/graphql/query/footer";
+import { TERMS_AND_CONDITION } from "@/graphql/query/home";
 import { CATEGORIES_LIST } from "@/graphql/query/shop";
 import Footer from "@/layout/footers/footer";
 import Header from "@/layout/headers/header";
 import Wrapper from "@/layout/wrapper";
-import { useTranslations } from "next-intl";
 import React from "react";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from "remark-gfm";
 
-const TermsAndCondition = ({ category, footerLinks }) => {
-  const t = useTranslations("header");
+const TermsAndCondition = ({ category, footerLinks, termsAndCondition }) => {
   return (
     <Wrapper>
-      <SEO pageTitle="Terms & Conditions" />
+      <SEO pageTitle={termsAndCondition?.attributes?.title} />
       <Header categories={category} />
       <CommonBreadcrumb
-        title="Terms & Conditions"
-        subtitle="Terms & Conditions"
+        title={termsAndCondition?.attributes?.title}
+        subtitle={termsAndCondition?.attributes?.title}
       />
-      <section className="tp-error-area pt-100">
+      <section className="tp-error-area pt-50">
         <div className="container">
           <div className="row">
             <div className="col-xl-12 col-lg-12 col-md-12">
-              {[0, 0, 0, 0, 0, 0, 0].map(() => {
-                return (
-                  <p>
-                    {
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    }
-                  </p>
-                );
-              })}
+              <ReactMarkdown
+                children={termsAndCondition?.attributes?.description}
+                remarkPlugins={[remarkGfm]}
+                className="markdown"
+              />
             </div>
           </div>
         </div>
@@ -53,10 +50,14 @@ export async function getStaticProps(context) {
       client.query({
         query: SOCIAL_LINKS,
       }),
+      client.query({
+        query: TERMS_AND_CONDITION,
+      }),
     ];
     const response = await Promise.all(queries);
     const category = response[0]?.data?.categories?.data;
     const footerLinks = response[1]?.data?.socialMedia?.data;
+    const termsAndCondition = response[2]?.data?.termsAndCondition?.data;
 
     if (response) {
       return {
@@ -64,6 +65,7 @@ export async function getStaticProps(context) {
           category,
           messages,
           footerLinks,
+          termsAndCondition,
         },
       };
     } else {

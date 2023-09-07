@@ -19,10 +19,10 @@ const CartArea = () => {
 
   return (
     <>
-      <section className="tp-cart-area pb-150 pt-100">
+      <section className="tp-cart-area pb-100 pt-100">
         <div className="container">
           {cartItems.length === 0 && (
-            <div className="text-center mt-180 mb-180">
+            <div className="text-center ">
               <h3>{t("No Cart Items Found")}</h3>
               <Link href="/products" className="tp-cart-checkout-btn mt-20">
                 {t("Continue Shopping")}

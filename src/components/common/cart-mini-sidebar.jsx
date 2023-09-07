@@ -22,7 +22,25 @@ const CartMiniSidebar = () => {
     const user = userCookie ? JSON.parse(userCookie) : null;
     setUserInfo(user);
   }, []);
-
+  useEffect(() => {
+    const handleBodyScroll = (event) => {
+      if (cartMiniOpen) {
+        event.preventDefault();
+      }
+    };
+    if (cartMiniOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("scroll", handleBodyScroll);
+    } else {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("scroll", handleBodyScroll);
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("scroll", handleBodyScroll);
+    };
+  }, [cartMiniOpen]);
+  
   const handleRemovePrd = async (productId) => {
     await deleteCartItem(productId);
     notifySuccess("Successfully Removed from cart");
@@ -35,8 +53,9 @@ const CartMiniSidebar = () => {
   return (
     <>
       <div
-        className={`cartmini__area tp-all-font-roboto ${cartMiniOpen ? "cartmini-opened" : ""
-          }`}
+        className={`cartmini__area tp-all-font-roboto ${
+          cartMiniOpen ? "cartmini-opened" : ""
+        }`}
       >
         <div className="cartmini__wrapper d-flex justify-content-between flex-column">
           <div className="cartmini__top-wrapper">
@@ -54,15 +73,14 @@ const CartMiniSidebar = () => {
                 </button>
               </div>
             </div>
-            {/* <div className="cartmini__shipping">
-              <RenderCartProgress />
-            </div> */}
             {cartItems.length > 0 && (
               <div className="cartmini__widget">
                 {cartItems.map((item) => (
                   <div key={item.id} className="cartmini__widget-item">
                     <div className="cartmini__thumb">
-                      <Link href={`/product-details/${item.id}`}>
+                      <Link
+                        href={`/product/${item?.attributes?.product?.data?.attributes?.slug}`}
+                      >
                         <Image
                           src={
                             item.attributes.product.data.attributes.images
@@ -77,7 +95,7 @@ const CartMiniSidebar = () => {
                     <div className="cartmini__content">
                       <h5 className="cartmini__title">
                         <Link
-                          href={`/product-details/${item.attributes.product.data.attributes.slug}`}
+                          href={`/product/${item?.attributes?.product?.data?.attributes?.slug}`}
                         >
                           {item.attributes.product.data.attributes.title}
                         </Link>
@@ -116,7 +134,8 @@ const CartMiniSidebar = () => {
                           )}
                         </span>
                         <span className="cartmini__quantity">
-                          {" "}x{" "}{item.attributes.quantity}
+                          {" "}
+                          x {item.attributes.quantity}
                         </span>
                       </div>
                     </div>

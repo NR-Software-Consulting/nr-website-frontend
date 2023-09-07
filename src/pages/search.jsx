@@ -11,16 +11,24 @@ import Footer from "@/layout/footers/footer";
 import Header from "@/layout/headers/header";
 import Wrapper from "@/layout/wrapper";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function SearchPage({ category, footerLinks, searchQuery }) {
   const t = useTranslations("header");
-  const { searchText, productType } = searchQuery;
+  const { searchText: searchTexts, productType } = searchQuery;
   const { products, isError, isLoading } = useProductsQuery();
   const [shortValue, setShortValue] = useState("");
   const perView = 12;
   const [next, setNext] = useState(perView);
+  const router = useRouter();
+  const { query } = router;
+  const searchTextFromQuery = query.searchText || "";
+  const [searchText, setSearchText] = useState(searchTextFromQuery);
 
+  useEffect(() => {
+    setSearchText(searchTexts || searchTextFromQuery); // Set searchText in the input field
+  }, [searchTextFromQuery]);
   const shortHandler = (e) => {
     setShortValue(e.value);
   };
@@ -94,8 +102,8 @@ export default function SearchPage({ category, footerLinks, searchQuery }) {
                           <div className="tp-shop-top-left d-flex align-items-center ">
                             <div className="tp-shop-top-result">
                               <p>
-                                {t("Showing")} 1–{product_items.length} {t("of")}{" "}
-                                {all_products.length} {t("results")}
+                                {t("Showing")} 1–{product_items.length}{" "}
+                                {t("of")} {all_products.length} {t("results")}
                               </p>
                             </div>
                           </div>
@@ -145,7 +153,6 @@ export default function SearchPage({ category, footerLinks, searchQuery }) {
     </Wrapper>
   );
 }
-
 export const getServerSideProps = async (context) => {
   let messages = (await import(`../../messages/${context.locale}.json`))
     .default;

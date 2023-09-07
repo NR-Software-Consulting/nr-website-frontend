@@ -23,7 +23,7 @@ const WishlistItem = ({ wishList, product }) => {
   const { onAddToCart, onUpdateCart, cartItems, deleteCartItem } = useCart();
   const wishListID = wishList?.attributes?.product?.data?.id || {};
   const wishlistData = wishList?.attributes?.product?.data?.attributes;
-  const { _id, img, title, price } = wishList || {};
+  const wishlistSlug = wishList?.attributes?.product?.data?.attributes?.slug;
   const cartItem = cartItems?.find(
     (item) => item.attributes.product.data.id === wishListID
   );
@@ -57,17 +57,18 @@ const WishlistItem = ({ wishList, product }) => {
   return (
     <tr>
       <td className="tp-cart-img">
-        <Link href={`/product-details/${_id}`}>
+        <Link href={`/product/${wishlistSlug}`}>
           <Image
             src={wishlistData?.images?.data[0]?.attributes?.url}
             alt="product img"
-            width={70}
+            width={100}
             height={100}
+            style={{ objectFit: "cover" }}
           />
         </Link>
       </td>
       <td className="tp-cart-title">
-        <Link href={`/product-details/${_id}`}>{wishlistData?.title}</Link>
+        <Link href={`/product/${wishlistSlug}`}>{wishlistData?.title}</Link>
       </td>
       <td className="tp-cart-price">
         <span>SAR {wishlistData?.price?.toFixed(2)}</span>

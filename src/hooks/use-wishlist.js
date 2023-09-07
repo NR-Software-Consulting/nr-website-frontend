@@ -32,6 +32,7 @@ export const addFavouriteQuery = gql`
                   }
                 }
                 title
+                slug
                 isTrending
                 discount
                 price
@@ -63,6 +64,7 @@ export const deleteFavouriteQuery = gql`
                   }
                 }
                 title
+                slug
                 isTrending
                 discount
                 price
@@ -93,6 +95,7 @@ export const getFavouriteProductQuery = gql`
                   }
                 }
                 title
+                slug
                 isTrending
                 discount
                 price
@@ -137,7 +140,7 @@ export const useWishList = () => {
         },
       });
       dispatch(update_wishlist(response?.data?.favourites?.data));
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const addProductToWishList = async (data) => {
@@ -175,7 +178,7 @@ export const useWishList = () => {
         },
       });
       if (response.data) {
-        notifySuccess(`Product removed to wishlist`);
+        notifySuccess(`Product removed from wishlist`);
       }
       const items = wishlist.filter(
         (item) => item.id != data.deleteFavouriteId

@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import ErrorMsg from "../common/error-msg";
-import { EmailTwo, PhoneThree, UserThree } from "@/svg";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { useTranslations } from "next-intl";
 import { useMutation } from "@apollo/client";
@@ -15,8 +14,9 @@ import {
 import { getCookie, setCookie } from "cookies-next";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 import { uploadFileClient } from "@/graphql/apollo-client";
-import IntlTelInput from "react-intl-tel-input";
-import "react-intl-tel-input/dist/main.css";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+import { ProfileUser } from "@/svg";
 
 const schema = Yup.object().shape({
   first_name: Yup.string().label("First Name").required(),
@@ -25,20 +25,15 @@ const schema = Yup.object().shape({
     .email()
     .label("Email")
     .matches(/^\S+@\S+\.\S{2,}$/i, "Invalid Email Format"),
-  phoneNumber: Yup.string().label("Phone Number").required().min(10),
+  phoneNumber: Yup.string().required("Phone is required").label("Phone").min(10),
   shipping_address: Yup.string().label("Address").required(),
   profile_image: Yup.string().label("Profile Image").required(),
 });
 const ProfileInfo = ({ data }) => {
-  console.log("data", data);
   const { user } = useSelector((state) => state.auth);
   const t = useTranslations("header");
   const [updateProfile, { data: userProfile, loading }] =
     useMutation(UPDATE_USER_PROFILE);
-  const selectedCountryRef = useRef(null);
-  const [phoneNumber, setPhoneNumber] = useState(
-    data?.attributes?.phoneNumber || ""
-  );
   const [profileImage, setProfileImage] = useState({
     id: data?.attributes.profile_image?.data?.id,
     url: data?.attributes.profile_image?.data?.attributes?.url,
@@ -73,6 +68,9 @@ const ProfileInfo = ({ data }) => {
     setCookie("userInfo", userData);
   }, [userProfile, loading]);
 
+  const [phone, setPhone] = useState(data?.attributes?.calling_code + data?.attributes?.phoneNumber || "");
+  const [leble, setLeble] = useState(data?.country_code || "");
+
   const {
     register,
     handleSubmit,
@@ -84,7 +82,7 @@ const ProfileInfo = ({ data }) => {
     defaultValues: {
       first_name: data?.attributes?.first_name,
       last_name: data?.attributes?.last_name,
-      phoneNumber: data?.attributes?.phoneNumber,
+      phoneNumber: data?.attributes?.calling_code + data?.attributes?.phoneNumber,
       shipping_address: data?.attributes?.shipping_address,
       profile_image: data?.attributes.profile_image?.data?.attributes?.url,
     },
@@ -111,16 +109,20 @@ const ProfileInfo = ({ data }) => {
     }
   };
   const onSubmit = async (data) => {
-    const selectedCountryData = selectedCountryRef.current;
+    const phoneNumber = data.phoneNumber;
+    const splitPhone = phoneNumber.split(" ");
+    const firstPart = splitPhone[0].replace(/[^\d]/g, "");
+    const lastPart = splitPhone[1].replace(/[^\d]/g, "");
+    const lebleUpperCase = leble.toUpperCase()
     try {
       await updateProfile({
         variables: {
           data: {
             first_name: data.first_name,
             last_name: data.last_name,
-            calling_code: selectedCountryData?.dialCode,
-            country_code: selectedCountryData?.iso2,
-            phoneNumber: data.phoneNumber,
+            calling_code: firstPart,
+            country_code: lebleUpperCase,
+            phoneNumber: lastPart,
             shipping_address: data.shipping_address,
             profile_image: profileImage.id,
           },
@@ -134,7 +136,6 @@ const ProfileInfo = ({ data }) => {
       });
       notifySuccess("Profile Updated successfully!");
     } catch (error) {
-      console.error("Error while sending the message:", error);
       notifyError("Unable to Update Profile!");
     }
   };
@@ -162,12 +163,10 @@ const ProfileInfo = ({ data }) => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          border: "1px solid",
                         }}
                       >
-                        <img
-                          src={"/assets/img/users/user.jpg"}
-                          style={{ width: "60px", height: "60px" }}
-                        />
+                        <ProfileUser />
                       </span>
                     </div>
                   ) : (
@@ -281,54 +280,37 @@ const ProfileInfo = ({ data }) => {
               <div className="profile__input-box">
                 <div className="profile__input">
                   <label
-                    htmlFor="companyName"
+                    htmlFor="phone"
                     className="form-label text-black fw-semibold p-0 m-0"
                   >
                     {t("Phone Number")} <span style={{ color: "red" }}>*</span>
                   </label>
-                  <IntlTelInput
-                    containerClassName={`intl-tel-input form-control rounded-0 p-0  ${
-                      errors.phoneNumber ? "is-invalid" : ""
-                    }`}
-                    inputClassName="shadow-none border-0"
-                    id="phoneNumber"
-                    fieldName="phoneNumber"
-                    defaultCountry={`${data?.attributes?.country_code}`}
-                    value={phoneNumber}
-                    ref={selectedCountryRef}
-                    onPhoneNumberChange={(
-                      isValid,
-                      value,
-                      selectedCountryData,
-                      fullNumber,
-                      countryData
-                    ) => {
-                      let temp = value
-                        .trimStart()
-                        .replace(/[^\d\s]/g, "")
-                        .trim()
-                        .replace(/^0+/, "");
-                      setValue("phoneNumber", temp);
-                      setPhoneNumber(temp);
-                      selectedCountryRef.current = selectedCountryData;
-                    }}
-                    {...register("phoneNumber")}
-                  />
-                  {/* <input
+                  <PhoneInput
                     name="phoneNumber"
-                    type="text"
-                    placeholder="Enter your number*"
-                    {...register("phoneNumber")}
-                    onChangeCapture={(e) => {
-                      setValue(
-                        "phoneNumber",
-                        e?.currentTarget?.value
-                          ?.trimStart()
-                          .replace(/ +(?= )/g, "")
-                          .replace(/[^\d\s+]/g, "")
-                      );
+                    id="phoneNumber"
+                    className={`form-control rounded-0 p-1`}
+                    style={
+                      {
+                        "--react-international-phone-border-radius": 0,
+                        "--react-international-phone-border-color": "none",
+                        "--react-international-phone-dropdown-item-background-color": "white",
+                        "--react-international-phone-background-color": "transparent",
+                        "--react-international-phone-text-color": "black",
+                        "--react-international-phone-selected-dropdown-item-background-color": "transparent",
+                        "--react-international-phone-selected-dropdown-zindex": "1",
+                        "--react-international-phone-height": "50px"
+                      }
+                    }
+                    placeholder={t("Enter your phone here")}
+                    defaultCountry={leble}
+                    value={phone}
+                    forceDialCode={true}
+                    onChange={(phone, labels) => {
+                      setPhone(phone)
+                      setLeble(labels)
+                      setValue("phoneNumber", phone);
                     }}
-                  /> */}
+                  />
                   <ErrorMsg msg={errors.phoneNumber?.message} />
                 </div>
               </div>

@@ -13,15 +13,14 @@ export const SCORES_DATA = gql`
   }
 `;
 
-
 export const CATEGORIES_LIST = gql`
-  query( $pagination: PaginationArg) {
+  query ($pagination: PaginationArg) {
     categories(pagination: $pagination) {
       data {
         id
         attributes {
           name
-           logo {
+          logo {
             data {
               id
               attributes {
@@ -37,7 +36,32 @@ export const CATEGORIES_LIST = gql`
               }
             }
           }
-         
+        }
+      }
+    }
+  }
+`;
+
+export const PRIVACY_POLICY = gql`
+  query {
+    privacyPolicy {
+      data {
+        attributes {
+          title
+          description
+        }
+      }
+    }
+  }
+`;
+
+export const TERMS_AND_CONDITION = gql`
+  query {
+    termsAndCondition {
+      data {
+        attributes {
+          title
+          description
         }
       }
     }

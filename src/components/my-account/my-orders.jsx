@@ -113,16 +113,12 @@ const MyOrders = () => {
                     {dayjs(item.attributes.publishedAt).format("MMMM D, YYYY")}
                   </td>
                   <td
-                    data-info={`status ${
-                      item.attributes.status === "Pending" ? "pending" : ""
-                    }  ${
-                      item.attributes.status === "Processing" ? "hold" : ""
-                    }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
-                    className={`status ${
-                      item.attributes.status === "Pending" ? "pending" : ""
-                    } ${
-                      item.attributes.status === "Processing" ? "hold" : ""
-                    }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
+                    data-info={`status ${item.attributes.status === "Pending" ? "pending" : ""
+                      }  ${item.attributes.status === "Processing" ? "hold" : ""
+                      }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
+                    className={`status ${item.attributes.status === "Pending" ? "pending" : ""
+                      } ${item.attributes.status === "Processing" ? "hold" : ""
+                      }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
                   >
                     {item.attributes.status}
                   </td>
@@ -139,7 +135,7 @@ const MyOrders = () => {
       )}
 
       {filteredOrderItems.length > ITEMS_PER_PAGE && (
-        <div className="pagination-container shadow-none d-flex justify-content-center my-2">
+        <div className="pagination-container shadow-none d-flex justify-content-center my-2" style={{ direction: "ltr" }} >
           <Pagination
             className="shadow-none "
             activePage={activePage}

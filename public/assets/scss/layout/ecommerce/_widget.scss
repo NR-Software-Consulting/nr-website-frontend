@@ -71,8 +71,13 @@
     & ul {
       & li {
         list-style: none;
+         @include rtl{
+            text-align: end;
+            padding-left: 10px;
+          }
         &:not(:last-child) {
           margin-bottom: 4px;
+         
         }
         & input {
           display: none;

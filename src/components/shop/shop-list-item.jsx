@@ -82,7 +82,7 @@ const ShopListItem = ({ product }) => {
         <Link href={`/product-details/${product?.attributes?.slug}`}>
           <img
             src={product?.attributes?.images?.data[0]?.attributes?.url}
-            style={{ width: "100%", height: "250px" }}
+            style={{ width: "300px", height: "250px" }}
             alt="product-Fashion"
           />
         </Link>
@@ -105,8 +105,8 @@ const ShopListItem = ({ product }) => {
               onClick={() =>
                 isAddedToWishlist
                   ? removeProductToWishList({
-                      deleteFavouriteId: wishlistItem.id,
-                    })
+                    deleteFavouriteId: wishlistItem.id,
+                  })
                   : handleWishlistProduct(product)
               }
               className="tp-product-action-btn-2 tp-product-add-to-wishlist-btn"

@@ -27,10 +27,10 @@ const ShopTopRight = ({ handleSortingFilter, selectValue }) => {
           value={selectedValue}
           onChange={handleSelectChange}
         >
-          <option value="Default Sorting">Default Sorting</option>
-          <option value="Low to High">Low to High</option>
-          <option value="High to Low">High to Low</option>
-          <option value="isTrending">New Arrival</option>
+          <option value="Default Sorting">{t("Default Sorting")}</option>
+          <option value="Low to High">{t("Low to High")}</option>
+          <option value="High to Low">{t("High to Low")}</option>
+          <option value="isTrending">{t("New Arrival")}</option>
         </select>
       </div>
       {/* <div className="tp-shop-top-filter">

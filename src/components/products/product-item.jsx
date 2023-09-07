@@ -76,7 +76,7 @@ const ProductItem = ({ product, offer_style = false }) => {
         style={{ minHeight: "420px" }}
       >
         <div className="tp-product-thumb p-relative fix">
-          <Link href={`/product-details/${product?.attributes?.slug}`}>
+          <Link href={`/product/${product?.attributes?.slug}`}>
             <img
               src={product?.attributes?.images?.data[0]?.attributes?.url}
               style={{ width: "100%", height: "250px", objectFit: "fill" }}
@@ -158,7 +158,7 @@ const ProductItem = ({ product, offer_style = false }) => {
             </a>
           </div>
           <h3 className="tp-product-title">
-            <Link href={`/product-details/${product?.attributes?.slug}`}>
+            <Link href={`/product/${product?.attributes?.slug}`}>
               {product?.attributes?.title.length > 25
                 ? `${product.attributes.title.slice(0, 25)}...`
                 : product.attributes.title}

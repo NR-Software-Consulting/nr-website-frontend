@@ -79,13 +79,13 @@ const CartItem = ({ product }) => {
     <tr>
       {/* img */}
       <td className="tp-cart-img">
-        <Link href={`/product-details/${_id}`}>
+        <Link href={`/product/${slug}`}>
           <Image src={image} alt="product img" width={70} height={100} />
         </Link>
       </td>
       {/* title */}
       <td className="tp-cart-title">
-        <Link href={`/product-details/${slug}`}>{title}</Link>
+        <Link href={`/product/${slug}`}>{title}</Link>
       </td>
       {/* price */}
       <td className="tp-cart-price">

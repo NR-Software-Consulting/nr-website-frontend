@@ -9,10 +9,10 @@ const WishlistArea = () => {
   const { wishlist } = useSelector((state) => state.wishlist);
   return (
     <>
-      <section className="tp-cart-area pt-150 pb-200">
+      <section className="tp-cart-area pt-100 pb-100">
         <div className="container">
           {wishlist.length === 0 && (
-            <div className="text-center mt-180 mb-180">
+            <div className="text-center ">
               <h3>{t("No Wishlist Items Found")}</h3>
               <Link href="/products" className="tp-cart-checkout-btn mt-20">
                 {t("Continue Shipping")}
@@ -34,6 +34,7 @@ const WishlistArea = () => {
                           {t("Quantity")}
                         </th>
                         <th>{t("Action")}</th>
+                        <th className="tp-cart-header-price">{t("Remove")}</th>
                       </tr>
                     </thead>
                     <tbody>

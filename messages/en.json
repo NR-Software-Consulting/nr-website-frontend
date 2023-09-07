@@ -226,6 +226,12 @@
     "Create your new password": "Create your new password",
     "Submit": "Submit",
     "LogIn": "LogIn",
-    "Phone Number": "Phone Number"
+    "Phone Number": "Phone Number",
+    "Title": "Title",
+    "Default Sorting":"Default Sorting",
+    "Low to High":"Low to High",
+    "High to Low":"High to Low",
+    "New Arrival":"New Arrival"
+
   }
 }

@@ -42,7 +42,7 @@ const useCheckoutSubmit = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "all" });
   const handleShippingCost = (value) => {
     setShippingCost(value);
   };
@@ -58,7 +58,7 @@ const useCheckoutSubmit = () => {
     setValue("city", shipping_info.city);
     setValue("zipCode", shipping_info.zipCode);
     setValue("contactNo", shipping_info.contactNo);
-    setValue("email", shipping_info.email);
+    setValue("email", shipping_info.email || userInfo?.email);
     setValue("orderNote", shipping_info.orderNote);
   }, [userInfo, setValue, shipping_info, router]);
 

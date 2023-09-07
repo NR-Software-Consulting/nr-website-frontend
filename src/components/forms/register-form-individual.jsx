@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,12 +9,12 @@ import { useRouter } from "next/router";
 import { CloseEye, OpenEye } from "@/svg";
 import OtpVerification from "../login-register/otp-verify";
 import { useTranslations } from "next-intl";
-import ErrorMsg from "../common/error-msg";
-import IntlTelInput from "react-intl-tel-input";
 import "react-intl-tel-input/dist/main.css";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 const schema = yup.object().shape({
-  phone: yup.string().required("Phone Number is required").min(10),
+  phone: yup.string().required("Phone is required").label("Phone").min(10),
   email: yup
     .string()
     .email("Invalid email")
@@ -54,10 +54,14 @@ const RegisterFormIndividual = ({ formType }) => {
     resolver: yupResolver(schema),
   });
   const [registerUser, { loading, error }] = useMutation(SIGNUP_USER);
-  const selectedCountryRef = useRef(null);
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone, setPhone] = useState("");
+  const [leble, setLeble] = useState("");
   const onSubmit = async (data) => {
-    const selectedCountryData = selectedCountryRef.current;
+    const phoneNumber = data.phone;
+    const splitPhone = phoneNumber.split(" ");
+    const firstPart = splitPhone[0].replace(/[^\d]/g, "");
+    const lastPart = splitPhone[1].replace(/[^\d]/g, "");
+    const lebleUpperCase = leble.toUpperCase()
     try {
       const response = await registerUser({
         variables: {
@@ -66,9 +70,9 @@ const RegisterFormIndividual = ({ formType }) => {
             email: data.email,
             first_name: data.first_name,
             last_name: data.last_name,
-            calling_code: selectedCountryData?.dialCode,
-            country_code: selectedCountryData?.iso2,
-            phoneNumber: data.phone,
+            calling_code: firstPart,
+            country_code: lebleUpperCase,
+            phoneNumber: lastPart,
             password: data.password,
             confirmPassword: data.confirmPassword,
             username: data.email,
@@ -76,10 +80,8 @@ const RegisterFormIndividual = ({ formType }) => {
         },
       });
       setRegistrationSuccess(true);
-
       const { jwt, user, company_profile, user_profile } =
         response.data.register;
-
       let userData = {
         ...user,
         name: company_profile
@@ -92,6 +94,7 @@ const RegisterFormIndividual = ({ formType }) => {
         user_profile: user_profile,
         jwt,
         formType,
+        phoneNumber
       };
       setUserData(userData);
       setEmail(data.email);
@@ -116,9 +119,8 @@ const RegisterFormIndividual = ({ formType }) => {
               </label>
               <input
                 type="text"
-                className={`form-control border-0 bg-light shadow-none ${
-                  errors.first_name ? "is-invalid" : ""
-                }`}
+                className={`form-control border-0 bg-light shadow-none ${errors.first_name ? "is-invalid" : ""
+                  }`}
                 id="first_name"
                 placeholder={t("Enter your first name")}
                 aria-describedby="first_nameHelp"
@@ -146,9 +148,8 @@ const RegisterFormIndividual = ({ formType }) => {
               </label>
               <input
                 type="text"
-                className={`form-control border-0 bg-light shadow-none ${
-                  errors.last_name ? "is-invalid" : ""
-                }`}
+                className={`form-control border-0 bg-light shadow-none ${errors.last_name ? "is-invalid" : ""
+                  }`}
                 id="last_name"
                 placeholder={t("Enter your last name")}
                 aria-describedby="last_nameHelp"
@@ -177,9 +178,8 @@ const RegisterFormIndividual = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${
-                errors.email ? "is-invalid" : ""
-              }`}
+              className={`form-control border-0 bg-light shadow-none ${errors.email ? "is-invalid" : ""
+                }`}
               id="email"
               placeholder={t("Enter your Email")}
               aria-describedby="emailHelp"
@@ -203,38 +203,35 @@ const RegisterFormIndividual = ({ formType }) => {
             >
               {t("Phone")} <span className="text-danger">*</span>
             </label>
-            <div>
-              <IntlTelInput
-                containerClassName={`intl-tel-input form-control bg-light border-0  p-0 ${
-                  errors.phone ? "is-invalid" : ""
-                }`}
-                inputClassName="form-control shadow-none border-0 bg-light"
-                type="text"
-                id="phone"
-                fieldName="phone"
-                defaultCountry="sa"
-                value={phoneNumber}
-                ref={selectedCountryRef}
-                placeholder={t("Enter your phone here")}
-                onPhoneNumberChange={(
-                  isValid,
-                  value,
-                  selectedCountryData,
-                  fullNumber,
-                  countryData
-                ) => {
-                  let temp = value
-                    .trimStart()
-                    .replace(/[^\d\s]/g, "")
-                    .replace(/^0+/, "");
-                  setValue("phone", temp);
-                  setPhoneNumber(temp);
-                  selectedCountryRef.current = selectedCountryData;
-                }}
-                {...register("phone")}
-              />
-            </div>
-            <ErrorMsg msg={errors?.phone?.message} />
+            <PhoneInput
+              name="phone"
+              id="phone"
+              style={
+                {
+                  "--react-international-phone-border-radius": 0,
+                  "--react-international-phone-border-color": "none",
+                  "--react-international-phone-dropdown-item-background-color": "white",
+                  "--react-international-phone-background-color": "transparent",
+                  "--react-international-phone-text-color": "black",
+                  "--react-international-phone-selected-dropdown-item-background-color": "transparent",
+                  "--react-international-phone-selected-dropdown-zindex": "1",
+                  "--react-international-phone-height": "50px"
+                }
+              }
+              className={`form-control border-0 bg-light p-1 ${errors.phone ? 'is-invalid' : ''}`}
+              defaultCountry="sa"
+              forceDialCode={true}
+              placeholder={t("Enter your phone here")}
+              value={phone}
+              onChange={(phone, labels) => {
+                setPhone(phone)
+                setLeble(labels)
+                setValue("phone", phone);
+              }}
+            />
+            {errors.phone && (
+              <div className="invalid-feedback">{errors.phone.message}</div>
+            )}
           </div>
           <div className="mb-md-3 mb-2">
             <label
@@ -246,9 +243,8 @@ const RegisterFormIndividual = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${
-                  errors.password ? "is-invalid" : ""
-                }`}
+                className={`form-control border-0 bg-light shadow-none ${errors.password ? "is-invalid" : ""
+                  }`}
                 id="password"
                 placeholder={t("Enter your password here")}
                 aria-describedby="passwordHelp"
@@ -284,9 +280,8 @@ const RegisterFormIndividual = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showConfirmPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${
-                  errors.confirmPassword ? "is-invalid" : ""
-                }`}
+                className={`form-control border-0 bg-light shadow-none ${errors.confirmPassword ? "is-invalid" : ""
+                  }`}
                 id="confirmPassword"
                 placeholder={t("Confirm Password")}
                 aria-describedby="confirmPasswordHelp"

@@ -58,7 +58,7 @@ const ProductBrand = ({ setCurrPage, shop_right = false, all_brands, selectedBra
         <h3 className="tp-shop-widget-title">{t("Popular Brands")}</h3>
         <div className="tp-shop-widget-content">
           <div className="tp-shop-widget-categories">
-            <div className="tp-shop-widget-checkbox d-flex align-items-center justify-content-between flex-wrap">
+            <div className="tp-shop-widget-checkbox">
               {content}
             </div>
           </div>

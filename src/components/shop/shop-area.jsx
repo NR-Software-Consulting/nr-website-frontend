@@ -617,7 +617,7 @@ const ShopArea = ({
                 )}
                 {all_products.length > 0 ? (
                   <div className="tp-shop-pagination mt-20">
-                    <div className="tp-pagination d-flex justify-content-center">
+                    <div className="tp-pagination d-flex justify-content-center" style={{ direction: "ltr" }}>
                       <Pagination
                         items={all_products}
                         countOfPage={countOfPage}

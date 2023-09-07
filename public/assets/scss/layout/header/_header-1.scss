@@ -148,12 +148,12 @@
   &-search {
     @media #{$lg} {
       @include ltr {
-        padding-left: 0;
+        padding-left: 80px;
         margin-right: 30px;
       }
       @include rtl {
-        padding-right: 0;
-        margin-left: 50px;
+        padding-right: 60px;
+        margin-left: -20px;
       }
     }
     &-wrapper {
@@ -161,16 +161,16 @@
       border: 2px solid var(--tp-theme-primary);
       margin-left: 10px;
       @include rtl {
-        margin-right: 10px;
+        margin-right: 50px;
       }
     }
     &-box {
-      width: 58%;
+      width: 100%;
       @include rtl {
-        width: 75%;
+        width: 100%;
       }
       @media #{$lg} {
-        width: 50%;
+        width: 100%;
       }
       & input {
         @include rtl {
@@ -274,6 +274,9 @@
       font-weight: 500;
       margin-bottom: 0;
       line-height: 1;
+        @include rtl{
+        margin-left: 25px;
+        }
     }
   }
   &-main {
@@ -292,8 +295,8 @@
   }
   &-action {
     margin-left: 50px;
-    @include rtl {
-      margin-right: 20px;
+     @include rtl {
+      margin-left: 0px;
     }
     @media #{$lg} {
       margin-left: 25px;

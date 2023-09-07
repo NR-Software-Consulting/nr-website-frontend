@@ -2,33 +2,33 @@ import CommonBreadcrumb from "@/components/breadcrumb/common-breadcrumb";
 import SEO from "@/components/seo";
 import client from "@/graphql/apollo-client";
 import { SOCIAL_LINKS } from "@/graphql/query/footer";
+import { PRIVACY_POLICY } from "@/graphql/query/home";
 import { CATEGORIES_LIST } from "@/graphql/query/shop";
 import Footer from "@/layout/footers/footer";
 import Header from "@/layout/headers/header";
 import Wrapper from "@/layout/wrapper";
-import { useTranslations } from "next-intl";
 import React from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-const PrivacyPolicy = ({ category, footerLinks }) => {
-  const t = useTranslations("header");
+const PrivacyPolicy = ({ category, footerLinks, privacyPolicy }) => {
   return (
     <Wrapper>
-      <SEO pageTitle="Privacy Policy" />
+      <SEO pageTitle={privacyPolicy?.attributes?.title} />
       <Header categories={category} />
-      <CommonBreadcrumb title="Privacy Policy" subtitle="Privacy Policy" />
-      <section className="tp-error-area pt-100">
+      <CommonBreadcrumb
+        title={privacyPolicy?.attributes?.title}
+        subtitle={privacyPolicy?.attributes?.title}
+      />
+      <section className="tp-error-area pt-50">
         <div className="container">
           <div className="row">
             <div className="col-xl-12 col-lg-12 col-md-12">
-              {[0, 0, 0, 0, 0, 0, 0].map(() => {
-                return (
-                  <p>
-                    {
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                    }
-                  </p>
-                );
-              })}
+              <ReactMarkdown
+                children={privacyPolicy?.attributes?.description}
+                remarkPlugins={[remarkGfm]}
+                className="markdown"
+              />
             </div>
           </div>
         </div>
@@ -50,10 +50,14 @@ export async function getStaticProps(context) {
       client.query({
         query: SOCIAL_LINKS,
       }),
+      client.query({
+        query: PRIVACY_POLICY,
+      }),
     ];
     const response = await Promise.all(queries);
     const category = response[0]?.data?.categories?.data;
     const footerLinks = response[1]?.data?.socialMedia?.data;
+    const privacyPolicy = response[2]?.data?.privacyPolicy?.data;
 
     if (response) {
       return {
@@ -61,6 +65,7 @@ export async function getStaticProps(context) {
           category,
           messages,
           footerLinks,
+          privacyPolicy,
         },
       };
     } else {

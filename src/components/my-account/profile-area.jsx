@@ -10,17 +10,17 @@ import CompanyProfile from "./company-profile";
 const ProfileArea = ({ data, type, orderData }) => {
   return (
     <>
-      <section className="profile__area pt-150 pb-150">
+      <section className="profile__area pt-100 pb-100">
         <div className="container">
           <div className="profile__inner p-relative">
             <ProfileShape />
             <div className="row">
-              <div className="col-xxl-4 col-lg-4 pt-50 pb-150">
+              <div className="col-xxl-4 col-lg-4 pt-50">
                 <div className="profile__tab mr-40">
                   <ProfileNavTab />
                 </div>
               </div>
-              <div className="col-xxl-8 col-lg-8 pt-50 pb-150">
+              <div className="col-xxl-8 col-lg-8 pt-50">
                 <div className="profile__tab-content">
                   <div className="tab-content" id="profile-tabContent">
                     <div

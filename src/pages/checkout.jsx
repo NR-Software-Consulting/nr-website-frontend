@@ -10,8 +10,9 @@ import Header from "@/layout/headers/header";
 import client from "@/graphql/apollo-client";
 import { CATEGORIES_LIST } from "@/graphql/query/home";
 import { SOCIAL_LINKS } from "@/graphql/query/footer";
+import { GET_COMPANY_PROFILE, GET_USER_PROFILE } from "@/graphql/query/profile";
 
-const CheckoutPage = ({ category, footerLinks }) => {
+const CheckoutPage = ({ category, footerLinks, data }) => {
   const router = useRouter();
   useEffect(() => {
     const isAuthenticate = Cookies.get("userInfo");
@@ -19,12 +20,13 @@ const CheckoutPage = ({ category, footerLinks }) => {
       router.push("/login");
     }
   }, [router]);
+
   return (
     <Wrapper>
       <SEO pageTitle="Checkout" />
       <Header categories={category} />
       <CommonBreadcrumb title="Checkout" subtitle="Checkout" bg_clr={true} />
-      <CheckoutArea />
+      <CheckoutArea userData={data} />
       <Footer socialLinks={footerLinks} />
     </Wrapper>
   );
@@ -34,6 +36,8 @@ export default CheckoutPage;
 export const getServerSideProps = async (context) => {
   let messages = (await import(`../../messages/${context.locale}.json`))
     .default;
+  let token = context?.req?.cookies.token;
+  let userInfo = JSON.parse(context?.req?.cookies.userInfo);
   try {
     const queries = [
       client.query({
@@ -42,17 +46,41 @@ export const getServerSideProps = async (context) => {
       client.query({
         query: SOCIAL_LINKS,
       }),
+      client.query({
+        query:
+          userInfo.formType == "user"
+            ? GET_USER_PROFILE
+            : GET_COMPANY_PROFILE,
+        variables: {
+          filters: {
+            user: {
+              id: {
+                eq: userInfo?.id,
+              },
+            },
+          },
+        },
+        fetchPolicy: "no-cache",
+        context: {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
+      }),
     ];
     const response = await Promise.all(queries);
     const category = response[0]?.data?.categories?.data;
     const footerLinks = response[1]?.data?.socialMedia?.data;
-
+    const userData = response[2]?.data;
     if (response) {
       return {
         props: {
           category,
           messages,
           footerLinks,
+          data:
+            userData?.userProfiles?.data[0] ||
+            userData?.companyProfiles?.data[0],
         },
       };
     } else {

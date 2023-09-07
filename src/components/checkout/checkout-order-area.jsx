@@ -83,10 +83,10 @@ const CheckoutOrderArea = ({ checkoutData }) => {
             <span>SAR {totalPrice?.toFixed(2)}</span>
           </li>
           {/*  shipping cost */}
-          <li className="tp-order-info-list-subtotal">
+          {/* <li className="tp-order-info-list-subtotal">
             <span>{t("Shipping Cost")}</span>
             <span>SAR {shippingCost.toFixed(2)}</span>
-          </li>
+          </li> */}
           {/* discount */}
           <li className="tp-order-info-list-subtotal">
             <span>{t("Discount")}</span>

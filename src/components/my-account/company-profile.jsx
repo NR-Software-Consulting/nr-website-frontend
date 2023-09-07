@@ -14,9 +14,9 @@ import { useMutation } from "@apollo/client";
 import { getCookie, setCookie } from "cookies-next";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 import { uploadFileClient } from "@/graphql/apollo-client";
-import IntlTelInput from "react-intl-tel-input";
-import "react-intl-tel-input/dist/main.css";
-// import User from "../../../public/assets/img/users/user-1.png";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+import { ProfileUser } from "@/svg";
 const schema = Yup.object().shape({
   companyName: Yup.string().label("Company Name").required(),
   crNumber: Yup.number().label("CR Number").required(),
@@ -25,7 +25,7 @@ const schema = Yup.object().shape({
     .email()
     .label("Email")
     .matches(/^\S+@\S+\.\S{2,}$/i, "Invalid Email Format"),
-  phoneNumber: Yup.string().label("Phone Number").required().min(10),
+  phoneNumber: Yup.string().required("Phone is required").label("Phone").min(10),
   shipping_address: Yup.string().label("Address").required(),
 });
 const CompanyProfile = ({ data }) => {
@@ -34,11 +34,6 @@ const CompanyProfile = ({ data }) => {
   const [updateProfile, { error, data: userProfile, loading }] = useMutation(
     UPDATE_COMPANY_PROFILE
   );
-  const selectedCountryRef = useRef(null);
-  const [phoneNumber, setPhoneNumber] = useState(
-    data?.attributes?.phoneNumber || ""
-  );
-
   const [profileImage, setProfileImage] = useState({
     id: data?.attributes.profile_image?.data?.id,
     url: data?.attributes.profile_image?.data?.attributes?.url,
@@ -73,7 +68,9 @@ const CompanyProfile = ({ data }) => {
     setCookie("userInfo", userData);
   }, [userProfile, loading]);
 
-  console.log("userInfo", user);
+  const [phone, setPhone] = useState(data?.attributes?.calling_code + data?.attributes?.phoneNumber || "");
+  const [leble, setLeble] = useState(data?.country_code || "");
+
   const {
     register,
     handleSubmit,
@@ -86,7 +83,7 @@ const CompanyProfile = ({ data }) => {
       companyName: data?.attributes?.companyName,
       crNumber: data?.attributes?.CRNumber,
       taxNumber: data?.attributes?.taxNumber,
-      phoneNumber: data?.attributes?.phoneNumber,
+      phoneNumber: data?.attributes?.calling_code + data?.attributes?.phoneNumber,
       shipping_address: data?.attributes?.shipping_address,
       profile_image: data?.attributes.profile_image?.data?.attributes?.url,
     },
@@ -114,8 +111,11 @@ const CompanyProfile = ({ data }) => {
     }
   };
   const onSubmit = async (data) => {
-    const selectedCountryData = selectedCountryRef.current;
-
+    const phoneNumber = data.phoneNumber;
+    const splitPhone = phoneNumber.split(" ");
+    const firstPart = splitPhone[0].replace(/[^\d]/g, "");
+    const lastPart = splitPhone[1].replace(/[^\d]/g, "");
+    const lebleUpperCase = leble.toUpperCase()
     try {
       await updateProfile({
         variables: {
@@ -123,9 +123,9 @@ const CompanyProfile = ({ data }) => {
             CRNumber: data?.crNumber,
             companyName: data?.companyName,
             taxNumber: data?.taxNumber,
-            calling_code: selectedCountryData?.dialCode,
-            country_code: selectedCountryData?.iso2,
-            phoneNumber: data?.phoneNumber,
+            calling_code: firstPart,
+            country_code: lebleUpperCase,
+            phoneNumber: lastPart,
             shipping_address: data?.shipping_address,
             profile_image: profileImage.id,
           },
@@ -165,12 +165,10 @@ const CompanyProfile = ({ data }) => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
+                          border: "1px solid",
                         }}
                       >
-                        <img
-                          src={"/assets/img/users/user.jpg"}
-                          style={{ width: "60px", height: "60px" }}
-                        />
+                        <ProfileUser />
                       </span>
                     </div>
                   ) : (
@@ -312,45 +310,41 @@ const CompanyProfile = ({ data }) => {
               <div className="profile__input-box">
                 <div className="profile__input">
                   <label
-                    htmlFor="companyName"
+                    htmlFor="phone"
                     className="form-label text-black fw-semibold p-0 m-0"
                   >
                     {t("Phone Number")} <span style={{ color: "red" }}>*</span>
                   </label>
-                  <IntlTelInput
-                    containerClassName={`intl-tel-input form-control rounded-0 p-0  ${
-                      errors.phoneNumber ? "is-invalid" : ""
-                    }`}
-                    inputClassName="shadow-none border-0"
-                    type="text"
+                  <PhoneInput
+                    name="phoneNumber"
                     id="phoneNumber"
-                    value={phoneNumber}
-                    fieldName="phoneNumber"
-                    defaultCountry={`${data?.attributes?.country_code}`}
-                    ref={selectedCountryRef}
-                    onPhoneNumberChange={(
-                      isValid,
-                      value,
-                      selectedCountryData,
-                      fullNumber,
-                      countryData
-                    ) => {
-                      let temp = value
-                        .trimStart()
-                        .replace(/[^\d\s]/g, "")
-                        .trim()
-                        .replace(/^0+/, "");
-                      setValue("phoneNumber", temp);
-                      setPhoneNumber(temp);
-                      selectedCountryRef.current = selectedCountryData;
+                    className={`form-control rounded-0 p-1`}
+                    style={
+                      {
+                        "--react-international-phone-border-radius": 0,
+                        "--react-international-phone-border-color": "none",
+                        "--react-international-phone-dropdown-item-background-color": "white",
+                        "--react-international-phone-background-color": "transparent",
+                        "--react-international-phone-text-color": "black",
+                        "--react-international-phone-selected-dropdown-item-background-color": "transparent",
+                        "--react-international-phone-selected-dropdown-zindex": "1",
+                        "--react-international-phone-height": "50px"
+                      }
+                    }
+                    placeholder={t("Enter your phone here")}
+                    defaultCountry={leble}
+                    value={phone}
+                    forceDialCode={true}
+                    onChange={(phone, labels) => {
+                      setPhone(phone)
+                      setLeble(labels)
+                      setValue("phoneNumber", phone);
                     }}
-                    {...register("phoneNumber")}
                   />
                   <ErrorMsg msg={errors.phoneNumber?.message} />
                 </div>
               </div>
             </div>
-
             <div className="col-xxl-12">
               <div className="profile__input-box">
                 <div className="profile__input">

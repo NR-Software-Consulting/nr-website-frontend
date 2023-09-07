@@ -12,7 +12,7 @@ const PriceFilter = ({ priceValue, handleChanges, maxPrice, handleFilterClick })
 
         <div className="tp-shop-widget-content">
           <div className="tp-shop-widget-filter">
-            <div id="slider-range" className="mb-10">
+            <div id="slider-range" className="mb-10" style={{ direction: "ltr" }}>
               <InputRange
                 STEP={1}
                 MIN={0}

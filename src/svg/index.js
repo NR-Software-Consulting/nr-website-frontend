@@ -77,8 +77,9 @@ import EmailTwo from "./email-2";
 import PhoneThree from "./phone-3";
 import LocationTwo from "./location-2";
 import CloseTwo from "./close-2";
-
+import ProfileUser from "./profileUser"
 export {
+  ProfileUser,
   ArrowNextTwo,
   ArrowPrevTwo,
   ArrowRightLong,

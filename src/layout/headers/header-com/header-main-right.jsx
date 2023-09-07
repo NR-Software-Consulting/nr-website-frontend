@@ -31,7 +31,7 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
     setShowPopup(true);
   };
   const confirmLogout = () => {
-    deleteCookie("token");
+    deleteCookie("token", "userData", "userInfo");
     dispatch(userLoggedOut());
     router.push("/");
     setShowPopup(false);
