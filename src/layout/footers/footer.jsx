@@ -21,8 +21,8 @@ const Footer = ({ socialLinks }) => {
         <div className="tp-footer-top">
           <div className="container">
             <div className="row">
-              <div className="col-xl-4 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-1 mb-50">
+              <div className="col-xl-4 col-lg-3 col-md-5 col-sm-6">
+                <div className="tp-footer-widget footer-col-1 mb-20">
                   <div className="tp-footer-widget-content">
                     <div className="tp-footer-logo">
                       <Link href="/">
@@ -103,11 +103,21 @@ const Footer = ({ socialLinks }) => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-2 mb-50">
+              <div className="col-xl-2 col-lg-3 col-md-3 col-sm-6">
+                <div className="tp-footer-widget footer-col-2 mb-20">
                   <h4 className="tp-footer-widget-title">{t("My Account")}</h4>
-                  <div className="tp-footer-widget-content">
-                    <ul>
+                  <div
+                    className="tp-footer-widget-content"
+                    style={{ fontWeight: 600 }}
+                  >
+                    <ol
+                      style={{
+                        listStyle: "none",
+                        marginLeft: "-30px",
+                        lineHeight: "2.5",
+                        fontFamily: "var(--tp-ff-roboto)",
+                      }}
+                    >
                       <li>
                         {!authChecked ? (
                           <Link href="/login">{t("Cart")}</Link>
@@ -136,15 +146,25 @@ const Footer = ({ socialLinks }) => {
                           <Link href="/orders">{t("My Orders")}</Link>
                         )}
                       </li>
-                    </ul>
+                    </ol>
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-3 mb-50">
+                <div className="tp-footer-widget footer-col-3 mb-20">
                   <h4 className="tp-footer-widget-title">{t("Information")}</h4>
-                  <div className="tp-footer-widget-content">
-                    <ul>
+                  <div
+                    className="tp-footer-widget-content"
+                    style={{ fontWeight: 600 }}
+                  >
+                    <ol
+                      style={{
+                        listStyle: "none",
+                        marginLeft: "-30px",
+                        lineHeight: "2.5",
+                        fontFamily: "var(--tp-ff-roboto)",
+                      }}
+                    >
                       <li>
                         <Link href="/privacy-policy">
                           {t("Privacy Policy")}
@@ -158,12 +178,12 @@ const Footer = ({ socialLinks }) => {
                       <li>
                         <Link href="/contact">{t("Contact Us")}</Link>
                       </li>
-                    </ul>
+                    </ol>
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-4 mb-50">
+                <div className="tp-footer-widget footer-col-4 mb-20">
                   <h4 className="tp-footer-widget-title">{t("Talk To Us")}</h4>
                   <div className="tp-footer-widget-content">
                     <div className="tp-footer-talk mb-15">

@@ -78,7 +78,7 @@ const Testimonials = () => {
                           initialValue={item.review}
                         />
                       </div>
-                      <div className="tp-testimonial-content-3">
+                      <div className="tp-testimonial-content-3" style={{ direction: "ltr" }}>
                         <p>{item.desc}</p>
                       </div>
                       <div className="tp-testimonial-user-wrapper-3 d-flex">

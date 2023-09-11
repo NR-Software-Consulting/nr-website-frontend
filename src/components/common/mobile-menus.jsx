@@ -36,7 +36,7 @@ const MobileMenus = () => {
         {mobile_menu.map((menu) => (
           <ul key={menu.id}>
             <li key={menu.id}>
-              {!authChecked && [3, 4, 5].includes(menu.id) ? (
+              {!authChecked && [3, 4, 5, 6].includes(menu.id) ? (
                 <Link href="/login">{t(menu.title)}</Link>
               ) : (
                 <Link href={menu.link}>{t(menu.title)}</Link>

@@ -16,6 +16,8 @@ import { useLazyQuery } from "@apollo/client";
 import { PRODUCTS_DATA } from "@/graphql/query/products";
 import { getCookie } from "cookies-next";
 import ShopLoader from "../loader/shop/shop-loader";
+import useLoadingState from "@/hooks/use-loading";
+import SearchPrdLoader from "../loader/search-prd-loader";
 
 const ShopArea = ({
   all_products: _all_products,
@@ -31,6 +33,7 @@ const ShopArea = ({
   } = otherProps;
   const router = useRouter()
   const [searchProducts, { loading, error, data }] = useLazyQuery(PRODUCTS_DATA);
+  const isLoading = useLoadingState();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [all_products, setAllProducts] = useState(_all_products)
@@ -545,90 +548,94 @@ const ShopArea = ({
               </div>
             </div>
             <div className="col-xl-9 col-lg-8">
-              <div className="tp-shop-main-wrapper">
-                <div className="tp-shop-top mb-45">
-                  <div className="row">
-                    <div className="col-xl-6">
-                      <ShopTopLeft
-                        showing={
-                          products.length === 0
-                            ? 0
-                            : filteredRows.slice(
-                              pageStart,
-                              pageStart + countOfPage
-                            ).length
-                        }
-                        total={all_products.length}
-                      />
-                    </div>
-                    <div className="col-xl-6">
-                      <ShopTopRight handleSortingFilter={handleSortingFilter} selectValue={selectValue} />
+              {isLoading ? (
+                <div><SearchPrdLoader /></div>
+              ) : (
+                <div className="tp-shop-main-wrapper">
+                  <div className="tp-shop-top mb-45">
+                    <div className="row">
+                      <div className="col-xl-6">
+                        <ShopTopLeft
+                          showing={
+                            products.length === 0
+                              ? 0
+                              : filteredRows.slice(
+                                pageStart,
+                                pageStart + countOfPage
+                              ).length
+                          }
+                          total={all_products.length}
+                        />
+                      </div>
+                      <div className="col-xl-6">
+                        <ShopTopRight handleSortingFilter={handleSortingFilter} selectValue={selectValue} />
+                      </div>
                     </div>
                   </div>
-                </div>
-                {products.length === 0 || all_products.length === 0 ? <h2>No products found</h2> : null}
-                {products.length > 0 && (
-                  <div className="tp-shop-items-wrapper tp-shop-item-primary">
-                    <div className="tab-content" id="productTabContent">
-                      <div
-                        className="tab-pane fade show active"
-                        id="grid-tab-pane"
-                        role="tabpanel"
-                        aria-labelledby="grid-tab"
-                        tabIndex="0"
-                      >
-                        <div className="row">
-                          {filteredRows
-                            .slice(pageStart, pageStart + countOfPage)
-                            .map((item, index) => (
-                              <div
-                                key={`${item.id}-${index}`}
-                                className="col-xl-4 col-md-6 col-sm-6"
-                              >
-                                <ProductItem product={item} />
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                      <div
-                        className="tab-pane fade"
-                        id="list-tab-pane"
-                        role="tabpanel"
-                        aria-labelledby="list-tab"
-                        tabIndex="0"
-                      >
-                        <div className="tp-shop-list-wrapper tp-shop-item-primary mb-70">
+                  {products.length === 0 || all_products.length === 0 ? <h2>No products found</h2> : null}
+                  {products.length > 0 && (
+                    <div className="tp-shop-items-wrapper tp-shop-item-primary">
+                      <div className="tab-content" id="productTabContent">
+                        <div
+                          className="tab-pane fade show active"
+                          id="grid-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="grid-tab"
+                          tabIndex="0"
+                        >
                           <div className="row">
-                            <div className="col-xl-12">
-                              {filteredRows
-                                .slice(pageStart, pageStart + countOfPage)
-                                .map((item, index) => (
-                                  <ShopListItem
-                                    key={`${item.id}-${index}`}
-                                    product={item}
-                                  />
-                                ))}
+                            {filteredRows
+                              .slice(pageStart, pageStart + countOfPage)
+                              .map((item, index) => (
+                                <div
+                                  key={`${item.id}-${index}`}
+                                  className="col-xl-4 col-md-6 col-sm-6"
+                                >
+                                  <ProductItem product={item} />
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                        <div
+                          className="tab-pane fade"
+                          id="list-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="list-tab"
+                          tabIndex="0"
+                        >
+                          <div className="tp-shop-list-wrapper tp-shop-item-primary mb-70">
+                            <div className="row">
+                              <div className="col-xl-12">
+                                {filteredRows
+                                  .slice(pageStart, pageStart + countOfPage)
+                                  .map((item, index) => (
+                                    <ShopListItem
+                                      key={`${item.id}-${index}`}
+                                      product={item}
+                                    />
+                                  ))}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
-                {all_products.length > 0 ? (
-                  <div className="tp-shop-pagination mt-20">
-                    <div className="tp-pagination d-flex justify-content-center" style={{ direction: "ltr" }}>
-                      <Pagination
-                        items={all_products}
-                        countOfPage={countOfPage}
-                        paginatedData={paginatedData}
-                        currPage={currPage}
-                        setCurrPage={setCurrPage}
-                      />
+                  )}
+                  {all_products.length > 0 ? (
+                    <div className="tp-shop-pagination mt-20">
+                      <div className="tp-pagination d-flex justify-content-center" style={{ direction: "ltr" }}>
+                        <Pagination
+                          items={all_products}
+                          countOfPage={countOfPage}
+                          paginatedData={paginatedData}
+                          currPage={currPage}
+                          setCurrPage={setCurrPage}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ) : null}
-              </div>
+                  ) : null}
+                </div>
+              )}
             </div>
           </div>
         </div>

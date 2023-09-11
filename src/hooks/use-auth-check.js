@@ -1,5 +1,3 @@
-/** @format */
-
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCookie } from "cookies-next";
@@ -8,7 +6,6 @@ import { userLoggedIn } from "@/redux/features/auth/authSlice";
 export default function useAuthCheck() {
   const dispatch = useDispatch();
   const [authChecked, setAuthChecked] = useState(false);
-
   useEffect(() => {
     const localAuth = getCookie("userInfo");
     const token = getCookie("token");
@@ -25,7 +22,6 @@ export default function useAuthCheck() {
       setAuthChecked(true);
     }
   }, []);
-
 
   return authChecked;
 }
