@@ -49,7 +49,6 @@ const useCheckoutSubmit = () => {
   const removeFromProduct = async (id) => {
     return await deleteCartItem(id);
   };
-
   useEffect(() => {
     setValue("firstName", shipping_info.firstName);
     setValue("lastName", shipping_info.lastName);
@@ -61,7 +60,6 @@ const useCheckoutSubmit = () => {
     setValue("email", shipping_info.email || userInfo?.email);
     setValue("orderNote", shipping_info.orderNote);
   }, [userInfo, setValue, shipping_info, router]);
-
   const setProductData = async () => {
     let newData = cart_products?.map((item) => {
       return {
@@ -97,7 +95,6 @@ const useCheckoutSubmit = () => {
   const submitHandler = async (data) => {
     dispatch(set_shipping(data));
     setIsCheckoutSubmit(true);
-
     let orderInfo = {
       Name: `${data.firstName} ${data.lastName}`,
       phoneNumber: data.contactNo,
@@ -140,7 +137,6 @@ const useCheckoutSubmit = () => {
       setIsLoading(false);
     }
   };
-
   return {
     handleShippingCost,
     discountAmount,

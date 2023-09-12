@@ -548,8 +548,14 @@
         right: 0;
         top: 50%;
         @include transform(translateY(-50%));
-        color: var(--tp-text-2);
+        color: var(--tp-grey-1);
         font-size: 14px;
+        @include ltr{
+              margin-right: 10px;
+        }
+        @include rtl{
+              margin-right: 10px;
+        }
         font-family: var(--tp-ff-fontawesome);
         @extend %tp-transition;
       }

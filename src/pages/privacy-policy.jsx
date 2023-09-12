@@ -20,7 +20,7 @@ const PrivacyPolicy = ({ category, footerLinks, privacyPolicy }) => {
         title={privacyPolicy?.attributes?.title}
         subtitle={privacyPolicy?.attributes?.title}
       />
-      <section className="tp-error-area pt-50">
+      <section className="tp-error-area pt-50" style={{ direction: "ltr" }}>
         <div className="container">
           <div className="row">
             <div className="col-xl-12 col-lg-12 col-md-12">

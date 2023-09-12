@@ -28,7 +28,7 @@ const ProductArea = ({ products, isError, isLoading }) => {
   }
   if (!isLoading && !isError && products?.length > 0) {
     content = products.map((prd, i) => (
-      <div key={i} className="col-xl-3 col-lg-3 col-sm-6">
+      <div key={i} className="col-xl-3 col-lg-4 col-sm-6">
         <ProductItem product={prd} />
       </div>
     ));

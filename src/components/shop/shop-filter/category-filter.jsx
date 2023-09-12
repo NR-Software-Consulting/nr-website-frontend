@@ -19,45 +19,45 @@ const CategoryFilter = ({
   let content = null;
   if (!data) {
     content = <CategoryListLoader loading={true} />;
-  } else if (data.length === 0) {
+  } else if (data?.length === 0) {
     content = <ErrorMsg msg="No Category found!" />;
   } else {
     content = (
       <ul className="filter-items filter-checkbox">
-        {categoriesList.map((categoryItem) => (
-          <li key={categoryItem.id} className="filter-item checkbox">
+        {categoriesList?.map((categoryItem) => (
+          <li key={categoryItem?.id} className="filter-item checkbox">
             <input
               type="checkbox"
-              id={`category-${categoryItem.id}`}
-              value={categoryItem.id}
-              checked={selectedCategories?.includes(categoryItem.id)}
-              onChange={() => handleCategoryFilter(categoryItem.id, categoryItem.attributes.slug)}
+              id={`category-${categoryItem?.id}`}
+              value={categoryItem?.id}
+              checked={selectedCategories?.includes(categoryItem?.id)}
+              onChange={() => handleCategoryFilter(categoryItem?.id, categoryItem?.attributes?.slug)}
             />
             <label
               className="form-check-label"
-              htmlFor={`category-${categoryItem.id}`}
+              htmlFor={`category-${categoryItem?.id}`}
             >
-              {categoryItem.attributes.name}
+              {categoryItem?.attributes?.name}
             </label>
-            {categoryItem.attributes.sub_categories.data.length > 0 && (
+            {categoryItem?.attributes?.sub_categories?.data?.length > 0 && (
               <ul className="sub-category-list ms-5">
-                {categoryItem.attributes.sub_categories.data.map(
+                {categoryItem.attributes?.sub_categories?.data?.map(
                   (subCategory) => (
-                    <li key={subCategory.id}>
+                    <li key={subCategory?.id}>
                       <input
                         type="checkbox"
-                        id={`subcategory-${subCategory.id}`}
-                        value={subCategory.id}
-                        checked={selectedSubCategories?.includes(subCategory.id)}
+                        id={`subcategory-${subCategory?.id}`}
+                        value={subCategory?.id}
+                        checked={selectedSubCategories?.includes(subCategory?.id)}
                         onChange={() =>
-                          handleSubCategoryFilter(subCategory.id, categoryItem.id, categoryItem.attributes.slug, subCategory.attributes.slug, null, categoryItem)
+                          handleSubCategoryFilter(subCategory?.id, categoryItem?.id, categoryItem?.attributes?.slug, subCategory?.attributes?.slug, null, categoryItem)
                         }
                       />
                       <label
                         className="form-check-label"
-                        htmlFor={`subcategory-${subCategory.id}`}
+                        htmlFor={`subcategory-${subCategory?.id}`}
                       >
-                        {subCategory.attributes.name}
+                        {subCategory?.attributes?.name}
                       </label>
                     </li>
                   )

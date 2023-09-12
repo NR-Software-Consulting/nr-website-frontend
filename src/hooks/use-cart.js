@@ -1,8 +1,4 @@
-/** @format */
-
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   ADD_TO_CART,
   DELETE_FROM_CART,
@@ -16,7 +12,6 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 
 export const useCart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems) || [];
-
   const totalCount = cartItems?.reduce(
     (accumulator, item) => accumulator + item?.attributes?.quantity,
     0
@@ -29,12 +24,9 @@ export const useCart = () => {
     0
   );
   const dispatch = useDispatch();
-
   const token = getCookie("token");
-
   const userCookie = getCookie("userInfo");
   const user = userCookie ? JSON.parse(userCookie) : null;
-
   const onUpdateCart = async (data) => {
     try {
       let response = await client.mutate({
@@ -69,7 +61,6 @@ export const useCart = () => {
       notifyError(error);
     }
   };
-
   const onAddToCart = async (data) => {
     try {
       let response = await client.mutate({
@@ -98,7 +89,6 @@ export const useCart = () => {
       notifyError(error);
     }
   };
-
   const deleteCartItem = async (id) => {
     try {
       let response = await client.mutate({
@@ -114,10 +104,8 @@ export const useCart = () => {
       });
       if (response.data) {
         let data = cartItems.filter((data) => data.id != id);
-
         dispatch(on_update_product(data));
       }
-      // notifySuccess("Successfully Removed from cart");
     } catch (error) {
       notifyError("Failed to remove item");
     }
@@ -136,7 +124,6 @@ export const useCart = () => {
       let response = await client.query({
         query: GET_ALL_CART_PRODUCT,
         variables: data,
-
         fetchPolicy: "network-only",
         context: {
           headers: {

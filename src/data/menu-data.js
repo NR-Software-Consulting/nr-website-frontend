@@ -76,19 +76,26 @@ export const mobile_menu = [
   {
     id: 5,
     single_link: true,
+    title: "My Account",
+    link: "/profile",
+  },
+  {
+    id: 6,
+    single_link: true,
     title: "My Orders",
     link: "/orders",
   },
   {
-    id: 6,
+    id: 7,
     sub_menu: true,
     title: "About",
     link: "/about",
   },
   {
-    id: 7,
+    id: 8,
     single_link: true,
     title: "Contact",
     link: "/contact",
   },
+
 ];

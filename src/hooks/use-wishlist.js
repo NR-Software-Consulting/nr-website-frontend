@@ -1,12 +1,4 @@
-/** @format */
-
-// hooks/useCartItems.js
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//   notifySuccess(`${payload.title} added to wishlist`);
-//   notifyError(`${payload.title} removed from wishlist`);
-// notifyError(`${payload.title} removed from wishlist`);
-
 import { getCookie } from "cookies-next";
 import { gql, useMutation } from "@apollo/client";
 import { on_update_product } from "@/redux/features/cartSlice";
@@ -45,7 +37,6 @@ export const addFavouriteQuery = gql`
     }
   }
 `;
-
 export const deleteFavouriteQuery = gql`
   mutation DeleteFavourite($deleteFavouriteId: ID!) {
     deleteFavourite(id: $deleteFavouriteId) {
@@ -132,7 +123,6 @@ export const useWishList = () => {
             limit: 1000,
           },
         },
-
         context: {
           headers: {
             authorization: `Bearer ${token}`,
@@ -140,9 +130,8 @@ export const useWishList = () => {
         },
       });
       dispatch(update_wishlist(response?.data?.favourites?.data));
-    } catch (error) { }
+    } catch (error) {}
   };
-
   const addProductToWishList = async (data) => {
     try {
       const response = await client.mutate({
@@ -186,7 +175,7 @@ export const useWishList = () => {
       dispatch(update_wishlist(items));
     } catch (error) {
       console.log("error", error);
-      notifyError("failed  to   wishlist");
+      notifyError("failed to wishlist");
     }
   };
   return {

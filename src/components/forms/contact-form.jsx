@@ -62,7 +62,7 @@ const ContactForm = () => {
     <div className="border tp-contact-inner rounded-3 p-3 p-lg-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="d-flex justify-content-center">
-          <h3 className="tp-contact-title fw-bolder">{t("Send a Message")}</h3>
+          <h3 className="tp-contact-title">{t("Send a Message")}</h3>
         </div>
         <div className="mb-md-3 mb-2">
           <label

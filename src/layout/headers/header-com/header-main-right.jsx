@@ -77,13 +77,11 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
           )}
           <div className="tp-header-login-content d-none d-xl-block">
             {!userData?.name && (
-              <Link href="/login">
-                <span>{t("Hello")},</span>
-              </Link>
+              <span>{t("Hello")},</span>
             )}
             {userData?.name && (
               <span>
-                {t("Hello")}, {userData?.name}
+                {t("Hello")}, {userData?.name?.length > 10 ? userData?.name?.slice(0, 12) + "..." : userData?.name}
               </span>
             )}
             <div className="tp-header-login-title mb-1">

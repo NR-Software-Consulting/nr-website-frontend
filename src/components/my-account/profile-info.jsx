@@ -164,6 +164,7 @@ const ProfileInfo = ({ data }) => {
                           justifyContent: "center",
                           alignItems: "center",
                           border: "1px solid",
+                          cursor: "auto"
                         }}
                       >
                         <ProfileUser />
@@ -178,14 +179,17 @@ const ProfileInfo = ({ data }) => {
                         height: "100px",
                         borderRadius: "50%",
                         objectFit: "cover",
+                        cursor: "auto"
                       }}
                     />
                   )}
                 </>
               )}
               <input
+                style={{ width: "178px", cursor: "pointer" }}
                 name="profile_image"
                 type="file"
+                className="mt-10"
                 accept=".png, .jpg, jpeg"
                 onChangeCapture={onUploadImage}
                 {...register("profile_image")}

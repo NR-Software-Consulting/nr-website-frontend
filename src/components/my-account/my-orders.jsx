@@ -8,11 +8,14 @@ import { useLazyQuery } from "@apollo/client";
 import { getCookie } from "cookies-next";
 import Pagination from "react-js-pagination";
 import { useTranslations } from "next-intl";
+import SearchPrdLoader from "../loader/search-prd-loader";
+import useLoadingState from "@/hooks/use-loading";
 
 const ITEMS_PER_PAGE = 10;
 
 const MyOrders = () => {
   const [userInfo, setUserInfo] = useState(null);
+  const isLoading = useLoadingState();
   const token = getCookie("token");
   const [Orders, { loading, error, data }] = useLazyQuery(GET_ALL_ORDERS);
   const [activePage, setActivePage] = useState(1);
@@ -71,83 +74,89 @@ const MyOrders = () => {
   );
 
   return (
-    <div className="profile__ticket table-responsive">
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder={t("Search by Order Id")}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-
-      {!filteredOrderItems || filteredOrderItems.length === 0 ? (
-        <div
-          style={{ height: "210px" }}
-          className="d-flex align-items-center justify-content-center"
-        >
-          <div className="text-center">
-            <i
-              style={{ fontSize: "30px" }}
-              className="fa-solid fa-cart-circle-xmark"
-            ></i>
-            <p>{t("You Have no order Yet")}</p>
-          </div>
-        </div>
+    <>
+      {loading ? (
+        <div><SearchPrdLoader /></div>
       ) : (
-        <div style={{ width: "100%", overflowX: "auto" }}>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">{t("Order Id")}</th>
-                <th scope="col">{t("Order Time")}</th>
-                <th scope="col">{t("Status")}</th>
-                <th scope="col">{t("View")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedOrderItems.map((item) => (
-                <tr key={item.id}>
-                  <th scope="row">{item.id}</th>
-                  <td data-info="title">
-                    {dayjs(item.attributes.publishedAt).format("MMMM D, YYYY")}
-                  </td>
-                  <td
-                    data-info={`status ${item.attributes.status === "Pending" ? "pending" : ""
-                      }  ${item.attributes.status === "Processing" ? "hold" : ""
-                      }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
-                    className={`status ${item.attributes.status === "Pending" ? "pending" : ""
-                      } ${item.attributes.status === "Processing" ? "hold" : ""
-                      }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
-                  >
-                    {item.attributes.status}
-                  </td>
-                  <td>
-                    <Link href={`/order/${item.id}`} className="tp-logout-btn">
-                      {t("Invoice")}
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+        <div className="profile__ticket table-responsive">
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder={t("Search by Order Id")}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
 
-      {filteredOrderItems.length > ITEMS_PER_PAGE && (
-        <div className="pagination-container shadow-none d-flex justify-content-center my-2" style={{ direction: "ltr" }} >
-          <Pagination
-            className="shadow-none "
-            activePage={activePage}
-            itemsCountPerPage={ITEMS_PER_PAGE}
-            totalItemsCount={filteredOrderItems.length}
-            onChange={handlePageChange}
-            itemClass="page-item"
-            linkClass="page-link"
-          />
+          {!filteredOrderItems || filteredOrderItems.length === 0 ? (
+            <div
+              style={{ height: "210px" }}
+              className="d-flex align-items-center justify-content-center"
+            >
+              <div className="text-center">
+                <i
+                  style={{ fontSize: "30px" }}
+                  className="fa-solid fa-cart-circle-xmark"
+                ></i>
+                <p>{t("You Have no order Yet")}</p>
+              </div>
+            </div>
+          ) : (
+            <div style={{ width: "100%", overflowX: "auto" }}>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">{t("Order Id")}</th>
+                    <th scope="col">{t("Order Time")}</th>
+                    <th scope="col">{t("Status")}</th>
+                    <th scope="col">{t("View")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {paginatedOrderItems.map((item) => (
+                    <tr key={item.id}>
+                      <th scope="row">{item.id}</th>
+                      <td data-info="title">
+                        {dayjs(item.attributes.publishedAt).format("MMMM D, YYYY")}
+                      </td>
+                      <td
+                        data-info={`status ${item.attributes.status === "Pending" ? "pending" : ""
+                          }  ${item.attributes.status === "Processing" ? "hold" : ""
+                          }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
+                        className={`status ${item.attributes.status === "Pending" ? "pending" : ""
+                          } ${item.attributes.status === "Processing" ? "hold" : ""
+                          }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
+                      >
+                        {item.attributes.status}
+                      </td>
+                      <td>
+                        <Link href={`/order/${item.id}`} className="tp-logout-btn">
+                          {t("Invoice")}
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {filteredOrderItems.length > ITEMS_PER_PAGE && (
+            <div className="pagination-container shadow-none d-flex justify-content-center my-2" style={{ direction: "ltr" }} >
+              <Pagination
+                className="shadow-none "
+                activePage={activePage}
+                itemsCountPerPage={ITEMS_PER_PAGE}
+                totalItemsCount={filteredOrderItems.length}
+                onChange={handlePageChange}
+                itemClass="page-item"
+                linkClass="page-link"
+              />
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

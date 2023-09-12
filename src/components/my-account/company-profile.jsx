@@ -19,8 +19,8 @@ import "react-international-phone/style.css";
 import { ProfileUser } from "@/svg";
 const schema = Yup.object().shape({
   companyName: Yup.string().label("Company Name").required(),
-  crNumber: Yup.number().label("CR Number").required(),
-  taxNumber: Yup.number().label("Tax Number").required(),
+  crNumber: Yup.string().label("CR Number").required(),
+  taxNumber: Yup.string().label("Tax Number").required(),
   email: Yup.string()
     .email()
     .label("Email")
@@ -166,6 +166,7 @@ const CompanyProfile = ({ data }) => {
                           justifyContent: "center",
                           alignItems: "center",
                           border: "1px solid",
+                          cursor: "auto"
                         }}
                       >
                         <ProfileUser />
@@ -180,15 +181,17 @@ const CompanyProfile = ({ data }) => {
                         height: "100px",
                         borderRadius: "50%",
                         objectFit: "cover",
+                        cursor: "auto"
                       }}
                     />
                   )}
                 </>
               )}
               <input
+                style={{ width: "178px", cursor: "pointer" }}
                 name="profile_image"
                 type="file"
-                className="pl-80 mt-10"
+                className="mt-10"
                 accept=".png, .jpg, jpeg"
                 onChangeCapture={onUploadImage}
                 {...register("profile_image")}

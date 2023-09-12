@@ -20,9 +20,9 @@ const customStyles = {
 const buttonStyle = {
   padding: "10px 50px 10px 50px",
   fontSize: "18px",
-  fontWeight: "bold",
+  fontWeight: "700",
   backgroundColor: "#0989ff",
-  borderRadius: "10px",
+  borderRadius: "4px",
   color: "white",
   width: "100%",
   display: "flex",

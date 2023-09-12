@@ -9,6 +9,40 @@ import language_img from "@assets/img/icon/language-flag.png";
 import MobileCategory from "@/layout/headers/header-com/mobile-category";
 import MobileMenus from "./mobile-menus";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
+
+
+
+
+// language
+function Language({ active, handleLanguageActive }) {
+  const t = useTranslations("header");
+  const route = useRouter();
+  return (
+    <>
+      <span
+        onClick={() => handleLanguageActive("lang")}
+        className='bg-dark px-4 py-2 text-white offcanvas__lang-selected-lang tp-lang-toggle'
+        id='tp-offcanvas-lang-toggle'>
+        {route.locale == "ar" ? "عربي" : "English"}
+      </span>
+      <ul
+        className={`offcanvas__lang-list tp-lang-list py-2 ${active === "lang" ? "tp-lang-list-open" : ""
+          }`}
+      >
+        {route.locale == "ar" ? (
+          <li>
+            <a href={`/en${route.asPath}`}>{t("English")}</a>
+          </li>
+        ) : (
+          <li>
+            <a href={`/ar${route.asPath}`}>{t("Arabic")}</a>
+          </li>
+        )}
+      </ul>
+    </>
+  );
+}
 
 const OffCanvas = ({
   isOffCanvasOpen,
@@ -19,19 +53,23 @@ const OffCanvas = ({
   const [isCategoryActive, setIsCategoryActive] = useState(false);
   const [isCurrencyActive, setIsCurrencyActive] = useState(false);
   const [isLanguageActive, setIsLanguageActive] = useState(false);
-
+  const [active, setIsActive] = useState("");
   const toggleCategoryDropdown = () => {
     setIsCategoryActive(!isCategoryActive);
   };
-  // handle language active
-  const handleLanguageActive = () => {
-    setIsLanguageActive(!isLanguageActive);
-    setIsCurrencyActive(false);
-  };
+
   // handle Currency active
   const handleCurrencyActive = () => {
     setIsCurrencyActive(!isCurrencyActive);
     setIsLanguageActive(false);
+  };
+  // handle Language active
+  const handleLanguageActive = (type) => {
+    if (type === active) {
+      setIsActive("");
+    } else {
+      setIsActive(type);
+    }
   };
   return (
     <>
@@ -85,9 +123,9 @@ const OffCanvas = ({
               <MobileMenus />
             </div>
           </div>
-          {/*<div className="offcanvas__bottom">
+          <div className="offcanvas__bottom">
             <div className="offcanvas__footer d-flex align-items-center justify-content-between">
-              <div className="offcanvas__currency-wrapper currency">
+              {/* <div className="offcanvas__currency-wrapper currency">
                 <span
                   onClick={handleCurrencyActive}
                   className="offcanvas__currency-selected-currency tp-currency-toggle"
@@ -96,44 +134,24 @@ const OffCanvas = ({
                   Currency : USD
                 </span>
                 <ul
-                  className={`offcanvas__currency-list tp-currency-list ${
-                    isCurrencyActive ? "tp-currency-list-open" : ""
-                  }`}
+                  className={`offcanvas__currency-list tp-currency-list ${isCurrencyActive ? "tp-currency-list-open" : ""
+                    }`}
                 >
                   <li>USD</li>
                   <li>ERU</li>
                   <li>BDT </li>
                   <li>INR</li>
                 </ul>
-              </div>
+              </div> */}
               <div className="offcanvas__select language">
-                <div className="offcanvas__lang d-flex align-items-center justify-content-md-end">
-                  <div className="offcanvas__lang-img mr-15">
-                    <Image src={language_img} alt="language-flag" />
-                  </div>
+                <div className="offcanvas__lang">
                   <div className="offcanvas__lang-wrapper">
-                    <span
-                      onClick={handleLanguageActive}
-                      className="offcanvas__lang-selected-lang tp-lang-toggle"
-                      id="tp-offcanvas-lang-toggle"
-                    >
-                      English
-                    </span>
-                    <ul
-                      className={`offcanvas__lang-list tp-lang-list ${
-                        isLanguageActive ? "tp-lang-list-open" : ""
-                      }`}
-                    >
-                      <li>Spanish</li>
-                      <li>Portugese</li>
-                      <li>American</li>
-                      <li>Canada</li>
-                    </ul>
+                    <Language active={active} handleLanguageActive={handleLanguageActive} />
                   </div>
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
       {/* body overlay start */}

@@ -27,24 +27,24 @@ const ProductBrand = ({ setCurrPage, shop_right = false, all_brands, selectedBra
 
   if (loading) {
     content = <ShopBrandLoader loading={true} />;
-  } else if (all_brands.length === 0) {
+  } else if (all_brands?.length === 0) {
     content = <ErrorMsg msg="No Brands found!" />;
   } else {
     content = (
       <ul className="filter-items filter-checkbox">
-        {all_brands.map((b) => (
-          <li key={b.id} className="filter-item checkbox">
+        {all_brands?.map((b) => (
+          <li key={b?.id} className="filter-item checkbox">
             <input
               type="checkbox"
-              id={`brand-${b.id}`}
-              value={b.id}
+              id={`brand-${b?.id}`}
+              value={b?.id}
               checked={localSelectedBrands?.includes(b.id)}
               onChange={() => handleCheckboxChange(b.id)}
             /> <label
               className="form-check-label"
               htmlFor={`brand-${b.id}`}
             >
-              {b.attributes.name}
+              {b?.attributes?.name}
             </label>
 
           </li>

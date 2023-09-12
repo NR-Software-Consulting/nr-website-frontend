@@ -22,7 +22,10 @@
     }
   }
   &-title {
-    font-size: 30px;
+    font-size: 40px;
+    @media #{$md, $lg, $sm, $xs} {
+      font-size: 30px;
+    }
     font-weight: 500;
     margin-bottom: 35px;
   }

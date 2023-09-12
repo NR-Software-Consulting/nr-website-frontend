@@ -248,13 +248,15 @@
         @include rtl {
           margin-left: 10px;
         }
-
         & svg {
           @extend %tp-svg-y-2;
         }
         & a {
           display: inline-block;
         }
+         &:hover {
+            cursor: pointer;
+          }
       }
     }
     &-content {
@@ -277,6 +279,11 @@
         @include rtl{
         margin-left: 25px;
         }
+        @media #{$lg, $xl, $xxl} {
+        @include rtl{
+        margin-left: 75px;
+        }
+    }
     }
   }
   &-main {

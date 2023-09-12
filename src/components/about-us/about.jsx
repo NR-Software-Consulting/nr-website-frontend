@@ -17,15 +17,15 @@ const AboutPage = (props) => {
         <div className="row d-flex justify-content-between align-items-center">
           <div className="left-side col-xs-12 col-sm-12 col-md-6 col-lg-5">
             <div>
-              <p className="text-size">{props?.attributes?.title}</p>
+              <p className="text-size" style={{ direction: "ltr" }}>{props?.attributes?.title}</p>
             </div>
             <div>
-              <p className="text-size-p mt-35">
+              <p className="text-size-p mt-35" style={{ direction: "ltr" }}>
                 {[props?.attributes?.description.slice(0, 187)]}
               </p>
             </div>
-            <div className="d-flex mt-35 align-items-center">
-              <p className="text-size-link mb-0">
+            <div className="d-flex mt-35 align-items-center" style={{ direction: "ltr" }}>
+              <p className="text-size-link mb-0 mb-3" >
                 <Link href="/about">{t("Read More")}</Link>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
