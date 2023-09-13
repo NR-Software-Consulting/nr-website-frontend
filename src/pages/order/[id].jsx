@@ -16,6 +16,7 @@ import { useTranslations } from "next-intl";
 import client from "@/graphql/apollo-client";
 import { CATEGORIES_LIST } from "@/graphql/query/home";
 import { SOCIAL_LINKS } from "@/graphql/query/footer";
+import SearchPrdLoader from "@/components/loader/search-prd-loader";
 
 const SingleOrder = ({ params }) => {
   const t = useTranslations("header");
@@ -37,7 +38,7 @@ const SingleOrder = ({ params }) => {
   }, [Order, orderId]);
   let content = null;
   if (loading) {
-    content = <PrdDetailsLoader loading={loading} />;
+    content = <SearchPrdLoader loading={loading} />;
   }
   if (error) {
     content = <ErrorMsg msg="There was an error" />;

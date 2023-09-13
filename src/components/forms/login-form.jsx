@@ -11,7 +11,7 @@ import { CloseEye, OpenEye } from "@/svg";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useTranslations } from "next-intl";
-import { notifySuccess } from "@/utils/toast";
+import { notifyError, notifySuccess } from "@/utils/toast";
 
 const LoginForm = () => {
   const t = useTranslations("header");
@@ -57,8 +57,8 @@ const LoginForm = () => {
       const { jwt, user, company_profile, user_profile } = response?.data?.login;
       let userData = {
         ...user,
-        name: company_profile ? company_profile.companyName : user_profile.first_name,
-        profile_image: user_profile ? user_profile.profile_image : company_profile.profile_image,
+        name: company_profile ? company_profile?.companyName : user_profile?.first_name,
+        profile_image: user_profile ? user_profile?.profile_image : company_profile?.profile_image,
         company_profile: company_profile,
         user_profile: user_profile,
         formType: user?.type
@@ -76,7 +76,7 @@ const LoginForm = () => {
       notifySuccess("Successfully LoggedIn!");
       router.push("/");
     } catch (error) {
-      console.log("An error occurred", error);
+      notifyError(error?.message || "Something went wrong during login.");
     }
   };
 
@@ -147,11 +147,6 @@ const LoginForm = () => {
           <Link href="/forgot">{t("Forget Password")}?</Link>
         </div>
         <div className="d-flex flex-column justify-content-center align-items-center">
-          {error && (
-            <div className="alert alert-danger" role="alert">
-              {error.message}
-            </div>
-          )}
           <button
             type="submit"
             onKeyDown={(e) => onSubmit(e)}

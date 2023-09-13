@@ -9,9 +9,8 @@ const CommonBreadcrumb = ({
 }) => {
   return (
     <section
-      className={`breadcrumb__area ${
-        center ? "text-center" : ""
-      } include-bg pt-95 `}
+      className={`breadcrumb__area ${center ? "text-center" : ""
+        } include-bg pt-95 `}
       style={{ backgroundColor: bg_clr && `#EFF1F5` }}
     >
       <div className="container">

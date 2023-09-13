@@ -12,6 +12,8 @@ import { useTranslations } from "next-intl";
 import "react-intl-tel-input/dist/main.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { notifyError } from "@/utils/toast";
+import { getCookies } from "cookies-next";
 
 const schema = yup.object().shape({
   phone: yup.string().required("Phone is required").label("Phone").min(10),
@@ -42,7 +44,10 @@ const RegisterFormIndividual = ({ formType }) => {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [email, setEmail] = useState("");
+  const googleUserToken = getCookies("id_token");
+  const encodedEmail = getCookies("google_email");
+  const decodedEmail = decodeURIComponent(encodedEmail?.google_email);
+  const [email, setEmail] = useState(decodedEmail || "");
   const [userData, setUserData] = useState(null);
   const {
     register,
@@ -76,6 +81,7 @@ const RegisterFormIndividual = ({ formType }) => {
             password: data.password,
             confirmPassword: data.confirmPassword,
             username: data.email,
+            googleToken: googleUserToken?.id_token || "",
           },
         },
       });
@@ -99,7 +105,7 @@ const RegisterFormIndividual = ({ formType }) => {
       setUserData(userData);
       setEmail(data.email);
     } catch (error) {
-      console.error("Registration error", error);
+      notifyError(error?.message || "Something went wrong during Registration.");
     }
   };
 
@@ -183,6 +189,7 @@ const RegisterFormIndividual = ({ formType }) => {
               id="email"
               placeholder={t("Enter your Email")}
               aria-describedby="emailHelp"
+              defaultValue={decodedEmail || ""}
               name="email"
               {...register("email")}
               onChangeCapture={(e) => {
@@ -313,11 +320,6 @@ const RegisterFormIndividual = ({ formType }) => {
               </span>
             )}
           </div>
-          {error && (
-            <div className="alert alert-danger" role="alert">
-              {error.message}
-            </div>
-          )}
           <div className="d-flex flex-column justify-content-center align-items-center ">
             <button
               type="submit"

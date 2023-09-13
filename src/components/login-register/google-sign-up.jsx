@@ -6,31 +6,55 @@ import google_icon from "@assets/img/icon/login/google.svg";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { useMutation } from "@apollo/client";
 import { GOOGLE_LOGIN } from "@/graphql/mutation/auth";
+import { setCookie, setCookies } from "cookies-next";
 
 const GoogleSignUp = () => {
   const [googleLogin, { loading, error }] = useMutation(GOOGLE_LOGIN);
   const router = useRouter();
   const { redirect } = router.query;
-  const handleGoogleSignIn = async (user) => {
-    if (user) {
+  const handleGoogleSignIn = async (users) => {
+    if (users) {
       try {
         const response = await googleLogin({
           variables: {
             input: {
-              id_token: user.credential.idToken,
+              id_token: users?.credential,
             },
           },
         });
-        const res = response.data.googleLogin;
+        const res = response?.data?.googleLogin;
+
         if (res) {
-          notifySuccess("Login success!");
-          router.push(redirect || "/");
+          const { jwt, user, status } = res;
+          const companyProfile = user?.company_profile || {};
+          const userProfile = user?.user_profile || {};
+
+          const userData = {
+            ...user,
+            name: companyProfile?.companyName || userProfile?.first_name,
+            profile_image: userProfile?.profile_image || companyProfile?.profile_image,
+            company_profile: companyProfile,
+            user_profile: userProfile,
+            formType: user?.type,
+          };
+          setCookie("token", jwt);
+          setCookie("userInfo", JSON.stringify(userData));
+
+          if (status === "202") {
+            const Email = res?.email;
+            setCookie("google_email", Email);
+            setCookie("id_token", users?.credential);
+            router.push(redirect || "/register");
+            notifyError(res?.error?.message);
+
+          } else {
+            notifySuccess("Successfully LoggedIn!");
+            router.push(redirect || "/");
+          }
         } else {
-          console.log("result error -->", res.error);
-          notifyError(res.error?.message);
+          notifyError(res?.error?.message);
         }
       } catch (err) {
-        console.error("Error during Google login:", err);
         notifyError(err?.message || "Something went wrong during login.");
       }
     }
@@ -52,8 +76,7 @@ const GoogleSignUp = () => {
           </a>
         )}
 
-        onSuccess={() => {
-        }}
+        onSuccess={handleGoogleSignIn}
         onFailure={(err) =>
           notifyError(err?.message || "Something went wrong with login.")
         }

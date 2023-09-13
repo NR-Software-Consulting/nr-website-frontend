@@ -14,6 +14,8 @@ import { useTranslations } from "next-intl";
 import "react-intl-tel-input/dist/main.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { notifyError } from "@/utils/toast";
+import { getCookies } from "cookies-next";
 
 const schema = yup.object().shape({
   companyName: yup.string().required("Company Name is required"),
@@ -44,7 +46,10 @@ const RegisterFormCompany = ({ formType }) => {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [email, setEmail] = useState("");
+  const googleUserToken = getCookies("id_token");
+  const encodedEmail = getCookies("google_email");
+  const decodedEmail = decodeURIComponent(encodedEmail?.google_email);
+  const [email, setEmail] = useState(decodedEmail || "");
   const [userData, setUserData] = useState(null);
   const {
     register,
@@ -59,7 +64,7 @@ const RegisterFormCompany = ({ formType }) => {
   const [phone, setPhone] = useState("");
   const [leble, setLeble] = useState("");
   const onSubmit = async (data) => {
-    const phoneNumber = data.phone;
+    const phoneNumber = data?.phone;
     const splitPhone = phoneNumber.split(" ");
     const firstPart = splitPhone[0].replace(/[^\d]/g, "");
     const lastPart = splitPhone[1].replace(/[^\d]/g, "");
@@ -79,6 +84,7 @@ const RegisterFormCompany = ({ formType }) => {
             password: data.password,
             confirmPassword: data.confirmPassword,
             type: formType,
+            googleToken: googleUserToken?.id_token || "",
           },
         },
       });
@@ -100,9 +106,9 @@ const RegisterFormCompany = ({ formType }) => {
         phoneNumber
       };
       setUserData(userData);
-      setEmail(data.email);
+      setEmail(data?.email);
     } catch (error) {
-      console.error("Registration error", error);
+      notifyError(error?.message || "Something went wrong during Registration.");
     }
   };
 
@@ -249,6 +255,7 @@ const RegisterFormCompany = ({ formType }) => {
               id="email"
               placeholder={t("Enter your Email")}
               aria-describedby="emailHelp"
+              defaultValue={decodedEmail || ""}
               {...register("email")}
               onChangeCapture={(e) => {
                 setValue(
@@ -346,11 +353,7 @@ const RegisterFormCompany = ({ formType }) => {
               </div>
             )}
           </div>
-          {error && (
-            <div className="alert alert-danger" role="alert">
-              {error.message}
-            </div>
-          )}
+
           <div className="d-flex flex-column justify-content-center align-items-center">
             <button
               type="submit"

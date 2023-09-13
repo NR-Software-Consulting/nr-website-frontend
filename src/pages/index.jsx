@@ -29,18 +29,26 @@ export default function Home(props) {
   } = props;
   return (
     <Wrapper>
-      <SEO pageTitle="Home" />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <p style={{ fontSize: "48px" }}>Coming Soon</p>
+      </div>
+      {/*<SEO pageTitle="Home" />
       <Header categories={category} />
       <HomeHeroSlider />
       <AboutPage {...about} />
       <Scores scores={scores} />
       <Testimonials />
-      {/*<HomeButtons /> */}
       <NewArrivals products={newarrival} />
       <ProductArea products={trending} />
       <Accessories products={accessories} />
-      {/*<CtaArea /> */}
-      <Footer socialLinks={footerLinks} />
+      <Footer socialLinks={footerLinks} /> */}
     </Wrapper>
   );
 }

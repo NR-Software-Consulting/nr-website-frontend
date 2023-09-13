@@ -72,6 +72,7 @@ const OtpVerification = ({ email, userData }) => {
       }
     } catch (error) {
       setError("Error occurred during OTP verification");
+      notifyError(error?.message || "Something went wrong during Registration.");
     }
     setOtp(["", "", "", ""]);
   };
@@ -87,15 +88,12 @@ const OtpVerification = ({ email, userData }) => {
       });
       const { status, message } = resendOtpResponse.data.resendOtp;
       if (status === true) {
-        setError("");
         notifySuccess("OTP resend Successfully!");
       } else {
-        setError("Error occurred while resending OTP");
-        notifyError(message);
+        notifyError(error?.message || "Something went wrong during OTP Resend.");
       }
     } catch (error) {
-      setError("Error occurred while resending OTP");
-      notifyError(message);
+      notifyError(error?.message || "Something went wrong during OTP Resend.");
     }
   };
   const t = useTranslations("header");
@@ -124,7 +122,6 @@ const OtpVerification = ({ email, userData }) => {
               />
             ))}
           </div>
-          {error && <div className="text-danger">{error}</div>}
         </div>
         <div className="d-flex justify-content-center pt-5">
           <button

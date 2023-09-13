@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShopBreadcrumb = ({title,subtitle}) => {
+const ShopBreadcrumb = ({ title, subtitle }) => {
   return (
     <>
       <section className="breadcrumb__area include-bg pt-100 pb-50">
