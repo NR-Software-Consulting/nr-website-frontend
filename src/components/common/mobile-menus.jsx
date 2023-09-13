@@ -21,7 +21,6 @@ const MobileMenus = () => {
     setShowPopup(true);
   };
   const confirmLogout = () => {
-    deleteCookie("token");
     dispatch(userLoggedOut());
     router.push("/");
     setShowPopup(false);

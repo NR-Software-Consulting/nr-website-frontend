@@ -43,8 +43,8 @@ export default ProfilePage;
 export const getServerSideProps = async (context) => {
   let messages = (await import(`../../messages/${context.locale}.json`))
     .default;
-  let token = context?.req?.cookies.token;
-  let userInfo = JSON.parse(context?.req?.cookies.userInfo);
+  let token = context?.req?.cookies?.token;
+  let userInfo = JSON.parse(context?.req?.cookies?.userInfo);
   try {
     if (!token && response) {
       return {

@@ -1,6 +1,8 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from "remark-gfm";
 
 const AboutPage = (props) => {
   const t = useTranslations("header");
@@ -17,15 +19,77 @@ const AboutPage = (props) => {
         <div className="row d-flex justify-content-between align-items-center">
           <div className="left-side col-xs-12 col-sm-12 col-md-6 col-lg-5">
             <div>
-              <p className="text-size" style={{ direction: "ltr" }}>{props?.attributes?.title}</p>
+              <p className="text-size" style={{ direction: "ltr" }}>
+                {props?.attributes?.title}
+              </p>
             </div>
             <div>
               <p className="text-size-p mt-35" style={{ direction: "ltr" }}>
-                {[props?.attributes?.description.slice(0, 187)]}
+                <ReactMarkdown
+                  children={
+                    [props?.attributes?.description.slice(0, 177)] + "..."
+                  }
+                  remarkPlugins={[remarkGfm]}
+                  className="markdown"
+                  components={{
+                    h1: ({ node, ...props }) => (
+                      <h1
+                        style={{ fontSize: "32px", color: "black" }}
+                        {...props}
+                      />
+                    ),
+                    h2: ({ node, ...props }) => (
+                      <h2
+                        style={{ fontSize: "20px", color: "black" }}
+                        {...props}
+                      />
+                    ),
+                    h3: ({ node, ...props }) => (
+                      <h3
+                        style={{ fontSize: "24px", color: "black" }}
+                        {...props}
+                      />
+                    ),
+                    h4: ({ node, ...props }) => (
+                      <h4
+                        style={{ fontSize: "20px", color: "black" }}
+                        {...props}
+                      />
+                    ),
+                    h5: ({ node, ...props }) => (
+                      <h5
+                        style={{ fontSize: "18px", color: "black" }}
+                        {...props}
+                      />
+                    ),
+                    h6: ({ node, ...props }) => (
+                      <h6
+                        style={{ fontSize: "18px", color: "black" }}
+                        {...props}
+                      />
+                    ),
+                    p: ({ node, ...props }) => (
+                      <p
+                        style={{ fontSize: "16px", color: "black" }}
+                        {...props}
+                      />
+                    ),
+                    ul: ({ node, ...props }) => (
+                      <p
+                        style={{ fontSize: "16px", color: "black" }}
+                        fontWeight={"400"}
+                        {...props}
+                      />
+                    ),
+                  }}
+                />
               </p>
             </div>
-            <div className="d-flex mt-35 align-items-center" style={{ direction: "ltr" }}>
-              <p className="text-size-link mb-0 mb-3" >
+            <div
+              className="d-flex mt-35 align-items-center"
+              style={{ direction: "ltr" }}
+            >
+              <p className="text-size-link mb-0 mb-3">
                 <Link href="/about">{t("Read More")}</Link>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

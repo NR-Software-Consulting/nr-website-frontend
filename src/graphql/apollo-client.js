@@ -1,21 +1,21 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
-const BaseURL =
+const baseUrl =
   process.env.NEXT_PUBLIC_BACKEND_URL || "https://admin.nrmobiles.com";
 const client = new ApolloClient({
-  uri: `${BaseURL}/graphql`,
+  uri: `${baseUrl}/graphql`,
   cache: new InMemoryCache(),
 });
 export default client;
 const uploadLink = createUploadLink({
-  uri: `${BaseURL}/graphql`,
+  uri: `${baseUrl}/graphql`,
 });
 export const uploadFileClient = new ApolloClient({
   link: uploadLink,
   cache: new InMemoryCache(),
 });
 export const apiConfig = {
-  baseUrlMedia: `${BaseURL}`,
-  baseUrl: `${BaseURL}/graphql`,
+  baseUrlMedia: `${baseUrl}`,
+  baseUrl: `${baseUrl}/graphql`,
   UPLOAD_FILE: "/api/upload",
 };

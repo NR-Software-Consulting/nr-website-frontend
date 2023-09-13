@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCookie } from "cookies-next";
-import { userLoggedIn } from "@/redux/features/auth/authSlice";
+import { userLoggedIn, userLoggedOut } from "@/redux/features/auth/authSlice";
 
 export default function useAuthCheck() {
   const dispatch = useDispatch();
   const [authChecked, setAuthChecked] = useState(false);
+  const localAuth = getCookie("userInfo");
+  const token = getCookie("token");
   useEffect(() => {
-    const localAuth = getCookie("userInfo");
-    const token = getCookie("token");
     if (localAuth) {
       const auth = JSON.parse(localAuth);
       if (token && auth) {
@@ -20,8 +20,17 @@ export default function useAuthCheck() {
         );
       }
       setAuthChecked(true);
+    } else {
+      setAuthChecked(false)
+      dispatch(
+        userLoggedOut({
+          accessToken: undefined,
+          user: undefined,
+          isAuthenticated: false
+        })
+      )
     }
-  }, []);
+  }, [localAuth, token]);
 
   return authChecked;
 }

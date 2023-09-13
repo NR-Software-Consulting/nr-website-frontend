@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,12 +22,14 @@ import {
 } from "@/svg";
 import { useTranslations } from "next-intl";
 import { useCart } from "@/hooks/use-cart";
+import useAuthCheck from "@/hooks/use-auth-check";
 
 const Header = ({ categories } = props) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const [isOffCanvasOpen, setIsCanvasOpen] = useState(false);
   const [isCategoryActive, setIsCategoryActive] = useState(false);
   const { totalCount, totalPrice } = useCart();
+  const authChecked = useAuthCheck();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
   const t = useTranslations("header");
@@ -161,7 +163,7 @@ const Header = ({ categories } = props) => {
                     <Link href="/wishlist" className="tp-header-action-btn">
                       <Wishlist />
                       <span className="tp-header-action-badge">
-                        {wishlist.length}
+                        {authChecked ? wishlist?.length : 0}
                       </span>
                     </Link>
                   </div>
@@ -173,7 +175,7 @@ const Header = ({ categories } = props) => {
                     >
                       <CartTwo />
                       <span className="tp-header-action-badge">
-                        {totalCount}
+                        {authChecked ? totalCount : 0}
                       </span>
                     </button>
                   </div>

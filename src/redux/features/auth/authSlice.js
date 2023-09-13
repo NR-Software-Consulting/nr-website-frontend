@@ -24,6 +24,9 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       deleteCookie("userInfo");
       deleteCookie("token");
+      deleteCookie("id_token");
+      deleteCookie("google_email");
+
     },
   },
 });

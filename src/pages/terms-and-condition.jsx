@@ -28,6 +28,57 @@ const TermsAndCondition = ({ category, footerLinks, termsAndCondition }) => {
                 children={termsAndCondition?.attributes?.description}
                 remarkPlugins={[remarkGfm]}
                 className="markdown"
+                components={{
+                  h1: ({ node, ...props }) => (
+                    <h1
+                      style={{ fontSize: "32px", color: "black" }}
+                      {...props}
+                    />
+                  ),
+                  h2: ({ node, ...props }) => (
+                    <h2
+                      style={{ fontSize: "20px", color: "black" }}
+                      {...props}
+                    />
+                  ),
+                  h3: ({ node, ...props }) => (
+                    <h3
+                      style={{ fontSize: "24px", color: "black" }}
+                      {...props}
+                    />
+                  ),
+                  h4: ({ node, ...props }) => (
+                    <h4
+                      style={{ fontSize: "20px", color: "black" }}
+                      {...props}
+                    />
+                  ),
+                  h5: ({ node, ...props }) => (
+                    <h5
+                      style={{ fontSize: "18px", color: "black" }}
+                      {...props}
+                    />
+                  ),
+                  h6: ({ node, ...props }) => (
+                    <h6
+                      style={{ fontSize: "18px", color: "black" }}
+                      {...props}
+                    />
+                  ),
+                  p: ({ node, ...props }) => (
+                    <p
+                      style={{ fontSize: "16px", color: "black" }}
+                      {...props}
+                    />
+                  ),
+                  ul: ({ node, ...props }) => (
+                    <p
+                      style={{ fontSize: "16px", color: "black" }}
+                      fontWeight={"400"}
+                      {...props}
+                    />
+                  ),
+                }}
               />
             </div>
           </div>

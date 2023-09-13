@@ -12,7 +12,7 @@ import { SOCIAL_LINKS } from "@/graphql/query/footer";
 const ForgotPage = ({ category, footerLinks }) => {
   return (
     <Wrapper>
-      <SEO pageTitle="Login" />
+      <SEO pageTitle="Forgot" />
       <Header categories={category} />
       <CommonBreadcrumb
         title="Forget Password"

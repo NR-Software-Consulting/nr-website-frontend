@@ -6,7 +6,7 @@ import google_icon from "@assets/img/icon/login/google.svg";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { useMutation } from "@apollo/client";
 import { GOOGLE_LOGIN } from "@/graphql/mutation/auth";
-import { setCookie, setCookies } from "cookies-next";
+import { setCookie} from "cookies-next";
 
 const GoogleSignUp = () => {
   const [googleLogin, { loading, error }] = useMutation(GOOGLE_LOGIN);

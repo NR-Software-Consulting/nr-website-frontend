@@ -108,7 +108,7 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             className="tp-header-action-btn"
           >
             <Wishlist />
-            <span className="tp-header-action-badge">{wishlist.length}</span>
+            <span className="tp-header-action-badge">{!authChecked ? 0 : wishlist?.length}</span>
           </Link>
         </div>
         <div className="tp-header-action-item">
@@ -118,7 +118,7 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             className="tp-header-action-btn cartmini-open-btn"
           >
             <CartTwo />
-            <span className="tp-header-action-badge">{totalCount}</span>
+            <span className="tp-header-action-badge">{!authChecked ? 0 : totalCount}</span>
           </button>
         </div>
         <div className="tp-header-action-item d-lg-none">
