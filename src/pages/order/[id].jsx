@@ -164,7 +164,7 @@ const SingleOrder = ({ params }) => {
                         <td>SAR {item.price}</td>
                         <td>SAR {item.discount || 0}</td>
                         <td>
-                          SAR {item.price * item.quantity - item.discount}
+                          SAR {(item.price - item.discount) * item.quantity}
                         </td>
                       </tr>
                     ))}
@@ -172,17 +172,11 @@ const SingleOrder = ({ params }) => {
                 </table>
               </div>
               <div className="invoice__total pt-40 pb-10 alert-success pl-40 pr-40 mb-30">
-                <div className="row">
+                <div className="row d-flex justify-content-between">
                   <div className="col-lg-3 col-md-4">
                     <div className="invoice__payment-method mb-30">
                       <h5 className="mb-0">{t("Payment Method")}</h5>
                       <p className="tp-font-medium text-uppercase">COD</p>
-                    </div>
-                  </div>
-                  <div className="col-lg-3 col-md-4">
-                    <div className="invoice__shippint-cost mb-30">
-                      <h5 className="mb-0">{t("Shipping Cost")}</h5>
-                      SAR 0.00
                     </div>
                   </div>
                   <div className="col-lg-3 col-md-4">
@@ -198,7 +192,7 @@ const SingleOrder = ({ params }) => {
                       <h5 className="mb-0">{t("Total Ammount")}</h5>
                       <p className="tp-font-medium text-danger">
                         <strong>
-                          SAR {parseInt(total - discount).toFixed(2) || "0.00"}
+                          SAR {parseInt(total).toFixed(2) || "0.00"}
                         </strong>
                       </p>
                     </div>

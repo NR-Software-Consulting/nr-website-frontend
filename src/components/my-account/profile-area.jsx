@@ -14,7 +14,9 @@ const ProfileArea = ({ data, type, orderData }) => {
   return (
     <>
       {loading ? (
-        <div><SearchPrdLoader /></div>
+        <div>
+          <SearchPrdLoader />
+        </div>
       ) : (
         <section className="profile__area pt-100 pb-100">
           <div className="container">

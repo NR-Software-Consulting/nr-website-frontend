@@ -11,9 +11,6 @@ import MobileMenus from "./mobile-menus";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 
-
-
-
 // language
 function Language({ active, handleLanguageActive }) {
   const t = useTranslations("header");
@@ -22,13 +19,15 @@ function Language({ active, handleLanguageActive }) {
     <>
       <span
         onClick={() => handleLanguageActive("lang")}
-        className='bg-dark px-4 py-2 text-white offcanvas__lang-selected-lang tp-lang-toggle'
-        id='tp-offcanvas-lang-toggle'>
+        className="bg-dark px-4 py-2 text-white offcanvas__lang-selected-lang tp-lang-toggle"
+        id="tp-offcanvas-lang-toggle"
+      >
         {route.locale == "ar" ? "عربي" : "English"}
       </span>
       <ul
-        className={`offcanvas__lang-list tp-lang-list py-2 ${active === "lang" ? "tp-lang-list-open" : ""
-          }`}
+        className={`offcanvas__lang-list tp-lang-list py-2 ${
+          active === "lang" ? "tp-lang-list-open" : ""
+        }`}
       >
         {route.locale == "ar" ? (
           <li>
@@ -44,11 +43,7 @@ function Language({ active, handleLanguageActive }) {
   );
 }
 
-const OffCanvas = ({
-  isOffCanvasOpen,
-  setIsCanvasOpen,
-  categories,
-}) => {
+const OffCanvas = ({ isOffCanvasOpen, setIsCanvasOpen, categories }) => {
   const t = useTranslations("header");
   const [isCategoryActive, setIsCategoryActive] = useState(false);
   const [isCurrencyActive, setIsCurrencyActive] = useState(false);
@@ -74,14 +69,16 @@ const OffCanvas = ({
   return (
     <>
       <div
-        className={`offcanvas__area offcanvas__radius ${isOffCanvasOpen ? "offcanvas-opened" : ""
-          }`}
+        className={`offcanvas__area offcanvas__radius ${
+          isOffCanvasOpen ? "offcanvas-opened" : ""
+        }`}
       >
         <div className="offcanvas__wrapper">
           <div className="offcanvas__close">
             <button
               onClick={() => setIsCanvasOpen(false)}
               className="offcanvas__close-btn offcanvas-close-btn"
+              aria-label="cartmini close"
             >
               <CloseTwo />
             </button>
@@ -108,8 +105,9 @@ const OffCanvas = ({
               </button>
               <div className="tp-category-mobile-menu">
                 <nav
-                  className={`tp-category-menu-content ${isCategoryActive ? "active" : ""
-                    }`}
+                  className={`tp-category-menu-content ${
+                    isCategoryActive ? "active" : ""
+                  }`}
                 >
                   <MobileCategory
                     categoryType={categories}
@@ -146,7 +144,10 @@ const OffCanvas = ({
               <div className="offcanvas__select language">
                 <div className="offcanvas__lang">
                   <div className="offcanvas__lang-wrapper">
-                    <Language active={active} handleLanguageActive={handleLanguageActive} />
+                    <Language
+                      active={active}
+                      handleLanguageActive={handleLanguageActive}
+                    />
                   </div>
                 </div>
               </div>

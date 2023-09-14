@@ -33,12 +33,16 @@ const MobileMenus = () => {
     <>
       <nav className="tp-main-menu-content">
         {mobile_menu.map((menu) => (
-          <ul key={menu.id}>
-            <li key={menu.id}>
+          <ul key={menu.id} aria-label="navbar-list">
+            <li key={menu.id} aria-label="navbar-items">
               {!authChecked && [3, 4, 5, 6].includes(menu.id) ? (
-                <Link href="/login">{t(menu.title)}</Link>
+                <Link href="/login" aria-label={menu.title}>
+                  {t(menu.title)}
+                </Link>
               ) : (
-                <Link href={menu.link}>{t(menu.title)}</Link>
+                <Link href={menu.link} aria-label={menu.title}>
+                  {t(menu.title)}
+                </Link>
               )}
             </li>
           </ul>

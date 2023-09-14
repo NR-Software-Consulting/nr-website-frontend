@@ -54,17 +54,18 @@ const NewArrivals = ({ products, isError, isLoading }) => {
     content = <HomeNewArrivalPrdLoader loading={isLoading} />;
   }
   if (!isLoading && isError) {
-    content = <ErrorMsg msg='There was an error' />;
+    content = <ErrorMsg msg="There was an error" />;
   }
   if (!isLoading && !isError && products?.length === 0) {
-    content = <ErrorMsg msg='No Products found!' />;
+    content = <ErrorMsg msg="No Products found!" />;
   }
   if (!isLoading && !isError && products?.length > 0) {
     content = (
       <Swiper
         {...slider_setting}
         modules={[Navigation, Pagination]}
-        className='tp-product-arrival-active swiper-container'>
+        className="tp-product-arrival-active swiper-container"
+      >
         {products.map((item, index) => (
           <SwiperSlide key={`${item.id}-${index}`}>
             <ProductItem product={item} />
@@ -75,37 +76,41 @@ const NewArrivals = ({ products, isError, isLoading }) => {
   }
   return (
     <>
-      <section className='tp-product-arrival-area pb-55'>
-        <div className='container'>
-          <div className='row align-items-end'>
-            <div className='col-xl-5 col-sm-6'>
-              <div className='tp-section-title-wrapper mb-40'>
-                <h3 className='tp-section-title'>
+      <section className="tp-product-arrival-area pb-55">
+        <div className="container">
+          <div className="row align-items-end">
+            <div className="col-xl-5 col-sm-6">
+              <div className="tp-section-title-wrapper mb-40">
+                <h3 className="tp-section-title">
                   {t("New Arrivals")}
                   <ShapeLine />
                 </h3>
               </div>
             </div>
-            <div className='col-xl-7 col-sm-6'>
-              <div className='tp-product-arrival-more-wrapper d-flex'>
-                <div className='tp-product-arrival-arrow tp-swiper-arrow mb-40 text-end tp-product-arrival-border'>
+            <div className="col-xl-7 col-sm-6">
+              <div className="tp-product-arrival-more-wrapper d-flex">
+                <div className="tp-product-arrival-arrow tp-swiper-arrow mb-40 text-end tp-product-arrival-border">
                   <button
-                    type='button'
-                    className='tp-arrival-slider-button-prev'>
+                    type="button"
+                    className="tp-arrival-slider-button-prev"
+                    aria-label="Previous"
+                  >
                     <PrevArr />
                   </button>{" "}
                   <button
-                    type='button'
-                    className='tp-arrival-slider-button-next'>
+                    type="button"
+                    className="tp-arrival-slider-button-next"
+                    aria-label="Forword"
+                  >
                     <NextArr />
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div className='row'>
-            <div className='col-xl-12'>
-              <div className='tp-product-arrival-slider fix'>{content}</div>
+          <div className="row">
+            <div className="col-xl-12">
+              <div className="tp-product-arrival-slider fix">{content}</div>
             </div>
           </div>
         </div>

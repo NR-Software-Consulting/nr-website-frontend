@@ -46,7 +46,7 @@ const DetailsTabNav = ({ product }) => {
       <div className="tp-product-details-tab-nav tp-tab">
         <nav>
           <div
-            className="nav nav-tabs justify-content-center p-relative tp-product-tab"
+            className="nav nav-tabs d-flex justify-content-evenly p-relative tp-product-tab"
             id="navPresentationTab"
             role="tablist"
           >
@@ -62,7 +62,6 @@ const DetailsTabNav = ({ product }) => {
               title={t("Reviews")}
               {...`${reviews?.length}`}
             />
-
             <span
               ref={marker}
               id="productTabMarker"

@@ -1,37 +1,34 @@
-/** @format */
-
 import React from "react";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { Minus, Plus, Close } from "@/svg";
-import { useMutation } from "@apollo/client";
-import { getCookie } from "cookies-next";
-import { UPDATE_CART_QUANTITY } from "@/graphql/mutation/cart";
 import { useCart } from "@/hooks/use-cart";
 import { useTranslations } from "next-intl";
 import { notifySuccess } from "@/utils/toast";
 
 const CartItem = ({ product }) => {
   const t = useTranslations("header");
-  const slug = product.attributes.product.data.attributes.slug;
-  const title = product.attributes.product.data.attributes.title;
+  const slug = product?.attributes?.product?.data?.attributes?.slug;
+  const title = product?.attributes?.product?.data?.attributes?.title;
   const { deleteCartItem, onAddToCart, onUpdateCart, cartItems } = useCart();
   const isAddedToCart =
-    cartItems?.some((prd) => prd.attributes.product.data.id === product.id) ||
-    false;
+    cartItems?.some(
+      (prd) => prd?.attributes?.product?.data?.id === product?.id
+    ) || false;
 
   const cartItem =
     cartItems?.find(
       (prd) =>
-        prd.attributes.product.data.id === product.attributes.product.data.id
+        prd?.attributes?.product?.data?.id ===
+        product?.attributes?.product?.data?.id
     ) || {};
   const image =
-    product.attributes.product.data.attributes.images.data[0].attributes.url;
-  const price = product.attributes.product.data.attributes.price;
-  const orderQuantity = product.attributes.quantity;
+    product?.attributes?.product?.data?.attributes?.images?.data[0]?.attributes
+      ?.url;
+  const price = product?.attributes?.product?.data?.attributes?.price;
+  const discount = product?.attributes?.product?.data?.attributes?.discount;
+  const orderQuantity = product?.attributes?.quantity;
   const _id = product.id;
-
   // Define your useMutation hook
 
   // Handle add product
@@ -89,7 +86,7 @@ const CartItem = ({ product }) => {
       </td>
       {/* price */}
       <td className="tp-cart-price">
-        <span>SAR {(price * orderQuantity).toFixed(2)}</span>
+        <span>SAR {((price - discount) * orderQuantity).toFixed(2)}</span>
       </td>
       {/* quantity */}
       <td className="tp-cart-quantity">

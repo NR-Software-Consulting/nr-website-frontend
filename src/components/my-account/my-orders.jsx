@@ -76,7 +76,9 @@ const MyOrders = () => {
   return (
     <>
       {loading ? (
-        <div><SearchPrdLoader /></div>
+        <div>
+          <SearchPrdLoader />
+        </div>
       ) : (
         <div className="profile__ticket table-responsive">
           <div className="search-bar">
@@ -117,20 +119,33 @@ const MyOrders = () => {
                     <tr key={item.id}>
                       <th scope="row">{item.id}</th>
                       <td data-info="title">
-                        {dayjs(item.attributes.publishedAt).format("MMMM D, YYYY")}
+                        {dayjs(item.attributes.publishedAt).format(
+                          "MMMM D, YYYY"
+                        )}
                       </td>
                       <td
-                        data-info={`status ${item.attributes.status === "Pending" ? "pending" : ""
-                          }  ${item.attributes.status === "Processing" ? "hold" : ""
-                          }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
-                        className={`status ${item.attributes.status === "Pending" ? "pending" : ""
-                          } ${item.attributes.status === "Processing" ? "hold" : ""
-                          }  ${item.attributes.status === "Delivered" ? "done" : ""}`}
+                        data-info={`status ${
+                          item.attributes.status === "Pending" ? "pending" : ""
+                        }  ${
+                          item.attributes.status === "Processing" ? "hold" : ""
+                        }  ${
+                          item.attributes.status === "Delivered" ? "done" : ""
+                        }`}
+                        className={`status ${
+                          item.attributes.status === "Pending" ? "pending" : ""
+                        } ${
+                          item.attributes.status === "Processing" ? "hold" : ""
+                        }  ${
+                          item.attributes.status === "Delivered" ? "done" : ""
+                        }`}
                       >
                         {item.attributes.status}
                       </td>
                       <td>
-                        <Link href={`/order/${item.id}`} className="tp-logout-btn">
+                        <Link
+                          href={`/order/${item.id}`}
+                          className="tp-logout-btn"
+                        >
                           {t("Invoice")}
                         </Link>
                       </td>
@@ -142,7 +157,10 @@ const MyOrders = () => {
           )}
 
           {filteredOrderItems.length > ITEMS_PER_PAGE && (
-            <div className="pagination-container shadow-none d-flex justify-content-center my-2" style={{ direction: "ltr" }} >
+            <div
+              className="pagination-container shadow-none d-flex justify-content-center my-2"
+              style={{ direction: "ltr" }}
+            >
               <Pagination
                 className="shadow-none "
                 activePage={activePage}

@@ -40,7 +40,7 @@ const CartMiniSidebar = () => {
       window.removeEventListener("scroll", handleBodyScroll);
     };
   }, [cartMiniOpen]);
-  
+
   const handleRemovePrd = async (productId) => {
     await deleteCartItem(productId);
     notifySuccess("Successfully Removed from cart");
@@ -68,6 +68,7 @@ const CartMiniSidebar = () => {
                   onClick={() => dispatch(closeCartMini())}
                   type="button"
                   className="cartmini__close-btn cartmini-close-btn"
+                  aria-label="cartmini close"
                 >
                   <i className="fal fa-times"></i>
                 </button>
@@ -101,37 +102,12 @@ const CartMiniSidebar = () => {
                         </Link>
                       </h5>
                       <div className="cartmini__price-wrapper">
-                        {/* {item.attributes.product.data.attributes.discount >
-                        0 ? (
-                          <span className="cartmini__price">
-                            SAR{" "}
-                            {(
-                              Number(
-                                item.attributes.product.data.attributes.price
-                              ) -
-                              (Number(
-                                item.attributes.product.data.attributes.price
-                              ) *
-                                Number(
-                                  item.attributes.product.data.attributes
-                                    .discount
-                                )) /
-                                100
-                            ).toFixed(2)}
-                          </span>
-                        ) : (
-                          <span className="cartmini__price">
-                            $
-                            {item.attributes.product.data.attributes.price?.toFixed(
-                              2
-                            )}
-                          </span>
-                        )} */}
                         <span className="cartmini__price">
                           SAR{" "}
-                          {item.attributes.product.data.attributes.price?.toFixed(
-                            2
-                          )}
+                          {(
+                            item.attributes.product.data.attributes.price -
+                            item.attributes.product.data.attributes.discount
+                          )?.toFixed(2)}
                         </span>
                         <span className="cartmini__quantity">
                           {" "}

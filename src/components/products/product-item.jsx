@@ -66,20 +66,18 @@ const ProductItem = ({ product, offer_style = false }) => {
       });
     }
   };
-
   return (
     <>
       <div
         className={`${
           offer_style ? "tp-product-offer-item bg-white" : "mb-25"
         } tp-product-item transition-3`}
-        style={{ minHeight: "420px" }}
       >
         <div className="tp-product-thumb p-relative fix">
           <Link href={`/product/${product?.attributes?.slug}`}>
             <img
               src={product?.attributes?.images?.data[0]?.attributes?.url}
-              style={{ width: "100%", height: "250px", objectFit: "fill" }}
+              style={{ width: "100%", height: "300px", objectFit: "cover" }}
               alt="product-electronic"
             />
 
@@ -95,7 +93,7 @@ const ProductItem = ({ product, offer_style = false }) => {
               {isAddedToCart && authChecked ? (
                 <Link
                   href="/cart"
-                  className={`tp-product-action-btn ${
+                  className={`tp-product-action-btn rounded-circle ${
                     isAddedToCart ? "active" : ""
                   } tp-product-add-cart-btn`}
                 >
@@ -105,7 +103,7 @@ const ProductItem = ({ product, offer_style = false }) => {
                 <button
                   onClick={() => handleAddProduct()}
                   type="button"
-                  className={`tp-product-action-btn ${
+                  className={`tp-product-action-btn rounded-circle ${
                     isAddedToCart ? "active" : ""
                   } tp-product-add-cart-btn`}
                   disabled={status === "out-of-stock"}
@@ -117,14 +115,14 @@ const ProductItem = ({ product, offer_style = false }) => {
               <button
                 onClick={() => dispatch(handleProductModal(product))}
                 type="button"
-                className="tp-product-action-btn tp-product-quick-view-btn"
+                className="tp-product-action-btn tp-product-quick-view-btn rounded-circle mt-10 mb-10"
               >
                 <QuickView />
                 <span className="tp-product-tooltip">Quick View</span>
               </button>
               <button
                 type="button"
-                className={`tp-product-action-btn ${
+                className={`tp-product-action-btn rounded-circle ${
                   isAddedToWishlist ? "active" : ""
                 } tp-product-add-to-wishlist-btn`}
                 onClick={() =>
@@ -180,18 +178,17 @@ const ProductItem = ({ product, offer_style = false }) => {
             </div>
           </div>
           <div className="tp-product-price-wrapper">
-            {discount > 0 ? (
+            {product?.attributes?.discount > 0 ? (
               <>
                 <span className="tp-product-price old-price">
-                  SAR{product?.attributes?.price}
+                  SAR {product?.attributes?.price}
                 </span>
                 <span className="tp-product-price new-price">
                   {" "}
-                  SAR
+                  SAR{" "}
                   {(
                     Number(product?.attributes?.price) -
-                    (Number(product?.attributes?.price) * Number(discount)) /
-                      100
+                    Number(product?.attributes?.discount)
                   ).toFixed(2)}
                 </span>
               </>

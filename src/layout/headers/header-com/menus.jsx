@@ -10,13 +10,17 @@ const Menus = () => {
   const authChecked = useAuthCheck();
   const t = useTranslations("header");
   return (
-    <ul>
+    <ul aria-label="navbar-list">
       {menu_data.map((menu) => (
-        <li key={menu.id}>
+        <li key={menu.id} aria-label="navbar-items">
           {!authChecked && [3, 4, 5].includes(menu.id) ? (
-            <Link href='/login'>{t(menu.title)}</Link>
+            <Link href="/login" aria-label={menu.title}>
+              {t(menu.title)}
+            </Link>
           ) : (
-            <Link href={menu.link}>{t(menu.title)}</Link>
+            <Link href={menu.link} aria-label={menu.title}>
+              {t(menu.title)}
+            </Link>
           )}
         </li>
       ))}

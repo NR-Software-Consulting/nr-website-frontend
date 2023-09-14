@@ -46,48 +46,54 @@ const Footer = ({ socialLinks }) => {
                         <Link
                           href={socialLinks?.attributes?.facebookUrl}
                           target="_blank"
+                          aria-label="Facebook"
                         >
-                          <i className="fa-brands fa-facebook-f"></i>
+                          <i className="fa-brands fa-facebook-f" />
                         </Link>
                       )}
                       {socialLinks?.attributes?.instagramUrl && (
                         <Link
                           href={socialLinks?.attributes?.instagramUrl}
                           target="_blank"
+                          aria-label="instagram"
                         >
-                          <i className="fa-brands fa-instagram"></i>
+                          <i className="fa-brands fa-instagram" />
                         </Link>
                       )}
                       {socialLinks?.attributes?.linkedInUrl && (
                         <Link
                           href={socialLinks?.attributes?.linkedInUrl}
                           target="_blank"
+                          aria-label="linkedin"
                         >
-                          <i className="fa-brands fa-linkedin-in"></i>
+                          <i className="fa-brands fa-linkedin-in" />
                         </Link>
                       )}
                       {socialLinks?.attributes?.pinterestUrl && (
                         <Link
                           href={socialLinks?.attributes?.pinterestUrl}
                           target="_blank"
+                          aria-label="pintrest"
                         >
-                          <i className="fa-brands fa-pinterest"></i>
+                          <i className="fa-brands fa-pinterest" />
                         </Link>
                       )}
                       {socialLinks?.attributes?.twitterUrl && (
                         <Link
                           href={socialLinks?.attributes?.twitterUrl}
                           target="_blank"
+                          aria-label="twitter"
                         >
-                          <i className="fa-brands fa-twitter"></i>
+                          <i className="fa-brands fa-twitter" />
                         </Link>
                       )}
                       {socialLinks?.attributes?.whatsappNumber && (
                         <Link
                           href={`https://wa.me/${socialLinks?.attributes.whatsappNumber}`}
                           target="_blank"
+                          aria-label="whatsapp"
                         >
-                          <i className="fa-brands fa-whatsapp"></i>
+                          <i className="fa-brands fa-whatsapp" />
                         </Link>
                       )}
                       {socialLinks?.attributes?.youtubeUrl && (
@@ -95,8 +101,9 @@ const Footer = ({ socialLinks }) => {
                           href={socialLinks?.attributes?.youtubeUrl}
                           target="_blank"
                           style={{ marginTop: "5px" }}
+                          aria-label="youtube"
                         >
-                          <i className="fa-brands fa-youtube"></i>
+                          <i className="fa-brands fa-youtube" />
                         </Link>
                       )}
                     </div>

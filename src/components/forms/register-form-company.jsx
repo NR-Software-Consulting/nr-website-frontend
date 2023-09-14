@@ -14,8 +14,10 @@ import { useTranslations } from "next-intl";
 import "react-intl-tel-input/dist/main.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import { notifyError } from "@/utils/toast";
-import { getCookies } from "cookies-next";
+import { notifyError, notifySuccess } from "@/utils/toast";
+import { getCookies, setCookie } from "cookies-next";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "@/redux/features/auth/authSlice";
 
 const schema = yup.object().shape({
   companyName: yup.string().required("Company Name is required"),
@@ -48,6 +50,7 @@ const RegisterFormCompany = ({ formType }) => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const googleUserToken = getCookies("id_token");
   const encodedEmail = getCookies("google_email");
+  const dispatch = useDispatch();
   const decodedEmail = decodeURIComponent(encodedEmail?.google_email);
   const [email, setEmail] = useState(decodedEmail || "");
   const [userData, setUserData] = useState(null);
@@ -68,47 +71,106 @@ const RegisterFormCompany = ({ formType }) => {
     const splitPhone = phoneNumber.split(" ");
     const firstPart = splitPhone[0].replace(/[^\d]/g, "");
     const lastPart = splitPhone[1].replace(/[^\d]/g, "");
-    const lebleUpperCase = leble.toUpperCase()
+    const lebleUpperCase = leble.toUpperCase();
+
     try {
-      const response = await registerUser({
-        variables: {
-          input: {
-            companyName: data.companyName,
-            username: data.email,
-            taxNumber: data.taxNumber,
-            CRNumber: data.crNumber,
-            calling_code: firstPart,
-            country_code: lebleUpperCase,
-            phoneNumber: lastPart,
-            email: data.email,
-            password: data.password,
-            confirmPassword: data.confirmPassword,
-            type: formType,
-            googleToken: googleUserToken?.id_token || "",
-          },
-        },
-      });
-      setRegistrationSuccess(true);
-      const { jwt, user, company_profile, user_profile } =
-        response.data.register;
-      let userData = {
-        ...user,
-        name: company_profile
-          ? company_profile.companyName
-          : user_profile.first_name,
-        profile_image: user_profile
-          ? user_profile.profile_image
-          : company_profile.profile_image,
-        company_profile: company_profile,
-        user_profile: user_profile,
-        jwt,
-        formType,
-        phoneNumber
-      };
-      setUserData(userData);
-      setEmail(data?.email);
+      let response;
+      {
+        decodedEmail
+          ? (response = await registerUser({
+              variables: {
+                input: {
+                  companyName: data.companyName,
+                  username: data.email,
+                  taxNumber: data.taxNumber,
+                  CRNumber: data.crNumber,
+                  calling_code: firstPart,
+                  country_code: lebleUpperCase,
+                  phoneNumber: lastPart,
+                  email: data.email || decodedEmail,
+                  password: data.password,
+                  confirmPassword: data.confirmPassword,
+                  type: formType,
+                  googleToken: googleUserToken?.id_token || "",
+                },
+              },
+            }))
+          : (response = await registerUser({
+              variables: {
+                input: {
+                  companyName: data.companyName,
+                  username: data.email,
+                  taxNumber: data.taxNumber,
+                  CRNumber: data.crNumber,
+                  calling_code: firstPart,
+                  country_code: lebleUpperCase,
+                  phoneNumber: lastPart,
+                  email: data.email,
+                  password: data.password,
+                  confirmPassword: data.confirmPassword,
+                  type: formType,
+                },
+              },
+            }));
+      }
+
+      const SuccessResponse = response?.data?.register?.user?.confirmed;
+
+      if (SuccessResponse === true) {
+        const { jwt, user, company_profile, user_profile } =
+          response?.data?.register;
+        let userData = {
+          ...user,
+          name: company_profile
+            ? company_profile.companyName
+            : user_profile.first_name,
+          profile_image: user_profile
+            ? user_profile.profile_image
+            : company_profile.profile_image,
+          company_profile: company_profile,
+          user_profile: user_profile,
+          jwt,
+          formType,
+          phoneNumber,
+        };
+        setUserData(userData);
+        setEmail(data?.email);
+        setCookie("token", jwt);
+        setCookie("userInfo", JSON.stringify(userData));
+        dispatch(
+          userLoggedIn({
+            accessToken: jwt,
+            user: userData,
+            isAuthenticated: true,
+          })
+        );
+        router.push("/");
+        notifySuccess("User Registered Successfully!");
+      } else if (SuccessResponse === false) {
+        const { jwt, user, company_profile, user_profile } =
+          response?.data?.register;
+        let userData = {
+          ...user,
+          name: company_profile
+            ? company_profile.companyName
+            : user_profile.first_name,
+          profile_image: user_profile
+            ? user_profile.profile_image
+            : company_profile.profile_image,
+          company_profile: company_profile,
+          user_profile: user_profile,
+          jwt,
+          formType,
+          phoneNumber,
+        };
+        setUserData(userData);
+        setEmail(data?.email);
+        setRegistrationSuccess(true);
+      }
     } catch (error) {
-      notifyError(error?.message || "Something went wrong during Registration.");
+      notifyError(
+        error?.message || "Something went wrong during Registration."
+      );
     }
   };
 
@@ -127,8 +189,9 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.companyName ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.companyName ? "is-invalid" : ""
+              }`}
               id="companyName"
               placeholder={t("Enter your company name here")}
               aria-describedby="companyNameHelp"
@@ -155,8 +218,9 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.taxNumber ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.taxNumber ? "is-invalid" : ""
+              }`}
               id="taxNumber"
               placeholder={t("Enter tax number here")}
               aria-describedby="taxNumberHelp"
@@ -184,8 +248,9 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.crNumber ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.crNumber ? "is-invalid" : ""
+              }`}
               id="crNumber"
               placeholder={t("Enter your CR number here")}
               aria-describedby="crNumberHelp"
@@ -214,26 +279,28 @@ const RegisterFormCompany = ({ formType }) => {
             <PhoneInput
               name="phone"
               id="phone"
-              style={
-                {
-                  "--react-international-phone-border-radius": 0,
-                  "--react-international-phone-border-color": "none",
-                  "--react-international-phone-dropdown-item-background-color": "white",
-                  "--react-international-phone-background-color": "transparent",
-                  "--react-international-phone-text-color": "black",
-                  "--react-international-phone-selected-dropdown-item-background-color": "transparent",
-                  "--react-international-phone-selected-dropdown-zindex": "1",
-                  "--react-international-phone-height": "50px"
-                }
-              }
-              className={`form-control border-0 bg-light ${errors.phone ? 'is-invalid' : ''}`}
+              style={{
+                "--react-international-phone-border-radius": 0,
+                "--react-international-phone-border-color": "none",
+                "--react-international-phone-dropdown-item-background-color":
+                  "white",
+                "--react-international-phone-background-color": "transparent",
+                "--react-international-phone-text-color": "black",
+                "--react-international-phone-selected-dropdown-item-background-color":
+                  "transparent",
+                "--react-international-phone-selected-dropdown-zindex": "1",
+                "--react-international-phone-height": "50px",
+              }}
+              className={`form-control border-0 bg-light ${
+                errors.phone ? "is-invalid" : ""
+              }`}
               defaultCountry="sa"
               forceDialCode={true}
               placeholder={t("Enter your phone here")}
               value={phone}
               onChange={(phone, labels) => {
-                setPhone(phone)
-                setLeble(labels)
+                setPhone(phone);
+                setLeble(labels);
                 setValue("phone", phone);
               }}
             />
@@ -250,12 +317,13 @@ const RegisterFormCompany = ({ formType }) => {
             </label>
             <input
               type="email"
-              className={`form-control border-0 bg-light shadow-none ${errors.email ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.email ? "is-invalid" : ""
+              }`}
               id="email"
               placeholder={t("Enter your Email")}
               aria-describedby="emailHelp"
-              defaultValue={decodedEmail || ""}
+              // defaultValue={decodedEmail || ""}
               {...register("email")}
               onChangeCapture={(e) => {
                 setValue(
@@ -278,8 +346,9 @@ const RegisterFormCompany = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${errors.password ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.password ? "is-invalid" : ""
+                }`}
                 id="password"
                 placeholder={t("Enter your password here")}
                 aria-describedby="passwordHelp"
@@ -318,8 +387,9 @@ const RegisterFormCompany = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showConfirmPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${errors.confirmPassword ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.confirmPassword ? "is-invalid" : ""
+                }`}
                 id="confirmPassword"
                 placeholder={t("Confirm Password")}
                 aria-describedby="confirmPasswordHelp"

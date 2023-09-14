@@ -12,8 +12,10 @@ import { useTranslations } from "next-intl";
 import "react-intl-tel-input/dist/main.css";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import { notifyError } from "@/utils/toast";
-import { getCookies } from "cookies-next";
+import { notifyError, notifySuccess } from "@/utils/toast";
+import { getCookies, setCookie } from "cookies-next";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "@/redux/features/auth/authSlice";
 
 const schema = yup.object().shape({
   phone: yup.string().required("Phone is required").label("Phone").min(10),
@@ -44,6 +46,7 @@ const RegisterFormIndividual = ({ formType }) => {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const dispatch = useDispatch();
   const googleUserToken = getCookies("id_token");
   const encodedEmail = getCookies("google_email");
   const decodedEmail = decodeURIComponent(encodedEmail?.google_email);
@@ -66,46 +69,102 @@ const RegisterFormIndividual = ({ formType }) => {
     const splitPhone = phoneNumber.split(" ");
     const firstPart = splitPhone[0].replace(/[^\d]/g, "");
     const lastPart = splitPhone[1].replace(/[^\d]/g, "");
-    const lebleUpperCase = leble.toUpperCase()
+    const lebleUpperCase = leble.toUpperCase();
     try {
-      const response = await registerUser({
-        variables: {
-          input: {
-            type: formType,
-            email: data.email,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            calling_code: firstPart,
-            country_code: lebleUpperCase,
-            phoneNumber: lastPart,
-            password: data.password,
-            confirmPassword: data.confirmPassword,
-            username: data.email,
-            googleToken: googleUserToken?.id_token || "",
-          },
-        },
-      });
-      setRegistrationSuccess(true);
-      const { jwt, user, company_profile, user_profile } =
-        response.data.register;
-      let userData = {
-        ...user,
-        name: company_profile
-          ? company_profile.companyName
-          : user_profile.first_name,
-        profile_image: user_profile
-          ? user_profile.profile_image
-          : company_profile.profile_image,
-        company_profile: company_profile,
-        user_profile: user_profile,
-        jwt,
-        formType,
-        phoneNumber
-      };
-      setUserData(userData);
-      setEmail(data.email);
+      let response;
+      {
+        decodedEmail
+          ? (response = await registerUser({
+              variables: {
+                input: {
+                  type: formType,
+                  email: data.email || decodedEmail,
+                  first_name: data.first_name,
+                  last_name: data.last_name,
+                  calling_code: firstPart,
+                  country_code: lebleUpperCase,
+                  phoneNumber: lastPart,
+                  password: data.password,
+                  confirmPassword: data.confirmPassword,
+                  username: data.email,
+                  googleToken: googleUserToken?.id_token || "",
+                },
+              },
+            }))
+          : (response = await registerUser({
+              variables: {
+                input: {
+                  type: formType,
+                  email: data.email,
+                  first_name: data.first_name,
+                  last_name: data.last_name,
+                  calling_code: firstPart,
+                  country_code: lebleUpperCase,
+                  phoneNumber: lastPart,
+                  password: data.password,
+                  confirmPassword: data.confirmPassword,
+                  username: data.email,
+                },
+              },
+            }));
+      }
+      const SuccessResponse = response?.data?.register?.user?.confirmed;
+
+      if (SuccessResponse === true) {
+        const { jwt, user, company_profile, user_profile } =
+          response?.data?.register;
+        let userData = {
+          ...user,
+          name: company_profile
+            ? company_profile.companyName
+            : user_profile.first_name,
+          profile_image: user_profile
+            ? user_profile.profile_image
+            : company_profile.profile_image,
+          company_profile: company_profile,
+          user_profile: user_profile,
+          jwt,
+          formType,
+          phoneNumber,
+        };
+        setUserData(userData);
+        setEmail(data?.email);
+        setCookie("token", jwt);
+        setCookie("userInfo", JSON.stringify(userData));
+        dispatch(
+          userLoggedIn({
+            accessToken: jwt,
+            user: userData,
+            isAuthenticated: true,
+          })
+        );
+        router.push("/");
+        notifySuccess("User Registered Successfully!");
+      } else if (SuccessResponse === false) {
+        const { jwt, user, company_profile, user_profile } =
+          response?.data?.register;
+        let userData = {
+          ...user,
+          name: company_profile
+            ? company_profile.companyName
+            : user_profile.first_name,
+          profile_image: user_profile
+            ? user_profile.profile_image
+            : company_profile.profile_image,
+          company_profile: company_profile,
+          user_profile: user_profile,
+          jwt,
+          formType,
+          phoneNumber,
+        };
+        setUserData(userData);
+        setEmail(data?.email);
+        setRegistrationSuccess(true);
+      }
     } catch (error) {
-      notifyError(error?.message || "Something went wrong during Registration.");
+      notifyError(
+        error?.message || "Something went wrong during Registration."
+      );
     }
   };
 
@@ -125,8 +184,9 @@ const RegisterFormIndividual = ({ formType }) => {
               </label>
               <input
                 type="text"
-                className={`form-control border-0 bg-light shadow-none ${errors.first_name ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.first_name ? "is-invalid" : ""
+                }`}
                 id="first_name"
                 placeholder={t("Enter your first name")}
                 aria-describedby="first_nameHelp"
@@ -154,8 +214,9 @@ const RegisterFormIndividual = ({ formType }) => {
               </label>
               <input
                 type="text"
-                className={`form-control border-0 bg-light shadow-none ${errors.last_name ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.last_name ? "is-invalid" : ""
+                }`}
                 id="last_name"
                 placeholder={t("Enter your last name")}
                 aria-describedby="last_nameHelp"
@@ -184,12 +245,13 @@ const RegisterFormIndividual = ({ formType }) => {
             </label>
             <input
               type="text"
-              className={`form-control border-0 bg-light shadow-none ${errors.email ? "is-invalid" : ""
-                }`}
+              className={`form-control border-0 bg-light shadow-none ${
+                errors.email ? "is-invalid" : ""
+              }`}
               id="email"
               placeholder={t("Enter your Email")}
               aria-describedby="emailHelp"
-              defaultValue={decodedEmail || ""}
+              // defaultValue={email || ""}
               name="email"
               {...register("email")}
               onChangeCapture={(e) => {
@@ -213,26 +275,28 @@ const RegisterFormIndividual = ({ formType }) => {
             <PhoneInput
               name="phone"
               id="phone"
-              style={
-                {
-                  "--react-international-phone-border-radius": 0,
-                  "--react-international-phone-border-color": "none",
-                  "--react-international-phone-dropdown-item-background-color": "white",
-                  "--react-international-phone-background-color": "transparent",
-                  "--react-international-phone-text-color": "black",
-                  "--react-international-phone-selected-dropdown-item-background-color": "transparent",
-                  "--react-international-phone-selected-dropdown-zindex": "1",
-                  "--react-international-phone-height": "50px"
-                }
-              }
-              className={`form-control border-0 bg-light p-1 ${errors.phone ? 'is-invalid' : ''}`}
+              style={{
+                "--react-international-phone-border-radius": 0,
+                "--react-international-phone-border-color": "none",
+                "--react-international-phone-dropdown-item-background-color":
+                  "white",
+                "--react-international-phone-background-color": "transparent",
+                "--react-international-phone-text-color": "black",
+                "--react-international-phone-selected-dropdown-item-background-color":
+                  "transparent",
+                "--react-international-phone-selected-dropdown-zindex": "1",
+                "--react-international-phone-height": "50px",
+              }}
+              className={`form-control border-0 bg-light p-1 ${
+                errors.phone ? "is-invalid" : ""
+              }`}
               defaultCountry="sa"
               forceDialCode={true}
               placeholder={t("Enter your phone here")}
               value={phone}
               onChange={(phone, labels) => {
-                setPhone(phone)
-                setLeble(labels)
+                setPhone(phone);
+                setLeble(labels);
                 setValue("phone", phone);
               }}
             />
@@ -250,8 +314,9 @@ const RegisterFormIndividual = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${errors.password ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.password ? "is-invalid" : ""
+                }`}
                 id="password"
                 placeholder={t("Enter your password here")}
                 aria-describedby="passwordHelp"
@@ -287,8 +352,9 @@ const RegisterFormIndividual = ({ formType }) => {
             <div className="position-relative">
               <input
                 type={showConfirmPass ? "text" : "password"}
-                className={`form-control border-0 bg-light shadow-none ${errors.confirmPassword ? "is-invalid" : ""
-                  }`}
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.confirmPassword ? "is-invalid" : ""
+                }`}
                 id="confirmPassword"
                 placeholder={t("Confirm Password")}
                 aria-describedby="confirmPasswordHelp"

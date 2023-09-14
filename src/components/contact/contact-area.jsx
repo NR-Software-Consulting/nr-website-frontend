@@ -15,7 +15,9 @@ const ContactArea = (props) => {
   return (
     <>
       {loading ? (
-        <div><SearchPrdLoader /></div>
+        <div>
+          <SearchPrdLoader />
+        </div>
       ) : (
         <section className="tp-contact-area pb-100 pt-100">
           <div className="container">
@@ -23,7 +25,10 @@ const ContactArea = (props) => {
               <div className="row">
                 <div className="col-xl-6 col-lg-6 col-md-6">
                   <div className="tp-contact-wrapper">
-                    <h3 className="tp-contact-title" style={{ fontSize: "44px" }}>
+                    <h3
+                      className="tp-contact-title"
+                      style={{ fontSize: "44px" }}
+                    >
                       {t("Contact Us")}
                     </h3>
                     <div className="tp-contact-form">

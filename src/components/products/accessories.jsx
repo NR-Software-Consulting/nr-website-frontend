@@ -88,12 +88,14 @@ const Accessories = ({ products, isError, isLoading }) => {
                   <button
                     type="button"
                     className="tp-arrival-slider-button-prev"
+                    aria-label="Previous"
                   >
                     <PrevArr />
                   </button>{" "}
                   <button
                     type="button"
                     className="tp-arrival-slider-button-next"
+                    aria-label="Forward"
                   >
                     <NextArr />
                   </button>

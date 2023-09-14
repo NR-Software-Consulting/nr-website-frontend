@@ -29,11 +29,13 @@ const DetailsWrapper = ({
   const t = useTranslations("header");
   const product = productItem[0];
   const isAddedToCart =
-    cartItems?.some((prd) => prd.attributes.product?.data?.id === product?.id) ||
-    false;
+    cartItems?.some(
+      (prd) => prd.attributes.product?.data?.id === product?.id
+    ) || false;
   const cartItem =
-    cartItems?.find((prd) => prd.attributes.product?.data?.id === product?.id) ||
-    {};
+    cartItems?.find(
+      (prd) => prd.attributes.product?.data?.id === product?.id
+    ) || {};
   const isAddedToWishlist = wishlist.some(
     (prd) => prd?.attributes?.product?.data?.id === product?.id
   );
@@ -118,8 +120,11 @@ const DetailsWrapper = ({
         <p>
           {textMore
             ? product?.attributes?.description
-            : `${product?.attributes?.description?.substring(0, 100)}...`}
-          <span className="cursor-pointer" onClick={() => setTextMore(!textMore)}>
+            : `${product?.attributes?.description?.substring(0, 100)}...`}{" "}
+          <span
+            className="cursor-pointer"
+            onClick={() => setTextMore(!textMore)}
+          >
             {textMore ? t("See Less") : t("See More")}
           </span>
         </p>
@@ -128,18 +133,16 @@ const DetailsWrapper = ({
       )}
       {/* price */}
       <div className="tp-product-details-price-wrapper mb-20">
-        {discount > 0 ? (
+        {product?.attributes?.discount > 0 ? (
           <>
             <span className="tp-product-details-price old-price">
               SAR {product?.attributes?.price}
-            </span>
+            </span>{" "}
             <span className="tp-product-details-price new-price">
-              SAR
+              SAR{" "}
               {(
                 Number(product?.attributes?.price) -
-                (Number(product?.attributes?.price) *
-                  Number(product?.attributes?.discount)) /
-                100
+                Number(product?.attributes?.discount)
               ).toFixed(2)}
             </span>
           </>
@@ -161,8 +164,9 @@ const DetailsWrapper = ({
                   onClick={() => handleImageActive(item)}
                   key={i}
                   type="button"
-                  className={`color tp-color-variation-btn ${item.img === activeImg ? "active" : ""
-                    }`}
+                  className={`color tp-color-variation-btn ${
+                    item.img === activeImg ? "active" : ""
+                  }`}
                 >
                   <span
                     data-bg-color={`${item.color.clrCode}`}
@@ -226,8 +230,8 @@ const DetailsWrapper = ({
           onClick={() =>
             isAddedToWishlist
               ? removeProductToWishList({
-                deleteFavouriteId: wishlistItem.id,
-              })
+                  deleteFavouriteId: wishlistItem.id,
+                })
               : handleWishlistProduct(product)
           }
           type="button"

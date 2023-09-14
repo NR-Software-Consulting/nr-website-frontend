@@ -3,7 +3,11 @@
 import { gql } from "@apollo/client";
 
 export const PRODUCTS_DATA = gql`
-  query ($pagination: PaginationArg, $filters: ProductFiltersInput,$sort: [String]) {
+  query (
+    $pagination: PaginationArg
+    $filters: ProductFiltersInput
+    $sort: [String]
+  ) {
     products(pagination: $pagination, filters: $filters, sort: $sort) {
       data {
         id
@@ -13,6 +17,7 @@ export const PRODUCTS_DATA = gql`
           price
           description
           isTrending
+          discount
           images {
             data {
               attributes {
@@ -20,7 +25,7 @@ export const PRODUCTS_DATA = gql`
               }
             }
           }
-           createdAt
+          createdAt
           publishedAt
           updatedAt
           brands {
@@ -45,7 +50,7 @@ export const PRODUCTS_DATA = gql`
                     }
                   }
                 }
-              sub_categories {
+                sub_categories {
                   data {
                     id
                     attributes {
@@ -56,13 +61,13 @@ export const PRODUCTS_DATA = gql`
                 }
               }
             }
-          }        
+          }
           sub_category {
             data {
               id
               attributes {
                 slug
-                name  
+                name
               }
             }
           }

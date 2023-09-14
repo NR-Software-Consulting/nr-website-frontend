@@ -31,7 +31,6 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
     setShowPopup(true);
   };
   const confirmLogout = () => {
-    deleteCookie("token", "userData", "userInfo");
     dispatch(userLoggedOut());
     router.push("/");
     setShowPopup(false);
@@ -47,7 +46,7 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
           {!authChecked ? (
             <div className="tp-header-login-icon">
               <span>
-                <Link href="/login">
+                <Link href="/login" aria-label="UserImage">
                   <User />
                 </Link>
               </span>
@@ -56,14 +55,14 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             <div className="tp-header-login-icon">
               {!userData?.profile_image?.url && (
                 <span>
-                  <Link href="/profile">
+                  <Link href="/profile" aria-label="UserImage">
                     <User />
                   </Link>
                 </span>
               )}
               {userData?.profile_image?.url && (
                 <span>
-                  <Link href="/profile">
+                  <Link href="/profile" aria-label="UserImage">
                     <img
                       src={userData?.profile_image?.url}
                       alt="user img"
@@ -76,12 +75,13 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             </div>
           )}
           <div className="tp-header-login-content d-none d-xl-block">
-            {!userData?.name && (
-              <span>{t("Hello")},</span>
-            )}
+            {!userData?.name && <span>{t("Hello")},</span>}
             {userData?.name && (
               <span>
-                {t("Hello")}, {userData?.name?.length > 10 ? userData?.name?.slice(0, 12) + "..." : userData?.name}
+                {t("Hello")},{" "}
+                {userData?.name?.length > 10
+                  ? userData?.name?.slice(0, 12) + "..."
+                  : userData?.name}
               </span>
             )}
             <div className="tp-header-login-title mb-1">
@@ -108,7 +108,9 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             className="tp-header-action-btn"
           >
             <Wishlist />
-            <span className="tp-header-action-badge">{!authChecked ? 0 : wishlist?.length}</span>
+            <span className="tp-header-action-badge">
+              {!authChecked ? 0 : wishlist?.length}
+            </span>
           </Link>
         </div>
         <div className="tp-header-action-item">
@@ -116,9 +118,12 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             onClick={handleCartButtonClick}
             type="button"
             className="tp-header-action-btn cartmini-open-btn"
+            aria-label="cart-icon"
           >
             <CartTwo />
-            <span className="tp-header-action-badge">{!authChecked ? 0 : totalCount}</span>
+            <span className="tp-header-action-badge">
+              {!authChecked ? 0 : totalCount}
+            </span>
           </button>
         </div>
         <div className="tp-header-action-item d-lg-none">
@@ -126,6 +131,7 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             onClick={() => setIsCanvasOpen(true)}
             type="button"
             className="tp-header-action-btn tp-offcanvas-open-btn"
+            aria-label="menu-drawer"
           >
             <Menu />
           </button>

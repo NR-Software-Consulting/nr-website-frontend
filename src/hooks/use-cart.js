@@ -19,7 +19,8 @@ export const useCart = () => {
   const totalPrice = cartItems?.reduce(
     (accumulator, product) =>
       accumulator +
-      product.attributes?.product?.data?.attributes?.price *
+      (product.attributes?.product?.data?.attributes?.price -
+        product.attributes?.product?.data?.attributes?.discount) *
         product?.attributes?.quantity,
     0
   );

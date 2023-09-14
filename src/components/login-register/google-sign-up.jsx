@@ -6,13 +6,17 @@ import google_icon from "@assets/img/icon/login/google.svg";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { useMutation } from "@apollo/client";
 import { GOOGLE_LOGIN } from "@/graphql/mutation/auth";
-import { setCookie} from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
+import { useDispatch } from "react-redux";
+import { userLoggedOut } from "@/redux/features/auth/authSlice";
 
 const GoogleSignUp = () => {
   const [googleLogin, { loading, error }] = useMutation(GOOGLE_LOGIN);
   const router = useRouter();
   const { redirect } = router.query;
+  const dispatch = useDispatch();
   const handleGoogleSignIn = async (users) => {
+    dispatch(userLoggedOut());
     if (users) {
       try {
         const response = await googleLogin({

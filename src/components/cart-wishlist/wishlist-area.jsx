@@ -13,7 +13,9 @@ const WishlistArea = () => {
   return (
     <>
       {loading ? (
-        <div><SearchPrdLoader /></div>
+        <div>
+          <SearchPrdLoader />
+        </div>
       ) : (
         <section className="tp-cart-area pt-100 pb-100">
           <div className="container">
@@ -40,7 +42,9 @@ const WishlistArea = () => {
                             {t("Quantity")}
                           </th>
                           <th>{t("Action")}</th>
-                          <th className="tp-cart-header-price">{t("Remove")}</th>
+                          <th className="tp-cart-header-price">
+                            {t("Remove")}
+                          </th>
                         </tr>
                       </thead>
                       <tbody>

@@ -71,7 +71,9 @@ const WishlistItem = ({ wishList, product }) => {
         <Link href={`/product/${wishlistSlug}`}>{wishlistData?.title}</Link>
       </td>
       <td className="tp-cart-price">
-        <span>SAR {wishlistData?.price?.toFixed(2)}</span>
+        <span>
+          SAR {(wishlistData?.price - wishlistData?.discount).toFixed(2)}
+        </span>
       </td>
       <td className="tp-cart-quantity">
         {!cartItem ? (

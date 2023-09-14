@@ -43,9 +43,9 @@ const Testimonials = () => {
                 <span className="tp-section-title-pre-3">
                   {t("Customers Review")}
                 </span>
-                <h3 className="tp-section-title-3">
+                <h2 className="tp-section-title-3">
                   {t("What our Clients say")}
-                </h3>
+                </h2>
               </div>
             </div>
           </div>
@@ -78,7 +78,10 @@ const Testimonials = () => {
                           initialValue={item.review}
                         />
                       </div>
-                      <div className="tp-testimonial-content-3" style={{ direction: "ltr" }}>
+                      <div
+                        className="tp-testimonial-content-3"
+                        style={{ direction: "ltr" }}
+                      >
                         <p>{item.desc}</p>
                       </div>
                       <div className="tp-testimonial-user-wrapper-3 d-flex">

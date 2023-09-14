@@ -113,7 +113,7 @@ const AboutPage = (props) => {
             <img
               src={props?.attributes?.image?.data?.attributes?.url}
               alt="About Image"
-              style={{ height: "399px", width: "100%" }}
+              style={{ height: "399px", width: "100%", objectFit: "contain" }}
             />
           </div>
         </div>

@@ -172,6 +172,7 @@ const Header = ({ categories } = props) => {
                       onClick={() => dispatch(openCartMini())}
                       type="button"
                       className="tp-header-action-btn cartmini-open-btn"
+                      aria-label="cart-icon"
                     >
                       <CartTwo />
                       <span className="tp-header-action-badge">
@@ -184,6 +185,7 @@ const Header = ({ categories } = props) => {
                       onClick={() => setIsCanvasOpen(true)}
                       type="button"
                       className="tp-header-action-btn tp-offcanvas-open-btn"
+                      aria-label="menu-drawer"
                     >
                       <Menu />
                     </button>

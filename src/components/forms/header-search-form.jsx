@@ -27,7 +27,7 @@ const HeaderSearchForm = () => {
           />
         </div>
         <div className="tp-header-search-btn">
-          <button type="submit">
+          <button type="submit" aria-label="Search Products">
             <Search />
           </button>
         </div>

@@ -72,7 +72,9 @@ const OtpVerification = ({ email, userData }) => {
       }
     } catch (error) {
       setError("Error occurred during OTP verification");
-      notifyError(error?.message || "Something went wrong during Registration.");
+      notifyError(
+        error?.message || "Something went wrong during Registration."
+      );
     }
     setOtp(["", "", "", ""]);
   };
@@ -90,7 +92,9 @@ const OtpVerification = ({ email, userData }) => {
       if (status === true) {
         notifySuccess("OTP resend Successfully!");
       } else {
-        notifyError(error?.message || "Something went wrong during OTP Resend.");
+        notifyError(
+          error?.message || "Something went wrong during OTP Resend."
+        );
       }
     } catch (error) {
       notifyError(error?.message || "Something went wrong during OTP Resend.");
