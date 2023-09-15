@@ -17,6 +17,7 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [error, setError] = useState("");
   const inputRefs = useRef([]);
+  const [allDigitsEntered, setAllDigitsEntered] = useState(false);
   const [verifyOtp] = useMutation(VERIFY_OTP);
   const [resendOtp] = useMutation(RESEND_OTP);
   const [loginMutation] = useMutation(LOGIN_USER);
@@ -29,6 +30,8 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
       if (value && index < otp.length - 1) {
         inputRefs.current[index + 1].focus();
       }
+      const allDigitsEntered = newOtp.every((digit) => digit !== "");
+      setAllDigitsEntered(allDigitsEntered);
     }
   };
 
@@ -112,15 +115,14 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
         }
       } else {
         notifyError(message);
-        setError("Invalid OTP");
       }
     } catch (error) {
-      setError("Error occurred during OTP verification");
       notifyError(
-        error?.message || "Something went wrong during Registration."
+        error?.message || "Error occurred during OTP verification"
       );
     }
     setOtp(["", "", "", ""]);
+    setAllDigitsEntered(false);
   };
 
   const handleResend = async () => {
@@ -137,11 +139,11 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
         notifySuccess("OTP resend Successfully!");
       } else {
         notifyError(
-          error?.message || "Something went wrong during OTP Resend."
+          error?.message || "Error occurred while resending OTP."
         );
       }
     } catch (error) {
-      notifyError(error?.message || "Something went wrong during OTP Resend.");
+      notifyError(error?.message || "Error occurred while resending OTP.");
     }
   };
 
@@ -163,7 +165,7 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
           >
             {t("Enter the 4-digit Code that you received on your email")}
           </label>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center" style={{ direction: "ltr" }}>
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -181,8 +183,9 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
         <div className="d-flex justify-content-center pt-5">
           <button
             type="button"
-            className="btn btn-lg btn-primary form-control shadow-none bg-primary text-white"
+            className="btn btn-lg btn-primary form-control shadow-none bg-primary text-white rounded-1"
             onClick={handleSubmit}
+            disabled={!allDigitsEntered}
           >
             {t("Verify")}
           </button>

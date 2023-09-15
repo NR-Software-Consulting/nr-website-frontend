@@ -49,6 +49,7 @@ const ForgetPasswordComp = () => {
       }
     } catch (error) {
       console.error("Forgot Password error", error);
+      notifyError(error.message);
     }
   };
   return (
@@ -83,18 +84,18 @@ const ForgetPasswordComp = () => {
               <div className="d-flex justify-content-center pt-5">
                 <button
                   type="submit"
-                  className="btn btn-lg btn-primary form-control bg-primary text-white shadow-none"
+                  className="btn btn-lg btn-primary form-control bg-primary text-white shadow-none rounded-1"
                   disabled={loading}
                 >
                   {loading ? t("loading") + "..." : t("Continue")}
                 </button>
               </div>
             </form>
-            {error && (
+            {/* {error && (
               <div className="text-danger text-center mt-3">
                 Please Enter the Valid Email
               </div>
-            )}
+            )} */}
           </>
         )}
       </div>

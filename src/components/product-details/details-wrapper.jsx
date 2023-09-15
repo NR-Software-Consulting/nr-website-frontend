@@ -164,9 +164,8 @@ const DetailsWrapper = ({
                   onClick={() => handleImageActive(item)}
                   key={i}
                   type="button"
-                  className={`color tp-color-variation-btn ${
-                    item.img === activeImg ? "active" : ""
-                  }`}
+                  className={`color tp-color-variation-btn ${item.img === activeImg ? "active" : ""
+                    }`}
                 >
                   <span
                     data-bg-color={`${item.color.clrCode}`}
@@ -218,11 +217,11 @@ const DetailsWrapper = ({
             )}
           </div>
         </div>
-        <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
+        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
           <button className="tp-product-details-buy-now-btn w-100">
             {t("Buy Now")}
           </button>
-        </Link>
+        </Link> */}
       </div>
       <div className="tp-product-details-action-sm">
         <button
@@ -230,8 +229,8 @@ const DetailsWrapper = ({
           onClick={() =>
             isAddedToWishlist
               ? removeProductToWishList({
-                  deleteFavouriteId: wishlistItem.id,
-                })
+                deleteFavouriteId: wishlistItem.id,
+              })
               : handleWishlistProduct(product)
           }
           type="button"

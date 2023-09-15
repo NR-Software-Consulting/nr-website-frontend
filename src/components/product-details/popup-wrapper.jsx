@@ -201,11 +201,11 @@ const PopUpWrapper = ({
             </button>
           </div>
         </div>
-        <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
+        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
           <button className="tp-product-details-buy-now-btn w-100">
             {t("Buy Now")}
           </button>
-        </Link>
+        </Link> */}
       </div>
       <div className="tp-product-details-action-sm">
         <button

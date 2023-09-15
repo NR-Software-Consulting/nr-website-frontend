@@ -12,6 +12,7 @@ const PasswordVerification = ({ email }) => {
   const [error, setError] = useState("");
   const [isOtpVerified, setIsOtpVerified] = useState(false);
   const inputRefs = useRef([]);
+  const [allDigitsEntered, setAllDigitsEntered] = useState(false);
   const [verifyOtp] = useMutation(VERIFY_OTP);
   const [resendOtp] = useMutation(RESEND_OTP);
   const [enteredOtp, setEnteredOtp] = useState("");
@@ -25,6 +26,8 @@ const PasswordVerification = ({ email }) => {
       if (value && index < otp.length - 1) {
         inputRefs.current[index + 1].focus();
       }
+      const allDigitsEntered = newOtp.every((digit) => digit !== "");
+      setAllDigitsEntered(allDigitsEntered);
     }
   };
 
@@ -57,13 +60,14 @@ const PasswordVerification = ({ email }) => {
         setEnteredOtp(enteredOtp);
       } else {
         notifyError(message);
-        setError("Invalid OTP");
       }
     } catch (error) {
-      console.error("OTP verification error", error);
-      setError("Wrong OTP Code Entered");
+      notifyError(
+        error?.message || "Something went wrong with OTP."
+      );
     }
     setOtp(["", "", "", ""]);
+    setAllDigitsEntered(false);
   };
 
   const handleResend = async () => {
@@ -78,14 +82,17 @@ const PasswordVerification = ({ email }) => {
       const { status, message } = resendOtpResponse.data.resendOtp;
       if (status === true) {
         setEnteredOtp(enteredOtp);
-        setError("");
       } else {
-        setError("Error occurred while resending OTP");
+        notifyError(
+          error?.message || "Error occurred while resending OTP."
+        );
       }
       notifySuccess("OTP has been re-sent to your email");
     } catch (error) {
       console.error("OTP resend error", error);
-      setError("Error occurred while resending OTP");
+      notifyError(
+        error?.message || "Error occurred while resending OTP."
+      );
     }
   };
 
@@ -104,7 +111,7 @@ const PasswordVerification = ({ email }) => {
               >
                 {t("Enter the 4-digit Code that you received on your email")}
               </label>
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center" style={{ direction: "ltr" }}>
                 {otp.map((digit, index) => (
                   <input
                     key={index}
@@ -118,13 +125,13 @@ const PasswordVerification = ({ email }) => {
                   />
                 ))}
               </div>
-              {error && <div className="text-danger">{error}</div>}
             </div>
             <div className="d-flex justify-content-center pt-5">
               <button
                 type="button"
-                className="btn btn-lg btn-primary form-control shadow-none bg-primary text-white"
+                className="btn btn-lg btn-primary form-control shadow-none bg-primary text-white rounded-1"
                 onClick={handleSubmit}
+                disabled={!allDigitsEntered}
               >
                 {t("Verify")}
               </button>
