@@ -139,7 +139,6 @@ export const useCart = () => {
       console.log("error", error);
     }
   };
-
   return {
     deleteCartItem,
     onAddToCart,

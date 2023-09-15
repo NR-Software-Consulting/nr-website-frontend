@@ -1,5 +1,3 @@
-/** @format */
-
 import { gql } from "@apollo/client";
 
 export const ADD_TO_CART = gql`
@@ -33,7 +31,6 @@ export const ADD_TO_CART = gql`
     }
   }
 `;
-
 export const DELETE_FROM_CART = gql`
   mutation DeleteCart($deleteCartId: ID!) {
     deleteCart(id: $deleteCartId) {
@@ -53,7 +50,6 @@ export const DELETE_FROM_CART = gql`
     }
   }
 `;
-
 export const UPDATE_CART_QUANTITY = gql`
   mutation UpdateCart($updateCartId: ID!, $data: CartInput!) {
     updateCart(id: $updateCartId, data: $data) {
@@ -107,8 +103,6 @@ export const GET_ALL_CART_PRODUCT = gql`
     }
   }
 `;
-
-
 export const CREATE_ORDER = gql`
   mutation CreateOrder($data: OrderInput!) {
     createOrder(data: $data) {

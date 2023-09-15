@@ -1,16 +1,17 @@
 /** @format */
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMutation, gql } from "@apollo/client";
 import { useRouter } from "next/router";
-import { VERIFY_OTP, RESEND_OTP } from "@/graphql/mutation/auth";
+import { VERIFY_OTP, RESEND_OTP, LOGIN_USER } from "@/graphql/mutation/auth";
 import { setCookie } from "cookies-next";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { useTranslations } from "next-intl";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 
-const OtpVerification = ({ email, userData }) => {
+let userNotConfirmed = true;   /// This is not proper solution! 
+const OtpVerification = ({ email, userData, isLogin, password }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [otp, setOtp] = useState(["", "", "", ""]);
@@ -18,6 +19,7 @@ const OtpVerification = ({ email, userData }) => {
   const inputRefs = useRef([]);
   const [verifyOtp] = useMutation(VERIFY_OTP);
   const [resendOtp] = useMutation(RESEND_OTP);
+  const [loginMutation] = useMutation(LOGIN_USER);
   const handleChange = (index, value) => {
     if (value.match(/^[0-9]{0,1}$/)) {
       const newOtp = [...otp];
@@ -40,7 +42,44 @@ const OtpVerification = ({ email, userData }) => {
       }
     }
   };
+  const getUserDetailByLogin = async () => {
+    try {
+      const response = await loginMutation({
+        variables: {
+          input: {
+            identifier: email,
+            password: password,
+          },
+        },
+      });
+      const confirmedUser = response?.data?.login?.user?.confirmed
+      if (confirmedUser === true) {
+        const { jwt, user, company_profile, user_profile } = response?.data?.login;
+        let userData = {
+          ...user,
+          name: company_profile ? company_profile?.companyName : user_profile?.first_name,
+          profile_image: user_profile ? user_profile?.profile_image : company_profile?.profile_image,
+          company_profile: company_profile,
+          user_profile: user_profile,
+          formType: user?.type
+        };
 
+        setCookie("token", jwt);
+        setCookie("userInfo", JSON.stringify(userData));
+        dispatch(
+          userLoggedIn({
+            accessToken: jwt,
+            user: userData,
+            isAuthenticated: true,
+          })
+        );
+        notifySuccess("Successfully LoggedIn!");
+        router.push("/");
+      }
+    } catch (error) {
+      notifyError(error?.message || "Something went wrong during login.");
+    }
+  }
   const handleSubmit = async () => {
     const enteredOtp = otp.join("");
     try {
@@ -55,17 +94,22 @@ const OtpVerification = ({ email, userData }) => {
 
       const { status, message } = verifyOtpResponse.data.verifyOtp;
       if (status === true) {
-        setCookie("token", userData.jwt);
-        setCookie("userInfo", JSON.stringify(userData));
-        dispatch(
-          userLoggedIn({
-            accessToken: userData.jwt,
-            user: userData,
-            isAuthenticated: true,
-          })
-        );
-        notifySuccess("User Registered Successfully!");
-        router.push("/");
+        if (isLogin) {
+          getUserDetailByLogin()
+        }
+        else {
+          setCookie("token", userData.jwt);
+          setCookie("userInfo", JSON.stringify(userData));
+          dispatch(
+            userLoggedIn({
+              accessToken: userData.jwt,
+              user: userData,
+              isAuthenticated: true,
+            })
+          );
+          notifySuccess("User Registered Successfully!");
+          router.push("/");
+        }
       } else {
         notifyError(message);
         setError("Invalid OTP");
@@ -100,6 +144,13 @@ const OtpVerification = ({ email, userData }) => {
       notifyError(error?.message || "Something went wrong during OTP Resend.");
     }
   };
+
+  useEffect(() => {
+    if (isLogin && userNotConfirmed) {
+      userNotConfirmed = false
+      handleResend()
+    }
+  }, [])
   const t = useTranslations("header");
   return (
     <div className="container d-flex justify-content-center align-items-center my-5">
