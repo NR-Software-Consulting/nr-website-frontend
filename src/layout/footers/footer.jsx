@@ -117,7 +117,7 @@ const Footer = ({ socialLinks }) => {
                     className="tp-footer-widget-content"
                     style={{ fontWeight: 600 }}
                   >
-                    <ol
+                    <div
                       style={{
                         listStyle: "none",
                         lineHeight: "2.5",
@@ -152,7 +152,7 @@ const Footer = ({ socialLinks }) => {
                           <Link href="/orders">{t("My Orders")}</Link>
                         )}
                       </li>
-                    </ol>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -163,7 +163,7 @@ const Footer = ({ socialLinks }) => {
                     className="tp-footer-widget-content"
                     style={{ fontWeight: 600 }}
                   >
-                    <ol
+                    <div
                       style={{
                         listStyle: "none",
                         lineHeight: "2.5",
@@ -183,7 +183,7 @@ const Footer = ({ socialLinks }) => {
                       <li>
                         <Link href="/contact">{t("Contact Us")}</Link>
                       </li>
-                    </ol>
+                    </div>
                   </div>
                 </div>
               </div>
