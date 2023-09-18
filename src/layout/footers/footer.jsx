@@ -110,79 +110,71 @@ const Footer = ({ socialLinks }) => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-2 col-lg-3 col-md-3 col-sm-6 ">
+              <div className="col-xl-2 col-lg-3 col-md-3 col-sm-6">
                 <div className="tp-footer-widget footer-col-2 pb-20">
                   <h4 className="tp-footer-widget-title">{t("My Account")}</h4>
                   <div
                     className="tp-footer-widget-content"
-                    style={{ fontWeight: 600 }}
+                    style={{
+                      fontWeight: 600,
+                      listStyle: "none",
+                      lineHeight: "2.5",
+                      fontFamily: "var(--tp-ff-roboto)",
+                    }}
                   >
-                    <div
-                      style={{
-                        listStyle: "none",
-                        lineHeight: "2.5",
-                        fontFamily: "var(--tp-ff-roboto)",
-                      }}
-                    >
-                      <li>
-                        {!authChecked ? (
-                          <Link href="/login">{t("Cart")}</Link>
-                        ) : (
-                          <Link href="/cart">{t("Cart")}</Link>
-                        )}
-                      </li>
-                      <li>
-                        {!authChecked ? (
-                          <Link href="/login">{t("Wishlist")}</Link>
-                        ) : (
-                          <Link href="/wishlist">{t("Wishlist")}</Link>
-                        )}
-                      </li>
-                      <li>
-                        {!authChecked ? (
-                          <Link href="/login">{t("My Account")}</Link>
-                        ) : (
-                          <Link href="/profile">{t("My Account")}</Link>
-                        )}
-                      </li>
-                      <li>
-                        {!authChecked ? (
-                          <Link href="/login">{t("My Orders")}</Link>
-                        ) : (
-                          <Link href="/orders">{t("My Orders")}</Link>
-                        )}
-                      </li>
+                    <div>
+                      {!authChecked ? (
+                        <Link href="/login">{t("Cart")}</Link>
+                      ) : (
+                        <Link href="/cart">{t("Cart")}</Link>
+                      )}
+                    </div>
+                    <div>
+                      {!authChecked ? (
+                        <Link href="/login">{t("Wishlist")}</Link>
+                      ) : (
+                        <Link href="/wishlist">{t("Wishlist")}</Link>
+                      )}
+                    </div>
+                    <div>
+                      {!authChecked ? (
+                        <Link href="/login">{t("My Account")}</Link>
+                      ) : (
+                        <Link href="/profile">{t("My Account")}</Link>
+                      )}
+                    </div>
+                    <div>
+                      {!authChecked ? (
+                        <Link href="/login">{t("My Orders")}</Link>
+                      ) : (
+                        <Link href="/orders">{t("My Orders")}</Link>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-3 pb-20 ">
+                <div className="tp-footer-widget footer-col-3 pb-20">
                   <h4 className="tp-footer-widget-title">{t("Information")}</h4>
                   <div
                     className="tp-footer-widget-content"
-                    style={{ fontWeight: 600 }}
+                    style={{
+                      fontWeight: 600,
+                      listStyle: "none",
+                      lineHeight: "2.5",
+                      fontFamily: "var(--tp-ff-roboto)",
+                    }}
                   >
-                    <div
-                      style={{
-                        listStyle: "none",
-                        lineHeight: "2.5",
-                        fontFamily: "var(--tp-ff-roboto)",
-                      }}
-                    >
-                      <li>
-                        <Link href="/privacy-policy">
-                          {t("Privacy Policy")}
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="./terms-and-condition">
-                          {t("Terms & Conditions")}
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/contact">{t("Contact Us")}</Link>
-                      </li>
+                    <div>
+                      <Link href="/privacy-policy">{t("Privacy Policy")}</Link>
+                    </div>
+                    <div>
+                      <Link href="./terms-and-condition">
+                        {t("Terms & Conditions")}
+                      </Link>
+                    </div>
+                    <div>
+                      <Link href="/contact">{t("Contact Us")}</Link>
                     </div>
                   </div>
                 </div>
