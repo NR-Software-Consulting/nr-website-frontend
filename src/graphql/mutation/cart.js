@@ -20,6 +20,7 @@ export const ADD_TO_CART = gql`
                   }
                 }
                 sku
+                discount
                 title
                 description
                 slug

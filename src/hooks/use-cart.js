@@ -20,7 +20,9 @@ export const useCart = () => {
     (accumulator, product) =>
       accumulator +
       (product.attributes?.product?.data?.attributes?.price -
-        product.attributes?.product?.data?.attributes?.discount) *
+        (product.attributes?.product?.data?.attributes?.price *
+          product.attributes?.product?.data?.attributes?.discount) /
+          100) *
         product?.attributes?.quantity,
     0
   );
@@ -81,6 +83,12 @@ export const useCart = () => {
       if (response?.data?.createCart?.data) {
         dispatch(
           on_update_product([...cartItems, response.data.createCart.data])
+        );
+        console.log(
+          "response.data.createCart.data",
+          response.data.createCart.data,
+          "------",
+          cartItems[0]
         );
       }
       notifySuccess(

@@ -1,40 +1,38 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryFilter from "../shop/shop-filter/category-filter";
-import ColorFilter from "../shop/shop-filter/color-filter";
 import PriceFilter from "../shop/shop-filter/price-filter";
 import ProductBrand from "../shop/shop-filter/product-brand";
-import StatusFilter from "../shop/shop-filter/status-filter";
-import TopRatedProducts from "../shop/shop-filter/top-rated-products";
-import { handleFilterSidebarClose, handleFilterSidebarOpen } from "@/redux/features/shop-filter-slice";
+import { handleFilterSidebarClose } from "@/redux/features/shop-filter-slice";
 import ResetButton from "../shop/shop-filter/reset-button";
+
 
 const ShopFilterOffCanvas = ({
   all_products,
+  _all_products,
+  products,
   otherProps,
-  right_side = false,
+  categories,
+  subCategories,
+  all_brands,
+  right_side = false, selectedCategories, setSelectedCategories, handleCategoryFilter, selectedSubCategories, setSelectedSubCategories, handleSubCategoryFilter, selectedBrands, setSelectedBrands, handleBrandFilter, priceValue, setPriceValue, maxPrice, handleChanges, handlePriceFilter, setAllProducts, handleSortingFilter, handleResetFilters, paginatedData
 }) => {
-  const { priceFilterValues, setCurrPage } = otherProps;
+  // const { priceFilterValues, setCurrPage } = otherProps;
   const { filterSidebar } = useSelector((state) => state.shopFilter);
   const dispatch = useDispatch();
-
-  // max price
-  const maxPrice = all_products.reduce((max, product) => {
-    return product.price > max ? product.price : max;
-  }, 0);
+  const { currPage, setCurrPage } = otherProps;
 
   return (
     <>
       <div
-        className={`tp-filter-offcanvas-area ${
-          filterSidebar ? "offcanvas-opened" : ""
-        }`}
+        className={`tp-filter-offcanvas-area ${filterSidebar ? "offcanvas-opened" : ""
+          }`}
       >
         <div className="tp-filter-offcanvas-wrapper">
           <div className="tp-filter-offcanvas-close">
             <button
               type="button"
-              onClick={() => dispatch(handleFilterSidebarOpen())}
+              onClick={() => dispatch(handleFilterSidebarClose())}
               className="tp-filter-offcanvas-close-btn filter-close-btn"
             >
               <i className="fa-solid fa-xmark"></i>
@@ -44,21 +42,31 @@ const ShopFilterOffCanvas = ({
           <div className="tp-shop-sidebar">
             {/* filter */}
             <PriceFilter
-              priceFilterValues={priceFilterValues}
+              priceValue={priceValue}
+              handleChanges={handleChanges}
               maxPrice={maxPrice}
+              handleFilterClick={handlePriceFilter}
             />
-            {/* status */}
-            <StatusFilter setCurrPage={setCurrPage} shop_right={right_side} />
             {/* categories */}
-            <CategoryFilter setCurrPage={setCurrPage} shop_right={right_side} />
-            {/* color */}
-            <ColorFilter setCurrPage={setCurrPage} shop_right={right_side} />
-            {/* product rating */}
-            <TopRatedProducts />
+            <CategoryFilter
+              products={products}
+              categoriesList={categories}
+              subCategoriesList={subCategories}
+              handleCategoryFilter={handleCategoryFilter}
+              handleSubCategoryFilter={handleSubCategoryFilter}
+              selectedCategories={selectedCategories}
+              selectedSubCategories={selectedSubCategories}
+            />
             {/* brand */}
-            <ProductBrand setCurrPage={setCurrPage} shop_right={right_side} />
+            <ProductBrand
+              setCurrPage={setCurrPage}
+              all_brands={all_brands}
+              handleBrandFilter={handleBrandFilter}
+              selectedBrands={selectedBrands}
+            />
             {/* reset filter */}
-            <ResetButton shop_right={right_side} />
+            <ResetButton handleResetFilters={handleResetFilters}
+            />
           </div>
         </div>
       </div>

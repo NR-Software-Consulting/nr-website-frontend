@@ -107,6 +107,20 @@ export const PRODUCT_DETAIL_DATA = gql`
               }
             }
           }
+          brands {
+            data {
+              attributes {
+                name
+              }
+            }
+          }
+          sub_category {
+            data {
+              attributes {
+                name
+              }
+            }
+          }
         }
       }
     }

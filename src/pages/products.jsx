@@ -5,13 +5,10 @@ import ShopBreadcrumb from "@/components/breadcrumb/shop-breadcrumb";
 import ShopArea from "@/components/shop/shop-area";
 import ErrorMsg from "@/components/common/error-msg";
 import Footer from "@/layout/footers/footer";
-import ShopFilterOffCanvas from "@/components/common/shop-filter-offcanvas";
-import ShopLoader from "@/components/loader/shop/shop-loader";
 import client from "@/graphql/apollo-client";
 import Header from "@/layout/headers/header";
 import { CATEGORIES_LIST, SUB_CATEGORIES_LIST } from "@/graphql/query/shop";
 import { PRODUCTS_DATA } from "@/graphql/query/products";
-import { useRouter } from "next/router"; // Import the useRouter hook
 import { ALL_BRANDS_DATA } from "@/graphql/query/brands";
 import { SOCIAL_LINKS } from "@/graphql/query/footer";
 

@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import Pagination from "@/ui/Pagination";
 import ProductItem from "../products/product-item";
 import CategoryFilter from "./shop-filter/category-filter";
-import ColorFilter from "./shop-filter/color-filter";
 import PriceFilter from "./shop-filter/price-filter";
 import ProductBrand from "./shop-filter/product-brand";
-import StatusFilter from "./shop-filter/status-filter";
-import TopRatedProducts from "./shop-filter/top-rated-products";
 import ShopListItem from "./shop-list-item";
 import ShopTopLeft from "./shop-top-left";
 import ShopTopRight from "./shop-top-right";
@@ -14,10 +11,9 @@ import ResetButton from "./shop-filter/reset-button";
 import { useRouter } from "next/router";
 import { useLazyQuery } from "@apollo/client";
 import { PRODUCTS_DATA } from "@/graphql/query/products";
-import { getCookie } from "cookies-next";
-import ShopLoader from "../loader/shop/shop-loader";
 import useLoadingState from "@/hooks/use-loading";
 import SearchPrdLoader from "../loader/search-prd-loader";
+import ShopFilterOffCanvas from "../common/shop-filter-offcanvas";
 
 const ShopArea = ({
   all_products: _all_products,
@@ -38,11 +34,10 @@ const ShopArea = ({
   const [filteredRows, setFilteredRows] = useState(_all_products);
   const [pageStart, setPageStart] = useState(0);
   const [countOfPage, setCountOfPage] = useState(12);
-  const token = getCookie("token");
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectValue, setSelectValue] = useState("");
   const maxPrice = products.reduce((max, product) => {
-    const productPrice = product.attributes.price;
+    const productPrice = product?.attributes?.price;
     return productPrice > max ? productPrice : max;
   }, 0);
   const [priceValue, setPriceValue] = useState([0, maxPrice]);
@@ -275,7 +270,6 @@ const ShopArea = ({
 
   const handleChanges = (val) => {
     setPriceValue(val);
-    // handlePriceFilter(val)
   };
 
   // handlePriceFilter
@@ -539,7 +533,7 @@ const ShopArea = ({
       <section className="tp-shop-area pb-120">
         <div className="container">
           <div className="row">
-            <div className="col-xl-3 col-lg-4">
+            <div className="col-xl-3 col-lg-4 d-none d-lg-block" >
               <div className="tp-shop-sidebar mr-10">
                 {/* filter */}
                 <PriceFilter
@@ -548,8 +542,6 @@ const ShopArea = ({
                   maxPrice={maxPrice}
                   handleFilterClick={handlePriceFilter}
                 />
-                {/* status */}
-                {/* <StatusFilter setCurrPage={setCurrPage} /> */}
                 {/* categories */}
                 <CategoryFilter
                   products={products}
@@ -560,13 +552,7 @@ const ShopArea = ({
                   selectedCategories={selectedCategories}
                   selectedSubCategories={selectedSubCategories}
                 />
-                {/* color */}
-                {/* <ColorFilter
-                  setCurrPage={setCurrPage}
-                  subCategoriesList={subCategories}
-                /> */}
-                {/* product rating */}
-                {/* <TopRatedProducts /> */}
+                {/* Brands */}
                 <ProductBrand
                   setCurrPage={setCurrPage}
                   all_brands={all_brands}
@@ -591,9 +577,9 @@ const ShopArea = ({
                             products.length === 0
                               ? 0
                               : filteredRows.slice(
-                                  pageStart,
-                                  pageStart + countOfPage
-                                ).length
+                                pageStart,
+                                pageStart + countOfPage
+                              ).length
                           }
                           total={all_products.length}
                         />
@@ -678,6 +664,33 @@ const ShopArea = ({
             </div>
           </div>
         </div>
+        <ShopFilterOffCanvas
+          all_products={all_products}
+          _all_products={_all_products}
+          setAllProducts={setAllProducts}
+          products={products}
+          otherProps={otherProps}
+          categories={categories}
+          subCategories={subCategories}
+          all_brands={all_brands}
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
+          handleCategoryFilter={handleCategoryFilter}
+          selectedSubCategories={selectedSubCategories}
+          setSelectedSubCategories={setSelectedSubCategories}
+          handleSubCategoryFilter={handleSubCategoryFilter}
+          selectedBrands={selectedBrands}
+          setSelectedBrands={setSelectedBrands}
+          handleBrandFilter={handleBrandFilter}
+          priceValue={priceValue}
+          setPriceValue={setPriceValue}
+          maxPrice={maxPrice}
+          handleChanges={handleChanges}
+          handlePriceFilter={handlePriceFilter}
+          handleSortingFilter={handleSortingFilter}
+          handleResetFilters={handleResetFilters}
+          paginatedData={paginatedData}
+        />
       </section>
     </>
   );

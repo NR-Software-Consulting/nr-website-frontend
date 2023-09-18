@@ -164,7 +164,9 @@ const SingleOrder = ({ params }) => {
                         <td>SAR {item.price}</td>
                         <td>SAR {item.discount || 0}</td>
                         <td>
-                          SAR {(item.price - item.discount) * item.quantity}
+                          SAR{" "}
+                          {(item.price - (item.price * item.discount) / 100) *
+                            item.quantity}
                         </td>
                       </tr>
                     ))}
@@ -179,7 +181,8 @@ const SingleOrder = ({ params }) => {
                       <p className="tp-font-medium text-uppercase">COD</p>
                     </div>
                   </div>
-                  <div className="col-lg-3 col-md-4">
+                  {/*
+                <div className="col-lg-3 col-md-4">
                     <div className="invoice__discount-cost mb-30">
                       <h5 className="mb-0">{t("Discount")}</h5>
                       <p className="tp-font-medium">
@@ -187,6 +190,7 @@ const SingleOrder = ({ params }) => {
                       </p>
                     </div>
                   </div>
+                */}
                   <div className="col-lg-3 col-md-4">
                     <div className="invoice__total-ammount mb-30">
                       <h5 className="mb-0">{t("Total Ammount")}</h5>

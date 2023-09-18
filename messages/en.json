@@ -228,10 +228,10 @@
     "LogIn": "LogIn",
     "Phone Number": "Phone Number",
     "Title": "Title",
-    "Default Sorting":"Default Sorting",
-    "Low to High":"Low to High",
-    "High to Low":"High to Low",
-    "New Arrival":"New Arrival"
-
+    "Default Sorting": "Default Sorting",
+    "Low to High": "Low to High",
+    "High to Low": "High to Low",
+    "New Arrival": "New Arrival",
+    "Brand": "Brand"
   }
 }

@@ -110,8 +110,8 @@ const Footer = ({ socialLinks }) => {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-2 col-lg-3 col-md-3 col-sm-6">
-                <div className="tp-footer-widget footer-col-2 mb-20">
+              <div className="col-xl-2 col-lg-3 col-md-3 col-sm-6 ">
+                <div className="tp-footer-widget footer-col-2 pb-20">
                   <h4 className="tp-footer-widget-title">{t("My Account")}</h4>
                   <div
                     className="tp-footer-widget-content"
@@ -120,7 +120,6 @@ const Footer = ({ socialLinks }) => {
                     <ol
                       style={{
                         listStyle: "none",
-                        marginLeft: "-30px",
                         lineHeight: "2.5",
                         fontFamily: "var(--tp-ff-roboto)",
                       }}
@@ -158,7 +157,7 @@ const Footer = ({ socialLinks }) => {
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                <div className="tp-footer-widget footer-col-3 mb-20">
+                <div className="tp-footer-widget footer-col-3 pb-20 ">
                   <h4 className="tp-footer-widget-title">{t("Information")}</h4>
                   <div
                     className="tp-footer-widget-content"
@@ -167,7 +166,6 @@ const Footer = ({ socialLinks }) => {
                     <ol
                       style={{
                         listStyle: "none",
-                        marginLeft: "-30px",
                         lineHeight: "2.5",
                         fontFamily: "var(--tp-ff-roboto)",
                       }}

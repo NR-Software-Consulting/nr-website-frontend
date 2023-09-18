@@ -18,8 +18,6 @@ const ProductDetailsArea = ({ productItem }) => {
               <DetailsThumbWrapper
                 activeImg={activeImg}
                 imageURLs={productItem}
-                imgWidth={580}
-                imgHeight={670}
                 videoId={videoId}
                 status={status}
               />

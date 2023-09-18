@@ -84,8 +84,8 @@ const CartMiniSidebar = () => {
                       >
                         <Image
                           src={
-                            item.attributes.product.data.attributes.images
-                              .data[0].attributes.url
+                            item?.attributes?.product?.data?.attributes?.images
+                              ?.data[0]?.attributes?.url
                           }
                           width={70}
                           height={60}
@@ -98,20 +98,24 @@ const CartMiniSidebar = () => {
                         <Link
                           href={`/product/${item?.attributes?.product?.data?.attributes?.slug}`}
                         >
-                          {item.attributes.product.data.attributes.title}
+                          {item?.attributes?.product?.data?.attributes?.title}
                         </Link>
                       </h5>
                       <div className="cartmini__price-wrapper">
                         <span className="cartmini__price">
                           SAR{" "}
                           {(
-                            item.attributes.product.data.attributes.price -
-                            item.attributes.product.data.attributes.discount
+                            item?.attributes?.product?.data?.attributes?.price -
+                            (item?.attributes?.product?.data?.attributes
+                              ?.price *
+                              item?.attributes?.product?.data?.attributes
+                                ?.discount) /
+                              100
                           )?.toFixed(2)}
                         </span>
                         <span className="cartmini__quantity">
                           {" "}
-                          x {item.attributes.quantity}
+                          x {item?.attributes?.quantity}
                         </span>
                       </div>
                     </div>

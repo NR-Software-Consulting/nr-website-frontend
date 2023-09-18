@@ -33,10 +33,11 @@ const CheckoutOrderArea = ({ checkoutData }) => {
               <span>
                 SAR{" "}
                 {(
-                  (item?.attributes?.product?.data?.attributes?.price -
-                    item?.attributes?.product?.data?.attributes?.discount) *
-                  item?.attributes?.quantity
-                ).toFixed(2)}
+                  item?.attributes?.product?.data?.attributes?.price -
+                  (item?.attributes?.product?.data?.attributes?.price *
+                    item?.attributes?.product?.data?.attributes?.discount) /
+                    100
+                )?.toFixed(2)}
               </span>
             </li>
           ))}

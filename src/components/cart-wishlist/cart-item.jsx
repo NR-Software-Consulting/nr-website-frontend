@@ -86,7 +86,9 @@ const CartItem = ({ product }) => {
       </td>
       {/* price */}
       <td className="tp-cart-price">
-        <span>SAR {((price - discount) * orderQuantity).toFixed(2)}</span>
+        <span>
+          SAR {((price - (price * discount) / 100) * orderQuantity).toFixed(2)}
+        </span>
       </td>
       {/* quantity */}
       <td className="tp-cart-quantity">

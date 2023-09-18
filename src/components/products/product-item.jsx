@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Rating } from "react-simple-star-rating";
 import dayjs from "dayjs";
-import { useDispatch, useSelector } from "react-redux";
-import { Cart, QuickView, Wishlist, WishlistTwo } from "@/svg";
+import { useDispatch } from "react-redux";
+import { Cart, QuickView, Wishlist } from "@/svg";
 import Timer from "@/components/common/timer";
 import { handleProductModal } from "@/redux/features/productModalSlice";
-import { add_cart_product } from "@/redux/features/cartSlice";
-import { add_to_wishlist } from "@/redux/features/wishlist-slice";
 import useAuthCheck from "@/hooks/use-auth-check";
 import { useRouter } from "next/router";
-import { notifyError, notifySuccess } from "@/utils/toast";
+import { notifyError } from "@/utils/toast";
 import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
 
@@ -21,19 +18,19 @@ const ProductItem = ({ product, offer_style = false }) => {
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
   const isAddedToCart =
-    cartItems?.some((prd) => prd.attributes.product.data.id === product.id) ||
-    false;
+    cartItems?.some(
+      (prd) => prd?.attributes?.product?.data?.id === product?.id
+    ) || false;
   const isAddedToWishlist = wishlist.some(
-    (prd) => prd?.attributes?.product?.data?.id === product.id
+    (prd) => prd?.attributes?.product?.data?.id === product?.id
   );
   const wishlistItem = wishlist.find(
-    (prd) => prd?.attributes?.product?.data?.id === product.id
+    (prd) => prd?.attributes?.product?.data?.id === product?.id
   );
   const dispatch = useDispatch();
   const [ratingVal, setRatingVal] = useState(0);
   const authChecked = useAuthCheck();
   const route = useRouter();
-
   // useEffect(() => {
   //   if (reviews && reviews.length > 0) {
   //     const rating =
@@ -80,14 +77,12 @@ const ProductItem = ({ product, offer_style = false }) => {
               style={{ width: "100%", height: "300px", objectFit: "cover" }}
               alt="product-electronic"
             />
-
             <div className="tp-product-badge">
               {status === "out-of-stock" && (
                 <span className="product-hot">out-stock</span>
               )}
             </div>
           </Link>
-          {/*  product action */}
           <div className="tp-product-action">
             <div className="tp-product-action-item d-flex flex-column">
               {isAddedToCart && authChecked ? (
@@ -187,8 +182,10 @@ const ProductItem = ({ product, offer_style = false }) => {
                   {" "}
                   SAR{" "}
                   {(
-                    Number(product?.attributes?.price) -
-                    Number(product?.attributes?.discount)
+                    product?.attributes?.price -
+                    (product?.attributes?.price *
+                      product?.attributes?.discount) /
+                      100
                   ).toFixed(2)}
                 </span>
               </>

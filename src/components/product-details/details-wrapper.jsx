@@ -21,10 +21,8 @@ const DetailsWrapper = ({
   detailsBottom = false,
 }) => {
   const { imageURLs, discount, status, offerExpiryTime } = productItem || {};
-
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
-
   const { onAddToCart, cartItems, deleteCartItem } = useCart();
   const t = useTranslations("header");
   const product = productItem[0];
@@ -131,7 +129,6 @@ const DetailsWrapper = ({
       ) : (
         <p>No Description</p>
       )}
-      {/* price */}
       <div className="tp-product-details-price-wrapper mb-20">
         {product?.attributes?.discount > 0 ? (
           <>
@@ -152,52 +149,18 @@ const DetailsWrapper = ({
           </span>
         )}
       </div>
-
-      {/* variations */}
-      {imageURLs?.color && (
-        <div className="tp-product-details-variation">
-          <div className="tp-product-details-variation-item">
-            <h4 className="tp-product-details-variation-title">Color :</h4>
-            <div className="tp-product-details-variation-list">
-              {imageURLs.map((item, i) => (
-                <button
-                  onClick={() => handleImageActive(item)}
-                  key={i}
-                  type="button"
-                  className={`color tp-color-variation-btn ${item.img === activeImg ? "active" : ""
-                    }`}
-                >
-                  <span
-                    data-bg-color={`${item.color.clrCode}`}
-                    style={{ backgroundColor: `${item.color.clrCode}` }}
-                  ></span>
-                  <span className="tp-color-variation-tootltip">
-                    {item.color.name}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* if ProductDetailsCountdown true start */}
       {offerExpiryTime && (
         <ProductDetailsCountdown offerExpiryTime={offerExpiryTime} />
       )}
-      {/* if ProductDetailsCountdown true end */}
-      {/* actions */}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">
-          {/* product quantity */}
           {!isAddedToCart && (
             <ProductQuantity
               onQuantityChange={handleQuantityChange}
               productId={product?.id}
             />
           )}
-          {/* product quantity */}
           <div className="tp-product-details-add-to-cart mb-15 w-100">
             {!isAddedToCart ? (
               <button
@@ -229,8 +192,8 @@ const DetailsWrapper = ({
           onClick={() =>
             isAddedToWishlist
               ? removeProductToWishList({
-                deleteFavouriteId: wishlistItem.id,
-              })
+                  deleteFavouriteId: wishlistItem.id,
+                })
               : handleWishlistProduct(product)
           }
           type="button"
@@ -250,7 +213,8 @@ const DetailsWrapper = ({
         <DetailsBottomInfo
           category={product?.attributes?.category?.data?.attributes?.name}
           sku={product?.attributes?.sku}
-          tag={product?.attributes?.category?.data?.attributes?.name}
+          tag={product?.attributes?.sub_category?.data?.attributes?.name}
+          brand={product?.attributes?.brands?.data?.attributes?.name}
         />
       )}
     </div>

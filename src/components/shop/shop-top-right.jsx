@@ -33,7 +33,7 @@ const ShopTopRight = ({ handleSortingFilter, selectValue }) => {
           <option value="isTrending">{t("New Arrival")}</option>
         </select>
       </div>
-      {/* <div className="tp-shop-top-filter">
+      <div className="tp-shop-top-filter d-block d-lg-none">
         <button
           onClick={() => dispatch(handleFilterSidebarOpen())}
           type="button"
@@ -44,7 +44,7 @@ const ShopTopRight = ({ handleSortingFilter, selectValue }) => {
           </span>{" "}
           {t("Filter")}
         </button>
-      </div> */}
+      </div>
     </div>
   );
 };

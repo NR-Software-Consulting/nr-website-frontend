@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 const PriceFilter = ({ priceValue, handleChanges, maxPrice, handleFilterClick }) => {
   const t = useTranslations("header");
 
-
   return (
     <>
       <div className="tp-shop-widget mb-35">
