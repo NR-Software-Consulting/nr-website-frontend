@@ -136,13 +136,6 @@ const ShopListItem = ({ product }) => {
       </div>
       <div className="tp-product-list-content w-100 d-flex align-items-center">
         <div className="tp-product-content-2 pt-15 pb-15">
-          <div className="tp-product-tag-2">
-            {tags?.map((t, i) => (
-              <a key={i} href="#">
-                {t}
-              </a>
-            ))}
-          </div>
           <h3 className="tp-product-title-2">
             <Link href={`/product/${product?.attributes?.slug}`}>
               {product?.attributes?.title.length > 30
@@ -151,20 +144,17 @@ const ShopListItem = ({ product }) => {
             </Link>
             <p>{product.attributes.category.data.attributes.name}</p>
           </h3>
-          <p>
-            <Link href={`/product/${product?.attributes?.slug}`}>
-              {" "}
-              {product.attributes?.description?.length > 0 ? (
-                <p>
-                  {product.attributes?.description?.length > 50
-                    ? `${product.attributes?.description.slice(0, 100)}...`
-                    : product.attributes?.description}
-                </p>
-              ) : (
-                <p>No Discription</p>
-              )}
-            </Link>
-          </p>
+          <Link href={`/product/${product?.attributes?.slug}`}>
+            {product.attributes?.description?.length > 0 ? (
+              <p>
+                {product.attributes?.description?.length > 50
+                  ? `${product.attributes?.description.slice(0, 100)}...`
+                  : product.attributes?.description}
+              </p>
+            ) : (
+              <p>No Discription</p>
+            )}
+          </Link>
           <div className="tp-product-rating d-flex align-items-center">
             <div className="tp-product-rating-icon">
               <Rating

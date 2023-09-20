@@ -24,7 +24,8 @@ const ShopTopLeft = ({ total, showing = 9 }) => {
                 <GridTab />
               </button>
             </li>
-            <li className="nav-item" role="presentation">
+            {/*
+          <li className="nav-item" role="presentation">
               <button
                 className="nav-link"
                 id="list-tab"
@@ -39,6 +40,7 @@ const ShopTopLeft = ({ total, showing = 9 }) => {
                 <ListTab />
               </button>
             </li>
+          */}
           </ul>
         </div>
         <div className="tp-shop-top-result">

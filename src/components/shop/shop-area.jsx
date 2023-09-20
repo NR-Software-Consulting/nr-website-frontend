@@ -41,9 +41,6 @@ const ShopArea = ({
     return productPrice > max ? productPrice : max;
   }, 0);
   const [priceValue, setPriceValue] = useState([0, maxPrice]);
-
-  // handleCategoryFilterfromheader
-
   useEffect(() => {
     const { categoryId, subCategoryId } = router.query;
     if (categoryId && subCategoryId) {
@@ -58,9 +55,6 @@ const ShopArea = ({
       setFilteredRows(all_products);
     }
   }, [router.query.categoryId, router.query.subCategoryId]);
-
-  // handleCategoryFilter
-
   const handleCategoryFilter = async (
     categoryId,
     category,
@@ -100,7 +94,6 @@ const ShopArea = ({
           },
         },
       };
-
       if (selectedSubs.length > 0) {
         newData.variables.filters.sub_category = {
           id: {
@@ -108,7 +101,6 @@ const ShopArea = ({
           },
         };
       }
-
       if (priceValue[0] > 0 || priceValue[1] < maxPrice) {
         newData.variables.filters.price = {
           between: [
@@ -158,7 +150,6 @@ const ShopArea = ({
       console.log("error", error);
     }
   };
-  // subCategory Filter
   const handleSubCategoryFilter = async (
     subCategoryId,
     categoryId,
@@ -181,7 +172,6 @@ const ShopArea = ({
       } else {
         updatedSubCategories.push(subCategoryId);
       }
-
       const _selectedCategories =
         categoryItem?.id == undefined ? [] : [...selectedCategories];
       if (
@@ -198,7 +188,6 @@ const ShopArea = ({
         }
       }
       setSelectedSubCategories(updatedSubCategories);
-
       let newData = {
         variables: {
           filters: {},
@@ -207,7 +196,6 @@ const ShopArea = ({
           },
         },
       };
-
       if (updatedSubCategories?.length > 0) {
         newData.variables.filters.sub_category = {
           id: {
@@ -265,14 +253,9 @@ const ShopArea = ({
       console.log("error", error);
     }
   };
-
-  // Handle Price filter
-
   const handleChanges = (val) => {
     setPriceValue(val);
   };
-
-  // handlePriceFilter
   const handlePriceFilter = async () => {
     try {
       let newData = {
@@ -317,7 +300,6 @@ const ShopArea = ({
         };
       }
       let response = await searchProducts(newData);
-
       if (response.data.products.data) {
         const pricefilteredProducts = response.data.products.data;
         setAllProducts(pricefilteredProducts);
@@ -333,9 +315,6 @@ const ShopArea = ({
       console.log("error", error);
     }
   };
-
-  // handleBrandFilter
-
   const handleBrandFilter = async (selectedBrands) => {
     try {
       setSelectedBrands(selectedBrands);
@@ -347,7 +326,6 @@ const ShopArea = ({
           },
         },
       };
-
       if (selectedSubCategories.length > 0) {
         newData.variables.filters.sub_category = {
           id: {
@@ -355,7 +333,6 @@ const ShopArea = ({
           },
         };
       }
-
       if (priceValue[0] > 0 || priceValue[1] < maxPrice) {
         newData.variables.filters.price = {
           between: [
@@ -533,7 +510,7 @@ const ShopArea = ({
       <section className="tp-shop-area pb-120">
         <div className="container">
           <div className="row">
-            <div className="col-xl-3 col-lg-4 d-none d-lg-block" >
+            <div className="col-xl-3 col-lg-4 d-none d-lg-block">
               <div className="tp-shop-sidebar mr-10">
                 {/* filter */}
                 <PriceFilter
@@ -577,9 +554,9 @@ const ShopArea = ({
                             products.length === 0
                               ? 0
                               : filteredRows.slice(
-                                pageStart,
-                                pageStart + countOfPage
-                              ).length
+                                  pageStart,
+                                  pageStart + countOfPage
+                                ).length
                           }
                           total={all_products.length}
                         />
