@@ -1,4 +1,4 @@
-@use '../../utils' as *;
+@use "../../utils" as *;
 
 /*----------------------------------------*/
 /*  4.3 Mobilemenu css
@@ -81,7 +81,7 @@
       padding: 0;
       padding-left: 20px;
       padding-right: 20px;
-      @include rtl{
+      @include rtl {
         padding-right: 0px;
       }
 

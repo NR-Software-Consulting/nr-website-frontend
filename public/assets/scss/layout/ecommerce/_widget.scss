@@ -1,4 +1,4 @@
-@use '../../utils' as *;
+@use "../../utils" as *;
 
 /*----------------------------------------*/
 /*  8.15 Product Widget CSS
@@ -50,8 +50,6 @@
           border: 0;
           font-weight: 500;
           font-size: 14px;
-          &:focus {
-          }
         }
       }
       & .tp-shop-widget-filter-btn {
@@ -62,8 +60,7 @@
         border: 1px solid var(--tp-common-black);
         padding: 2px 21px;
         &:hover {
-          color: var(--tp-common-black);
-          background-color: var(--tp-common-white);
+          background-color: var(--tp-common-black);
           border: 1px solid var(--tp-common-black);
         }
       }
@@ -73,13 +70,12 @@
     & ul {
       & li {
         list-style: none;
-         @include rtl{
-            text-align: end;
-            padding-left: 10px;
-          }
+        @include rtl {
+          text-align: end;
+          padding-left: 10px;
+        }
         &:not(:last-child) {
           margin-bottom: 4px;
-         
         }
         & input {
           display: none;

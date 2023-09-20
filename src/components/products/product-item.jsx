@@ -74,7 +74,7 @@ const ProductItem = ({ product, offer_style = false }) => {
           <Link href={`/product/${product?.attributes?.slug}`}>
             <img
               src={product?.attributes?.images?.data[0]?.attributes?.url}
-              style={{ width: "100%", height: "300px", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
               alt="product-electronic"
             />
             <div className="tp-product-badge">
@@ -133,7 +133,9 @@ const ProductItem = ({ product, offer_style = false }) => {
                 {!isAddedToWishlist ? (
                   <span className="tp-product-tooltip">Add To Wishlist</span>
                 ) : (
-                  <span className="tp-product-tooltip">Remove To Wishlist</span>
+                  <span className="tp-product-tooltip">
+                    Remove From Wishlist
+                  </span>
                 )}
               </button>
             </div>

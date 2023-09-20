@@ -121,7 +121,10 @@ const PopUpWrapper = ({
           {textMore
             ? productItem?.attributes?.description
             : `${productItem?.attributes?.description?.substring(0, 100)}...`}
-          <span className="cursor-pointer" onClick={() => setTextMore(!textMore)}>
+          <span
+            className="cursor-pointer"
+            onClick={() => setTextMore(!textMore)}
+          >
             {textMore ? t("See Less") : t("See More")}
           </span>
         </p>
@@ -141,7 +144,7 @@ const PopUpWrapper = ({
                 Number(productItem?.attributes?.price) -
                 (Number(productItem?.attributes?.price) *
                   Number(productItem?.attributes?.discount)) /
-                100
+                  100
               ).toFixed(2)}
             </span>
           </>
@@ -161,8 +164,9 @@ const PopUpWrapper = ({
                   onClick={() => handleImageActive(item)}
                   key={i}
                   type="button"
-                  className={`color tp-color-variation-btn ${item.img === activeImg ? "active" : ""
-                    }`}
+                  className={`color tp-color-variation-btn ${
+                    item.img === activeImg ? "active" : ""
+                  }`}
                 >
                   <span
                     data-bg-color={`${item.color.clrCode}`}
@@ -192,12 +196,16 @@ const PopUpWrapper = ({
           <div className="tp-product-details-add-to-cart mb-15 w-100">
             <button
               onClick={() =>
-                isAddedToCart ? removeFromProduct() : handleAddProduct()
+                !isAddedToCart ? handleAddProduct() : removeFromProduct()
               }
-              disabled={status === "out-of-stock"}
               className="tp-product-details-add-to-cart-btn w-100"
+              style={{
+                backgroundColor: isAddedToCart
+                  ? "var(--tp-theme-primary)"
+                  : "var(--tp-common-black)",
+              }}
             >
-              {!isAddedToCart ? t("Add To Cart") : t("Remove From Cart")}
+              {isAddedToCart ? t("Remove from Cart") : t("Add To Cart")}
             </button>
           </div>
         </div>
@@ -213,8 +221,8 @@ const PopUpWrapper = ({
           onClick={() =>
             isAddedToWishlist
               ? removeProductToWishList({
-                deleteFavouriteId: wishlistItem.id,
-              })
+                  deleteFavouriteId: wishlistItem.id,
+                })
               : handleWishlistProduct(productItem)
           }
           type="button"

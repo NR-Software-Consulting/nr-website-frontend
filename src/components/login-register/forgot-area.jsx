@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 const ForgotArea = () => {
   const t = useTranslations("header");
   return (
-    <section className="tp-login-area pb-140 pt-100 p-relative z-index-1 fix">
+    <section className="tp-login-area pb-100 pt-100 p-relative z-index-1 fix">
       <LoginShapes />
       <div className="container">
         <div className="row justify-content-center">

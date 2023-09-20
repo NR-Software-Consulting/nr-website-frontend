@@ -500,40 +500,50 @@
         }
       }
       & .tp-product-list-content {
-        border: 1px solid #e0e2e3;
-        padding-left: 60px;
-        padding-right: 70px;
-
+        @include ltr {
+          border-left: 1px solid #e0e2e3;
+        }
+        @include rtl {
+          border-right: 1px solid #e0e2e3;
+        }
+        padding-left: 30px;
+        padding-right: 30px;
         @media #{$lg} {
           padding-left: 30px;
           padding-right: 30px;
+          @include ltr {
+            border-left: 1px solid #e0e2e3;
+          }
+          @include rtl {
+            border-right: 1px solid #e0e2e3;
+          }
         }
-
         @media #{$md} {
           padding-left: 35px;
           padding-right: 35px;
+          border-right: none;
         }
         @media #{$sm, $xs} {
-          border: 1px solid #e0e2e3;
+          @include rtl {
+            border-right: none;
+            border-top: 1px solid #e0e2e3;
+          }
+          @include ltr {
+            border-left: none;
+            border-top: 1px solid #e0e2e3;
+          }
           border-top: 0;
         }
         @media #{$xs} {
           padding-left: 25px;
           padding-right: 25px;
         }
-
-        & .tp-product-content-2 {
-          padding-top: 33px;
-          padding-bottom: 33px;
-        }
-
         & p {
           font-size: 16px;
           line-height: 1.5;
           color: #55585b;
           margin-bottom: 25px;
         }
-
         & .tp-product-price-wrapper-2 {
           margin-bottom: 12px;
         }

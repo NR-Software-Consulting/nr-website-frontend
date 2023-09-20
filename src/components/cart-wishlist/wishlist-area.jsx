@@ -17,7 +17,7 @@ const WishlistArea = () => {
           <SearchPrdLoader />
         </div>
       ) : (
-        <section className="tp-cart-area pt-100 pb-100">
+        <section className="tp-cart-area pt-50 pb-50">
           <div className="container">
             {wishlist?.length === 0 && (
               <div className="text-center ">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigation, Pagination, EffectFade } from "swiper";
+import { Navigation, Pagination, EffectFade, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,7 +47,7 @@ const sliderData = [
       text_2: "off this week",
     },
     img: slider_img_3,
-    is_light: true,
+    green_bg: true,
   },
 ];
 function Shape({ img, num }) {
@@ -84,7 +84,8 @@ const HomeHeroSlider = () => {
           }}
           onSlideChange={(swiper) => handleActiveIndex(swiper.activeIndex)}
           pagination={{ el: ".tp-slider-dot", clickable: true }}
-          modules={[Navigation, Pagination, EffectFade]}
+          autoplay={true}
+          modules={[Navigation, Pagination, EffectFade, Autoplay]}
           className={`tp-slider-active tp-slider-variation swiper-container ${
             active ? "is-light" : ""
           }`}

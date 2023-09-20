@@ -1,4 +1,4 @@
-@use '../../utils' as *;
+@use "../../utils" as *;
 
 /*----------------------------------------*/
 /*  4.4 Category menu css
@@ -15,19 +15,18 @@
     padding: 12px 30px;
     text-align: left;
     @include rtl {
-    text-align: right;
+      text-align: right;
     }
     position: relative;
 
     &::after {
       position: absolute;
       content: "\f107";
-      @include ltr{
+      @include ltr {
         right: 30px;
       }
-      @include rtl{
-      left: 30px;
-
+      @include rtl {
+        left: 30px;
       }
       top: 50%;
       @include transform(translateY(-50%));
@@ -35,7 +34,7 @@
     }
     & span {
       margin-right: 8px;
-      @include rtl{
+      @include rtl {
         margin-left: 8px;
       }
     }
@@ -95,12 +94,12 @@
         & > a:not(.mega-menu-title) {
           &::after {
             position: absolute;
-              @media #{$md,$lg,$xl,$xxl} {
-              @include rtl{
+            @media #{$md,$lg,$xl,$xxl} {
+              @include rtl {
                 content: "\f104";
-                left: -20px
+                left: -20px;
               }
-        }
+            }
             content: "\f105";
             right: 0;
             top: 50%;
@@ -120,15 +119,15 @@
       & a {
         font-size: 16px;
         @media #{$md,$lg,$xl} {
-              @include rtl{
-                font-size: 10px;
-              }
-         }
-         @media #{$md,$lg,$xl} {
-              @include ltr{
-                font-size: 10px;
-              }
-         }
+          @include rtl {
+            font-size: 10px;
+          }
+        }
+        @media #{$md,$lg,$xl} {
+          @include ltr {
+            font-size: 10px;
+          }
+        }
         color: var(--tp-text-2);
         display: inline-block;
         width: 100%;
@@ -150,17 +149,17 @@
       }
 
       & .tp-submenu {
-        
         @media #{$md,$xl,$xxl} {
-          @include rtl{
-          margin-left: -215%;
-        }}
+          @include rtl {
+            margin-left: -215%;
+          }
+        }
         @media #{$lg} {
-          @include rtl{
-          margin-left: -250%;
+          @include rtl {
+            margin-left: -250%;
+          }
         }
-        }
-       
+
         position: absolute;
         left: 110%;
         top: 0%;
@@ -175,16 +174,16 @@
         & li {
           & a {
             font-size: 15px;
-              @media #{$md,$lg,$xl} {
-              @include rtl{
+            @media #{$md,$lg,$xl} {
+              @include rtl {
                 font-size: 10px;
               }
-         }
-              @media #{$md,$lg,$xl} {
-              @include ltr{
+            }
+            @media #{$md,$lg,$xl} {
+              @include ltr {
                 font-size: 10px;
               }
-         }
+            }
             padding: 6px 0 7px;
           }
 

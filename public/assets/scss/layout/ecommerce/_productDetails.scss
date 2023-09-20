@@ -42,7 +42,7 @@
       position: sticky;
       top: 120px;
       @include ltr {
-        margin-right: 20px;
+        margin-right: 0px;
       }
       @include rtl {
         margin-left: 20px;
@@ -389,14 +389,10 @@
   }
   &-add-to-cart-btn {
     font-size: 16px;
-    color: var(--tp-common-black);
+    color: var(--tp-common-white);
     text-align: center;
     padding: 9px 30px;
-    border: 1px solid #e0e2e3;
-
     &:hover {
-      background-color: var(--tp-common-black);
-      border-color: var(--tp-common-black);
       color: var(--tp-common-white);
     }
   }

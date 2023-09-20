@@ -77,12 +77,18 @@ const ShopListItem = ({ product }) => {
     deleteCartItem(cartItem.id);
   };
   return (
-    <div className="tp-product-list-item d-md-flex">
+    <div
+      className="tp-product-list-item d-md-flex"
+      style={{ border: "1px solid #e0e2e3" }}
+    >
       <div className="tp-product-list-thumb p-relative fix">
-        <Link href={`/product-details/${product?.attributes?.slug}`}>
+        <Link
+          href={`/product/${product?.attributes?.slug}`}
+          className="d-flex align-items-center"
+        >
           <img
             src={product?.attributes?.images?.data[0]?.attributes?.url}
-            style={{ width: "300px", height: "250px" }}
+            style={{ width: "100%", height: "300px" }}
             alt="product-Fashion"
           />
         </Link>
@@ -105,11 +111,14 @@ const ShopListItem = ({ product }) => {
               onClick={() =>
                 isAddedToWishlist
                   ? removeProductToWishList({
-                    deleteFavouriteId: wishlistItem.id,
-                  })
+                      deleteFavouriteId: wishlistItem.id,
+                    })
                   : handleWishlistProduct(product)
               }
-              className="tp-product-action-btn-2 tp-product-add-to-wishlist-btn"
+              // className="tp-product-action-btn-2 tp-product-add-to-wishlist-btn"
+              className={`tp-product-action-btn-2 rounded-circle ${
+                isAddedToWishlist ? "active" : ""
+              } tp-product-add-to-wishlist-btn`}
             >
               <Wishlist />
               {!isAddedToWishlist ? (
@@ -118,25 +127,15 @@ const ShopListItem = ({ product }) => {
                 </span>
               ) : (
                 <span className="tp-product-tooltip tp-product-tooltip-right">
-                  Remove To Wishlist
+                  Remove From Wishlist
                 </span>
               )}
             </button>
-            {/* <button
-              type="button"
-              onClick={() => handleCompareProduct(product)}
-              className="tp-product-action-btn-2 tp-product-add-to-compare-btn"
-            >
-              <CompareThree />
-              <span className="tp-product-tooltip tp-product-tooltip-right">
-                Add To Compare
-              </span>
-            </button> */}
           </div>
         </div>
       </div>
-      <div className="tp-product-list-content w-100">
-        <div className="tp-product-content-2 pt-15">
+      <div className="tp-product-list-content w-100 d-flex align-items-center">
+        <div className="tp-product-content-2 pt-15 pb-15">
           <div className="tp-product-tag-2">
             {tags?.map((t, i) => (
               <a key={i} href="#">
@@ -145,7 +144,7 @@ const ShopListItem = ({ product }) => {
             ))}
           </div>
           <h3 className="tp-product-title-2">
-            <Link href={`/product-details/${product?.attributes?.slug}`}>
+            <Link href={`/product/${product?.attributes?.slug}`}>
               {product?.attributes?.title.length > 30
                 ? `${product.attributes.title.slice(0, 30)}...`
                 : product.attributes.title}
@@ -153,7 +152,7 @@ const ShopListItem = ({ product }) => {
             <p>{product.attributes.category.data.attributes.name}</p>
           </h3>
           <p>
-            <Link href={`/product-details/${product?.attributes?.slug}`}>
+            <Link href={`/product/${product?.attributes?.slug}`}>
               {" "}
               {product.attributes?.description?.length > 0 ? (
                 <p>
@@ -182,18 +181,20 @@ const ShopListItem = ({ product }) => {
             </div>
           </div>
           <div className="tp-product-price-wrapper-2">
-            {discount > 0 ? (
+            {product?.attributes?.discount > 0 ? (
               <>
                 <span className="tp-product-price-2 new-price">
-                  SAR{product.attributes?.price}
-                </span>
+                  SAR{" "}
+                  {(
+                    product?.attributes?.price -
+                    (product?.attributes?.price *
+                      product?.attributes?.discount) /
+                      100
+                  ).toFixed(2)}
+                </span>{" "}
                 <span className="tp-product-price-2 old-price">
                   {" "}
-                  SAR
-                  {(
-                    Number(product.attributes?.price) -
-                    (Number(product.attributes?.price) * Number(discount)) / 100
-                  ).toFixed(2)}
+                  SAR {product.attributes?.price}
                 </span>
               </>
             ) : (
@@ -208,6 +209,11 @@ const ShopListItem = ({ product }) => {
                 !isAddedToCart ? handleAddProduct() : removeFromCart()
               }
               className="tp-product-list-add-to-cart-btn"
+              style={{
+                backgroundColor: isAddedToCart
+                  ? "var(--tp-theme-primary)"
+                  : "var(--tp-common-black)",
+              }}
             >
               {isAddedToCart ? "Remove to Cart" : "Add To Cart"}
             </button>

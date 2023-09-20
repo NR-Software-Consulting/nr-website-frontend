@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
     <NextIntlClientProvider messages={pageProps.messages}>
       <Provider store={store}>
         <NextNProgress
-          color="#0989ff"
+          color="var(--tp-theme-primary)"
           startPosition={0.3}
           stopDelayMs={200}
           height={3}

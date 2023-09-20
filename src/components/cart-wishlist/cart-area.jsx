@@ -27,10 +27,10 @@ const CartArea = () => {
           <SearchPrdLoader />
         </div>
       ) : (
-        <section className="tp-cart-area pb-100 pt-100">
+        <section className="tp-cart-area pb-50 pt-50">
           <div className="container">
             {cartItems.length === 0 && (
-              <div className="text-center ">
+              <div className="text-center">
                 <h3>{t("No Cart Items Found")}</h3>
                 <Link href="/products" className="tp-cart-checkout-btn mt-20">
                   {t("Continue Shopping")}

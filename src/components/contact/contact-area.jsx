@@ -19,7 +19,7 @@ const ContactArea = (props) => {
           <SearchPrdLoader />
         </div>
       ) : (
-        <section className="tp-contact-area pb-100 pt-100">
+        <section className="tp-contact-area pb-50 pt-50">
           <div className="container">
             <div className="">
               <div className="row">

@@ -84,12 +84,6 @@ export const useCart = () => {
         dispatch(
           on_update_product([...cartItems, response.data.createCart.data])
         );
-        console.log(
-          "response.data.createCart.data",
-          response.data.createCart.data,
-          "------",
-          cartItems[0]
-        );
       }
       notifySuccess(
         `${response?.data?.createCart?.data.attributes.product.data.attributes.title} added to cart`

@@ -1,5 +1,4 @@
 import AboutDetail from "@/components/about-us/aboutDetail";
-// import CtaArea from "@/components/cta/cta-area";
 import SEO from "@/components/seo";
 import client from "@/graphql/apollo-client";
 import { ABOUT_US_DATA } from "@/graphql/query/about";
@@ -17,7 +16,6 @@ const About = (props) => {
       <SEO pageTitle="About" />
       <Header categories={category} />
       <AboutDetail {...about} />
-      {/*<CtaArea /> */}
       <Footer socialLinks={footerLinks} />
     </Wrapper>
   );

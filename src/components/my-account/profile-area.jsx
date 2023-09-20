@@ -18,7 +18,7 @@ const ProfileArea = ({ data, type, orderData }) => {
           <SearchPrdLoader />
         </div>
       ) : (
-        <section className="profile__area pt-100 pb-100">
+        <section className="profile__area pt-50 pb-50">
           <div className="container">
             <div className="profile__inner p-relative">
               <ProfileShape />

@@ -112,7 +112,7 @@ export const getServerSideProps = async (context) => {
         },
       };
     } else {
-      console.log("error", "");
+      console.log("error");
       return { props: { error: true, messages } };
     }
   } catch (error) {

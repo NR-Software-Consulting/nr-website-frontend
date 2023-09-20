@@ -162,7 +162,7 @@ const SingleOrder = ({ params }) => {
                         <td>{item.title}</td>
                         <td>{item.quantity}</td>
                         <td>SAR {item.price}</td>
-                        <td>SAR {item.discount || 0}</td>
+                        <td>{item.discount || 0}</td>
                         <td>
                           SAR{" "}
                           {(item.price - (item.price * item.discount) / 100) *
@@ -270,7 +270,7 @@ export const getServerSideProps = async (context) => {
         },
       };
     } else {
-      console.log("error", "");
+      console.log("error");
       return { props: { error: true, messages } };
     }
   } catch (error) {

@@ -162,22 +162,19 @@ const DetailsWrapper = ({
             />
           )}
           <div className="tp-product-details-add-to-cart mb-15 w-100">
-            {!isAddedToCart ? (
-              <button
-                onClick={handleAddProduct}
-                disabled={isAddedToCart}
-                className="tp-product-details-add-to-cart-btn w-100"
-              >
-                {t("Add To Cart")}
-              </button>
-            ) : (
-              <button
-                onClick={handleRemoveToCart}
-                className="tp-product-details-add-to-cart-btn w-100"
-              >
-                {t("Remove from Cart")}
-              </button>
-            )}
+            <button
+              onClick={() =>
+                !isAddedToCart ? handleAddProduct() : handleRemoveToCart()
+              }
+              className="tp-product-details-add-to-cart-btn w-100"
+              style={{
+                backgroundColor: isAddedToCart
+                  ? "var(--tp-theme-primary)"
+                  : "var(--tp-common-black)",
+              }}
+            >
+              {isAddedToCart ? t("Remove from Cart") : t("Add To Cart")}
+            </button>
           </div>
         </div>
         {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>

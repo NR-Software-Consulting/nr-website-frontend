@@ -15,9 +15,7 @@ const schema = Yup.object().shape({
     .required("Email is required")
     .email("Invalid email")
     .matches(/^\S+@\S+\.\S{2,}$/i, "Invalid Email Format"),
-  phone: Yup.string()
-    .required("Phone is required").label("Phone")
-    .min(10),
+  phone: Yup.string().required("Phone is required").label("Phone").min(10),
   message: Yup.string().required("Message is required"),
 });
 const ContactForm = () => {
@@ -50,11 +48,11 @@ const ContactForm = () => {
         },
       });
       notifySuccess("Message sent successfully!");
-      setPhone("")
+      setPhone("");
       reset();
     } catch (error) {
       console.error("Error while sending the message:", error);
-      notifyError("Failed to sent Message")
+      notifyError("Failed to sent Message");
     }
   };
 
@@ -74,8 +72,9 @@ const ContactForm = () => {
           <input
             {...register("name")}
             type="text"
-            className={`form-control border-0 bg-light shadow-none ${errors.name ? "is-invalid" : ""
-              }`}
+            className={`form-control border-0 bg-light shadow-none ${
+              errors.name ? "is-invalid" : ""
+            }`}
             id="name"
             placeholder={t("Enter your Name")}
             aria-describedby="nameHelp"
@@ -100,8 +99,9 @@ const ContactForm = () => {
           <input
             {...register("email")}
             type="email"
-            className={`form-control border-0 bg-light shadow-none ${errors.email ? "is-invalid" : ""
-              }`}
+            className={`form-control border-0 bg-light shadow-none ${
+              errors.email ? "is-invalid" : ""
+            }`}
             id="email"
             placeholder={t("Enter Your Email")}
             aria-describedby="emailHelp"
@@ -127,25 +127,27 @@ const ContactForm = () => {
             <PhoneInput
               name="phone"
               id="phone"
-              style={
-                {
-                  "--react-international-phone-border-radius": 0,
-                  "--react-international-phone-border-color": "none",
-                  "--react-international-phone-dropdown-item-background-color": "white",
-                  "--react-international-phone-background-color": "transparent",
-                  "--react-international-phone-text-color": "black",
-                  "--react-international-phone-selected-dropdown-item-background-color": "transparent",
-                  "--react-international-phone-selected-dropdown-zindex": "1",
-                  "--react-international-phone-height": "50px"
-                }
-              }
-              className={`form-control border-0 bg-light p-1 ${errors.phone ? 'is-invalid' : ''}`}
+              style={{
+                "--react-international-phone-border-radius": 0,
+                "--react-international-phone-border-color": "none",
+                "--react-international-phone-dropdown-item-background-color":
+                  "white",
+                "--react-international-phone-background-color": "transparent",
+                "--react-international-phone-text-color": "black",
+                "--react-international-phone-selected-dropdown-item-background-color":
+                  "transparent",
+                "--react-international-phone-selected-dropdown-zindex": "1",
+                "--react-international-phone-height": "50px",
+              }}
+              className={`form-control border-0 bg-light p-1 ${
+                errors.phone ? "is-invalid" : ""
+              }`}
               defaultCountry="sa"
               forceDialCode={true}
               placeholder={t("Enter your phone here")}
               value={phone}
               onChange={(phone) => {
-                setPhone(phone)
+                setPhone(phone);
                 setValue("phone", phone);
               }}
             />
@@ -163,8 +165,9 @@ const ContactForm = () => {
           </label>
           <textarea
             {...register("message")}
-            className={`form-control border-0 bg-light shadow-none h-25 ${errors.message ? "is-invalid" : ""
-              }`}
+            className={`form-control border-0 bg-light shadow-none h-25 ${
+              errors.message ? "is-invalid" : ""
+            }`}
             placeholder={t("Write Your Message")}
             id="message"
             rows={5}
