@@ -60,33 +60,6 @@ const Footer = ({ socialLinks }) => {
                           <i className="fa-brands fa-instagram" />
                         </Link>
                       )}
-                      {socialLinks?.attributes?.linkedInUrl && (
-                        <Link
-                          href={socialLinks?.attributes?.linkedInUrl}
-                          target="_blank"
-                          aria-label="linkedin"
-                        >
-                          <i className="fa-brands fa-linkedin-in" />
-                        </Link>
-                      )}
-                      {socialLinks?.attributes?.pinterestUrl && (
-                        <Link
-                          href={socialLinks?.attributes?.pinterestUrl}
-                          target="_blank"
-                          aria-label="pintrest"
-                        >
-                          <i className="fa-brands fa-pinterest" />
-                        </Link>
-                      )}
-                      {socialLinks?.attributes?.twitterUrl && (
-                        <Link
-                          href={socialLinks?.attributes?.twitterUrl}
-                          target="_blank"
-                          aria-label="twitter"
-                        >
-                          <i className="fa-brands fa-twitter" />
-                        </Link>
-                      )}
                       {socialLinks?.attributes?.whatsappNumber && (
                         <Link
                           href={`https://wa.me/${socialLinks?.attributes.whatsappNumber}`}

@@ -15,11 +15,11 @@ import { ArrowRightLong, SliderNextBtn, SliderPrevBtn, TextShape } from "@/svg";
 const sliderData = [
   {
     id: 1,
-    pre_title: { text: "Starting at", price: 274 },
-    title: "The best tablet Collection 2023",
+    pre_title: { text: "Starting at", price: 5000 },
+    title: "The best Watches Collection 2023",
     subtitle: {
       text_1: "Exclusive offer ",
-      percent: 35,
+      percent: 10,
       text_2: "off this week",
     },
     img: slider_img_1,
@@ -27,8 +27,8 @@ const sliderData = [
   },
   {
     id: 2,
-    pre_title: { text: "Starting at", price: 999 },
-    title: "The best note book collection 2023",
+    pre_title: { text: "Starting at", price: 5000 },
+    title: "New Airpods collection 2023",
     subtitle: {
       text_1: "Exclusive offer ",
       percent: 10,
@@ -39,8 +39,8 @@ const sliderData = [
   },
   {
     id: 3,
-    pre_title: { text: "Starting at", price: 999 },
-    title: "The best note book collection 2023",
+    pre_title: { text: "Starting at", price: 4000 },
+    title: "New Headphone collection 2023",
     subtitle: {
       text_1: "Exclusive offer ",
       percent: 10,

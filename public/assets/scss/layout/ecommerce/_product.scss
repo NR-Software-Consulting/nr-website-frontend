@@ -72,13 +72,8 @@
     border-top-right-radius: 8px;
     & img {
       @extend %tp-transition;
-      width: 100%;
-      height: 100%;
+
       object-fit: cover;
-      @media #{$xs} {
-        width: 100% !important;
-        height: 100% !important;
-      }
     }
   }
   &-content {
@@ -554,7 +549,6 @@
       @media #{$lg} {
         width: 300px;
       }
-
       & a {
         display: block;
         width: 100%;

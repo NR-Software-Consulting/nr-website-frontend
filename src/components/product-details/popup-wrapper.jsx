@@ -84,26 +84,6 @@ const PopUpWrapper = ({
       <h3 className="tp-product-details-title">
         {productItem?.attributes?.title}
       </h3>
-      <div className="tp-product-details-inventory d-flex align-items-center mb-10">
-        <div className="tp-product-details-stock mb-10">
-          <span>{status}</span>
-        </div>
-        <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
-          <div className="tp-product-details-rating">
-            <Rating
-              allowFraction
-              size={16}
-              initialValue={ratingVal}
-              readonly={true}
-            />
-          </div>
-          <div className="tp-product-details-reviews">
-            <span>
-              ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
-            </span>
-          </div>
-        </div>
-      </div>
       <div className="tp-product-details-price-wrapper mb-20">
         {productItem?.attributes?.discount > 0 ? (
           <>

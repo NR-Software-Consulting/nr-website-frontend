@@ -163,21 +163,6 @@ const ProductItem = ({ product, offer_style = false }) => {
                 : product.attributes.title}
             </Link>
           </h3>
-          <div className="tp-product-rating d-flex align-items-center">
-            <div className="tp-product-rating-icon">
-              <Rating
-                allowFraction
-                size={16}
-                initialValue={ratingVal}
-                readonly={true}
-              />
-            </div>
-            <div className="tp-product-rating-text">
-              <span>
-                ({reviews ? reviews.length : 0} Review)
-              </span>
-            </div>
-          </div>
           <div className="tp-product-price-wrapper">
             {product?.attributes?.discount > 0 ? (
               <>

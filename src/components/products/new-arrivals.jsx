@@ -78,40 +78,21 @@ const NewArrivals = ({ products, isError, isLoading }) => {
     <>
       <section className="tp-product-arrival-area pb-55">
         <div className="container">
-          <div className="row align-items-end">
-            <div className="col-xl-5 col-sm-6">
-              <div className="tp-section-title-wrapper mb-40">
+          <div className="row  align-items-center mb-40">
+            <div className="col-xl-5 col-lg-6 col-md-5">
+              <div className="tp-section-title-wrapper">
                 <h3 className="tp-section-title">
                   {t("New Arrivals")}
                   <ShapeLine />
                 </h3>
               </div>
             </div>
-            <div className="col-xl-7 col-sm-6">
-              <div className="tp-product-arrival-more-wrapper d-flex">
-                <div className="tp-product-arrival-arrow tp-swiper-arrow mb-40 text-end tp-product-arrival-border">
-                  <button
-                    type="button"
-                    className="tp-arrival-slider-button-prev"
-                    aria-label="Previous"
-                  >
-                    <PrevArr />
-                  </button>{" "}
-                  <button
-                    type="button"
-                    className="tp-arrival-slider-button-next"
-                    aria-label="Forword"
-                  >
-                    <NextArr />
-                  </button>
-                </div>
-              </div>
+            <div className="col-xl-7 col-lg-6 col-md-7">
+              <div className="tp-product-arrival-border"></div>
             </div>
           </div>
           <div className="row">
-            <div className="col-xl-12">
-              <div className="tp-product-arrival-slider fix">{content}</div>
-            </div>
+            <div className="tp-product-arrival-slider fix">{content}</div>
           </div>
         </div>
       </section>
