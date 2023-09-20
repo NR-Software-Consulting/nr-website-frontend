@@ -12,7 +12,7 @@ const Footer = ({ socialLinks }) => {
   const authChecked = useAuthCheck();
   const [encodedAddress, setEncodedAddress] = useState("");
   useEffect(() => {
-    const address = "As Sahafah, Olaya St. 6531, 3059. Riyadh 13321";
+    const address = "NR Mobiles, Millat Road, Sandha, Lahore Pakistan.";
     setEncodedAddress(encodeURIComponent(address));
   }, []);
   return (
@@ -186,7 +186,7 @@ const Footer = ({ socialLinks }) => {
                     <div className="tp-footer-talk mb-15">
                       <span>{t("Got Questions? Call us")}</span>
                       <h4 className="pt-10">
-                        <Link href="tel:966-11199-8877">+966-11199-8877</Link>
+                        <Link href="tel:923160430485">+92 316 0430485</Link>
                       </h4>
                     </div>
                     <div className="tp-footer-contact">
@@ -198,8 +198,8 @@ const Footer = ({ socialLinks }) => {
                         </div>
                         <div className="tp-footer-contact-content text-align-center">
                           <p>
-                            <Link href="mailto:companyneeds@support.com">
-                              companyneeds@support.com
+                            <Link href="mailto:nrmobiles23@gmail.com">
+                              nrmobiles23@gmail.com
                             </Link>
                           </p>
                         </div>
@@ -213,12 +213,12 @@ const Footer = ({ socialLinks }) => {
                         <div className="tp-footer-contact-content">
                           <p className="mb-0">
                             <Link
-                              href={`https://www.google.com/maps/place/${encodedAddress}`}
+                              href={"https://maps.app.goo.gl/m5BARCbA3v4AB2ym7"}
                               target="_blank"
                               className="list-group-item list-group-item-action d-flex gap-3"
                               aria-current="true"
                             >
-                              {t("79 Sleepy Hollow St")}
+                              NR Mobiles, Millat Road, Sandha, Lahore Pakistan.
                             </Link>
                           </p>
                         </div>
@@ -238,7 +238,9 @@ const Footer = ({ socialLinks }) => {
                   <div className="tp-footer-copyright">
                     <p>
                       © {new Date().getFullYear()}{" "}
-                      {t("All Rights Reserved by Company Needs")}
+                      {t(
+                        "All Rights Reserved by NR Mobiles & Accessories Company"
+                      )}
                     </p>
                   </div>
                 </div>

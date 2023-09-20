@@ -1,5 +1,3 @@
-/** @format */
-
 import React from "react";
 import Link from "next/link";
 import { useState } from "react";
@@ -30,7 +28,7 @@ const CartCheckout = () => {
       <div className="tp-cart-checkout-top d-flex align-items-center justify-content-between">
         <span className="tp-cart-checkout-top-title">{t("Subtotal")}</span>
         <span className="tp-cart-checkout-top-price">
-          SAR {formattedTotalPrice}
+          PKR {formattedTotalPrice}
         </span>
       </div>
       <div className="tp-cart-checkout-proceed">

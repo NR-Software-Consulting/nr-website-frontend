@@ -12,7 +12,7 @@ const RenderCartProgress = () => {
     return (
       <>
         <p>
-          {t("Add")} {`SAR ${remainingAmount.toFixed(2)}`}{" "}
+          {t("Add")} {`PKR ${remainingAmount.toFixed(2)}`}{" "}
           {t("more to qualify for free shipping")}
         </p>
         <div className="progress">

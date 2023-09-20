@@ -114,38 +114,25 @@ const DetailsWrapper = ({
           </div>
         </div>
       </div> */}
-      {product?.attributes?.description?.length > 0 ? (
-        <p>
-          {textMore
-            ? product?.attributes?.description
-            : `${product?.attributes?.description?.substring(0, 100)}...`}{" "}
-          <span
-            className="cursor-pointer"
-            onClick={() => setTextMore(!textMore)}
-          >
-            {textMore ? t("See Less") : t("See More")}
-          </span>
-        </p>
-      ) : (
-        <p>No Description</p>
-      )}
       <div className="tp-product-details-price-wrapper mb-20">
         {product?.attributes?.discount > 0 ? (
           <>
             <span className="tp-product-details-price old-price">
-              SAR {product?.attributes?.price}
+              PKR {(product?.attributes?.price).toFixed(2)}
             </span>{" "}
             <span className="tp-product-details-price new-price">
-              SAR{" "}
+              PKR{" "}
               {(
                 Number(product?.attributes?.price) -
-                Number(product?.attributes?.discount)
+                (Number(product?.attributes?.price) *
+                  Number(product?.attributes?.discount)) /
+                  100
               ).toFixed(2)}
             </span>
           </>
         ) : (
           <span className="tp-product-details-price new-price">
-            SAR {product?.attributes?.price?.toFixed(2)}
+            PKR {product?.attributes?.price?.toFixed(2)}
           </span>
         )}
       </div>
@@ -200,10 +187,6 @@ const DetailsWrapper = ({
           {!isAddedToWishlist
             ? t("Add to Wishlist")
             : t("Remove from Wishlist")}
-        </button>
-        <button type="button" className="tp-product-details-action-sm-btn">
-          <AskQuestion />
-          {t("Ask a question")}
         </button>
       </div>
       {detailsBottom && (

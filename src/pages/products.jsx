@@ -20,9 +20,7 @@ const ShopPage = ({
   brands,
 }) => {
   const [currPage, setCurrPage] = useState(1);
-
   let product_items = productss;
-
   const otherProps = {
     currPage,
     setCurrPage,
@@ -32,7 +30,6 @@ const ShopPage = ({
     content = <ErrorMsg msg="No Products found!" />;
   } else {
     product_items = productss;
-
     content = (
       <>
         <ShopArea

@@ -28,10 +28,10 @@ const CheckoutOrderArea = ({ checkoutData }) => {
                 <span> x {item.attributes.quantity}</span>
               </p>
               {/* <span>
-                SAR {item.attributes.product.data.attributes.discount || 0}
+                PKR {item.attributes.product.data.attributes.discount || 0}
               </span> */}
               <span>
-                SAR{" "}
+                PKR{" "}
                 {(
                   item?.attributes?.product?.data?.attributes?.price -
                   (item?.attributes?.product?.data?.attributes?.price *
@@ -44,7 +44,7 @@ const CheckoutOrderArea = ({ checkoutData }) => {
           {/* total */}
           <li className="tp-order-info-list-total">
             <span>{t("Total")}</span>
-            <span>SAR {parseFloat(totalPrice).toFixed(2)}</span>
+            <span>PKR {parseFloat(totalPrice).toFixed(2)}</span>
           </li>
         </ul>
       </div>

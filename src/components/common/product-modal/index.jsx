@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactModal from "react-modal";
@@ -81,7 +80,7 @@ const ProductModal = () => {
               handleImageActive={handleImageActive}
               imageURLs={img}
               imgWidth={416}
-              imgHeight={480}
+              imgHeight={416}
               loading={loading}
               status={status}
             />

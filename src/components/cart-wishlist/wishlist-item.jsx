@@ -72,7 +72,7 @@ const WishlistItem = ({ wishList, product }) => {
       </td>
       <td className="tp-cart-price">
         <span>
-          SAR {(wishlistData?.price - wishlistData?.discount).toFixed(2)}
+          PKR {(wishlistData?.price - wishlistData?.discount).toFixed(2)}
         </span>
       </td>
       <td className="tp-cart-quantity">

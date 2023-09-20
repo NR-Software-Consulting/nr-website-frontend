@@ -23,7 +23,7 @@ const AboutDetail = (props) => {
                   src={props?.attributes?.image?.data?.attributes?.url}
                   alt="About Image"
                   quality={100}
-                  style={{ height: "50vh", width: "100%" }}
+                  style={{ height: "60vh", width: "100%" }}
                 />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">

@@ -87,7 +87,7 @@ const CartItem = ({ product }) => {
       {/* price */}
       <td className="tp-cart-price">
         <span>
-          SAR {((price - (price * discount) / 100) * orderQuantity).toFixed(2)}
+          PKR {((price - (price * discount) / 100) * orderQuantity).toFixed(2)}
         </span>
       </td>
       {/* quantity */}

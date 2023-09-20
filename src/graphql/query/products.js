@@ -14,6 +14,7 @@ export const PRODUCTS_DATA = gql`
         attributes {
           slug
           title
+          sku
           price
           description
           isTrending

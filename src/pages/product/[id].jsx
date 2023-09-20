@@ -33,7 +33,8 @@ const ProductDetailsPage = (props) => {
           title={product[0]?.attributes?.title}
         />
         <ProductDetailsArea productItem={product} />
-        <section className="tp-related-product pt-95 pb-50">
+        {/*
+      <section className="tp-related-product pt-95 pb-50">
           <div className="container">
             <div className="row">
               <div className="tp-section-title-wrapper-6 text-center mb-40">
@@ -48,6 +49,7 @@ const ProductDetailsPage = (props) => {
             </div>
           </div>
         </section>
+      */}
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import { FadeLoader, BarLoader } from "react-spinners";
 
-const Loader = ({ loading, spinner = "scale",color="0989FF" }) => {
+const Loader = ({ loading, spinner = "scale", color = "ed1e24" }) => {
   return (
     <div className="text-center">
       {spinner === "scale" && (

@@ -184,7 +184,7 @@ const ShopListItem = ({ product }) => {
             {product?.attributes?.discount > 0 ? (
               <>
                 <span className="tp-product-price-2 new-price">
-                  SAR{" "}
+                  PKR{" "}
                   {(
                     product?.attributes?.price -
                     (product?.attributes?.price *
@@ -194,12 +194,12 @@ const ShopListItem = ({ product }) => {
                 </span>{" "}
                 <span className="tp-product-price-2 old-price">
                   {" "}
-                  SAR {product.attributes?.price}
+                  PKR {product.attributes?.price}
                 </span>
               </>
             ) : (
               <span className="tp-product-price new-price">
-                SAR {product.attributes?.price.toFixed(2)}
+                PKR {product.attributes?.price.toFixed(2)}
               </span>
             )}
           </div>

@@ -47,7 +47,7 @@ const ContactArea = (props) => {
                             />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                               <div>
-                                <h6 className="mb-0 text-primary">UAN</h6>
+                                <h6 className="mb-0">Phone Number</h6>
                                 <p className="mb-0 ">{phoneNumber}</p>
                               </div>
                             </div>
@@ -64,7 +64,7 @@ const ContactArea = (props) => {
                             />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                               <div>
-                                <h6 className="mb-0 text-primary">Email</h6>
+                                <h6 className="mb-0">Email</h6>
                                 <p className="mb-0 ">{email}</p>
                               </div>
                             </div>
@@ -84,7 +84,7 @@ const ContactArea = (props) => {
                             />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                               <div>
-                                <h6 className="mb-0 text-primary">Address</h6>
+                                <h6 className="mb-0">Address</h6>
                                 <p className="mb-0 ">{Address}</p>
                               </div>
                             </div>

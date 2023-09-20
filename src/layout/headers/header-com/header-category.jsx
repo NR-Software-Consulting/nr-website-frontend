@@ -87,8 +87,9 @@ const HeaderCategory = ({
       </li>
     ));
   }
-
-  const paginationControls = (
+  {
+    /*
+ const paginationControls = (
     <div
       className="pagination-controls d-flex justify-content-evenly my-3"
       style={{ direction: "ltr" }}
@@ -96,7 +97,7 @@ const HeaderCategory = ({
       <button
         style={{ paddingInline: "12px" }}
         onClick={loadPreviousCategories}
-        className={`btn btn-sm btn-primary rounded-circle ${
+        className={`btn btn-sm btn-var(--tp-theme-primary) rounded-circle ${
           currentPage === 1 ? "disabled" : ""
         }`}
         disabled={currentPage === 1}
@@ -105,14 +106,14 @@ const HeaderCategory = ({
       </button>
       <button
         style={{ paddingInline: "12px" }}
-        className="btn btn-sm btn-primary rounded-circle"
+        className="btn btn-sm btn-danger rounded-circle"
       >
         {currentPage}
       </button>
       <button
         style={{ paddingInline: "12px" }}
         onClick={loadMoreCategories}
-        className={`btn btn-sm btn-primary  rounded-circle ${
+        className={`btn btn-sm btn-var(--tp-theme-primary)  rounded-circle ${
           currentPage === totalPages ? "disabled" : ""
         }`}
         disabled={currentPage === totalPages}
@@ -121,13 +122,13 @@ const HeaderCategory = ({
       </button>
     </div>
   );
-
   content?.push(
     <li key="pagination-controls-dropdown">
       <div className="dropdown-pagination">{paginationControls}</div>
     </li>
   );
-
+*/
+  }
   return <ul className={isCategoryActive ? "active" : ""}>{content}</ul>;
 };
 

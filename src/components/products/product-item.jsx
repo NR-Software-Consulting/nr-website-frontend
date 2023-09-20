@@ -13,8 +13,8 @@ import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
 
 const ProductItem = ({ product, offer_style = false }) => {
-  const { _id, reviews, discount, status, offerExpiryTime } = product || {};
-  const { onAddToCart, onUpdateCart, cartItems } = useCart();
+  const { reviews, status, offerExpiryTime } = product || {};
+  const { onAddToCart, cartItems } = useCart();
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
   const isAddedToCart =
@@ -74,7 +74,11 @@ const ProductItem = ({ product, offer_style = false }) => {
           <Link href={`/product/${product?.attributes?.slug}`}>
             <img
               src={product?.attributes?.images?.data[0]?.attributes?.url}
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              style={{
+                width: "100%",
+                height: "250px",
+                objectFit: "contain",
+              }}
               alt="product-electronic"
             />
             <div className="tp-product-badge">
@@ -170,7 +174,7 @@ const ProductItem = ({ product, offer_style = false }) => {
             </div>
             <div className="tp-product-rating-text">
               <span>
-                ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
+                ({reviews ? reviews.length : 0} Review)
               </span>
             </div>
           </div>
@@ -178,11 +182,11 @@ const ProductItem = ({ product, offer_style = false }) => {
             {product?.attributes?.discount > 0 ? (
               <>
                 <span className="tp-product-price old-price">
-                  SAR {product?.attributes?.price}
+                  PKR {(product?.attributes?.price).toFixed(2)}
                 </span>
                 <span className="tp-product-price new-price">
                   {" "}
-                  SAR{" "}
+                  PKR{" "}
                   {(
                     product?.attributes?.price -
                     (product?.attributes?.price *
@@ -193,7 +197,7 @@ const ProductItem = ({ product, offer_style = false }) => {
               </>
             ) : (
               <span className="tp-product-price new-price">
-                SAR {parseFloat(product?.attributes?.price).toFixed(2)}
+                PKR {parseFloat(product?.attributes?.price).toFixed(2)}
               </span>
             )}
           </div>

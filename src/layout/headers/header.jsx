@@ -12,14 +12,7 @@ import HeaderTopRight from "./header-com/header-top-right";
 import HeaderMainRight from "./header-com/header-main-right";
 import CartMiniSidebar from "@/components/common/cart-mini-sidebar";
 import HeaderSearchForm from "@/components/forms/header-search-form";
-import {
-  CartTwo,
-  CategoryMenu,
-  Menu,
-  Phone,
-  ShippingCar,
-  Wishlist,
-} from "@/svg";
+import { CartTwo, CategoryMenu, Menu, Phone, Wishlist } from "@/svg";
 import { useTranslations } from "next-intl";
 import { useCart } from "@/hooks/use-cart";
 import useAuthCheck from "@/hooks/use-auth-check";
@@ -28,7 +21,7 @@ const Header = ({ categories } = props) => {
   const { wishlist } = useSelector((state) => state.wishlist);
   const [isOffCanvasOpen, setIsCanvasOpen] = useState(false);
   const [isCategoryActive, setIsCategoryActive] = useState(false);
-  const { totalCount, totalPrice } = useCart();
+  const { totalCount } = useCart();
   const authChecked = useAuthCheck();
   const { sticky } = useSticky();
   const dispatch = useDispatch();
@@ -40,7 +33,8 @@ const Header = ({ categories } = props) => {
     <>
       <header>
         <div className="tp-header-area p-relative z-index-11">
-          <div className="tp-header-top black-bg p-relative z-index-1 d-none d-md-block">
+          {/*
+        <div className="tp-header-top black-bg p-relative z-index-1 d-none d-md-block">
             <div className="container">
               <div className="row align-items-center">
                 <div className="col-md-12">
@@ -51,6 +45,7 @@ const Header = ({ categories } = props) => {
               </div>
             </div>
           </div>
+        */}
           <div className="tp-header-main tp-header-sticky">
             <div className="container">
               <div className="row align-items-center">
@@ -121,7 +116,7 @@ const Header = ({ categories } = props) => {
                       <div className="tp-header-contact-content">
                         <h5>{t("Hotline:")}</h5>
                         <p>
-                          <a href="tel:402-763-282-46">+966-11199-8877</a>
+                          <a href="tel:0316-0430485">+92 316-0430485</a>
                         </p>
                       </div>
                     </div>

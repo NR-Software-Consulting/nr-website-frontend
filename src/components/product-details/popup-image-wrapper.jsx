@@ -16,7 +16,7 @@ const PopupThumbWrapper = ({
                 alt="product img"
                 width={imgWidth}
                 height={imgHeight}
-                style={{ objectFit: "fill" }}
+                style={{ objectFit: "contain" }}
               />
               <div className="tp-product-badge">
                 {status === "out-of-stock" && (

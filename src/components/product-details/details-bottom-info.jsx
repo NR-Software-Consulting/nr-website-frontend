@@ -34,39 +34,6 @@ const DetailsBottomInfo = ({ sku, category, tag, brand }) => {
           <p>{brand}</p>
         </div>
       </div>
-
-      {/*  product-details-social*/}
-
-      <div className="tp-product-details-social">
-        <span>{t("Share")}: </span>
-        <a href={shareUrl}>
-          <FacebookShareButton url={shareUrl}>
-            <i className="fa-brands fa-facebook-f"></i>
-          </FacebookShareButton>
-        </a>
-        <a url={shareUrl}>
-          <TwitterShareButton url={shareUrl}>
-            <i className="fa-brands fa-twitter"></i>
-          </TwitterShareButton>
-        </a>
-        <a url={shareUrl}>
-          <LinkedinShareButton url={shareUrl}>
-            <i className="fa-brands fa-linkedin-in"></i>
-          </LinkedinShareButton>
-        </a>
-        {/*        <a url={shareUrl}>
-          <i className="fa-brands fa-vimeo-v"></i>
-        </a> */}
-      </div>
-
-      {/* product-details-msg */}
-
-      <div className="tp-product-details-msg mb-15">
-        <ul>
-          <li>{t("30 days easy returns")}</li>
-          <li>{t("Order yours before 230pm for same day dispatch")}</li>
-        </ul>
-      </div>
     </>
   );
 };

@@ -42,13 +42,13 @@ export default function Home(props) {
       {/*<SEO pageTitle="Home" />
       <Header categories={category} />
       <HomeHeroSlider />
-      <AboutPage {...about} />
       <Scores scores={scores} />
       <Testimonials />
       <NewArrivals products={newarrival} />
       <ProductArea products={trending} />
       <Accessories products={accessories} />
-      <Footer socialLinks={footerLinks} /> */}
+      <Footer socialLinks={footerLinks} />
+      */}
     </Wrapper>
   );
 }

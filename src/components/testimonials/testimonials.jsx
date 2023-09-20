@@ -44,7 +44,7 @@ const Testimonials = () => {
                   {t("Customers Review")}
                 </span>
                 <h2 className="tp-section-title-3">
-                  {t("What our Clients say")}
+                  {t("What our Customer say")}
                 </h2>
               </div>
             </div>

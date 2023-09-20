@@ -49,16 +49,6 @@ const PopUpWrapper = ({
   const wishlistItem = wishlist.find(
     (prd) => prd?.attributes?.product?.data?.id === productItem.id
   );
-  // useEffect(() => {
-  //   if (reviews && reviews.length > 0) {
-  //     const rating =
-  //       reviews.reduce((acc, review) => acc + review.rating, 0) /
-  //       reviews.length;
-  //     setRatingVal(rating);
-  //   } else {
-  //     setRatingVal(0);
-  //   }
-  // }, [reviews]);
   const handleAddProduct = () => {
     if (!authChecked) {
       notifyError("Please login to purchase!");
@@ -76,7 +66,6 @@ const PopUpWrapper = ({
     deleteCartItem(cartItem.id);
     notifySuccess("Successfully Removed from cart");
   };
-
   const handleWishlistProduct = (prd) => {
     if (!authChecked) {
       notifyError("Please login to wishlist!");
@@ -87,7 +76,6 @@ const PopUpWrapper = ({
       });
     }
   };
-
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
@@ -116,30 +104,14 @@ const PopUpWrapper = ({
           </div>
         </div>
       </div>
-      {productItem?.attributes?.description?.length > 0 ? (
-        <p>
-          {textMore
-            ? productItem?.attributes?.description
-            : `${productItem?.attributes?.description?.substring(0, 100)}...`}
-          <span
-            className="cursor-pointer"
-            onClick={() => setTextMore(!textMore)}
-          >
-            {textMore ? t("See Less") : t("See More")}
-          </span>
-        </p>
-      ) : (
-        <p>No Description</p>
-      )}
-      {/* price */}
       <div className="tp-product-details-price-wrapper mb-20">
-        {discount > 0 ? (
+        {productItem?.attributes?.discount > 0 ? (
           <>
             <span className="tp-product-details-price old-price">
-              SAR {productItem?.attributes?.price}
-            </span>
+              PKR {(productItem?.attributes?.price).toFixed(2)}
+            </span>{" "}
             <span className="tp-product-details-price new-price">
-              SAR
+              PKR{" "}
               {(
                 Number(productItem?.attributes?.price) -
                 (Number(productItem?.attributes?.price) *
@@ -150,40 +122,10 @@ const PopUpWrapper = ({
           </>
         ) : (
           <span className="tp-product-details-price new-price">
-            SAR {productItem?.attributes?.price?.toFixed(2)}
+            PKR {productItem?.attributes?.price?.toFixed(2)}
           </span>
         )}
       </div>
-      {imageURLs?.color && (
-        <div className="tp-product-details-variation">
-          <div className="tp-product-details-variation-item">
-            <h4 className="tp-product-details-variation-title">Color :</h4>
-            <div className="tp-product-details-variation-list">
-              {imageURLs.map((item, i) => (
-                <button
-                  onClick={() => handleImageActive(item)}
-                  key={i}
-                  type="button"
-                  className={`color tp-color-variation-btn ${
-                    item.img === activeImg ? "active" : ""
-                  }`}
-                >
-                  <span
-                    data-bg-color={`${item.color.clrCode}`}
-                    style={{ backgroundColor: `${item.color.clrCode}` }}
-                  ></span>
-                  <span className="tp-color-variation-tootltip">
-                    {item.color.name}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-      {offerExpiryTime && (
-        <ProductDetailsCountdown offerExpiryTime={offerExpiryTime} />
-      )}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">
@@ -233,18 +175,13 @@ const PopUpWrapper = ({
             ? t("Add to Wishlist")
             : t("Remove from Wishlist")}
         </button>
-        <button type="button" className="tp-product-details-action-sm-btn">
-          <AskQuestion />
-          {t("Ask a question")}
-        </button>
       </div>
-      {detailsBottom && (
-        <DetailsBottomInfo
-          category={productItem?.attributes?.category?.data?.attributes?.name}
-          sku={productItem?.attributes?.sku}
-          tag={productItem?.attributes?.category?.data?.attributes?.name}
-        />
-      )}
+      <DetailsBottomInfo
+        category={productItem?.attributes?.category?.data?.attributes?.name}
+        sku={productItem?.attributes?.sku}
+        tag={productItem?.attributes?.category?.data?.attributes?.name}
+        brand={productItem?.attributes?.brands?.data?.attributes?.name}
+      />
     </div>
   );
 };

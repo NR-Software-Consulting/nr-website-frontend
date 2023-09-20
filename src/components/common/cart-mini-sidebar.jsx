@@ -103,7 +103,7 @@ const CartMiniSidebar = () => {
                       </h5>
                       <div className="cartmini__price-wrapper">
                         <span className="cartmini__price">
-                          SAR{" "}
+                          PKR{" "}
                           {(
                             item?.attributes?.product?.data?.attributes?.price -
                             (item?.attributes?.product?.data?.attributes
@@ -142,7 +142,7 @@ const CartMiniSidebar = () => {
           <div className="cartmini__checkout">
             <div className="cartmini__checkout-title mb-30">
               <h4>{t("Subtotal")}</h4>
-              <span>SAR {totalPrice.toFixed(2)}</span>
+              <span>PKR {totalPrice.toFixed(2)}</span>
             </div>
             <div className="cartmini__checkout-btn">
               <Link

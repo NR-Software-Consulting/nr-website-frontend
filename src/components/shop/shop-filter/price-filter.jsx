@@ -1,7 +1,12 @@
 import InputRange from "@/ui/input-range";
 import { useTranslations } from "next-intl";
 
-const PriceFilter = ({ priceValue, handleChanges, maxPrice, handleFilterClick }) => {
+const PriceFilter = ({
+  priceValue,
+  handleChanges,
+  maxPrice,
+  handleFilterClick,
+}) => {
   const t = useTranslations("header");
 
   return (
@@ -11,7 +16,11 @@ const PriceFilter = ({ priceValue, handleChanges, maxPrice, handleFilterClick })
 
         <div className="tp-shop-widget-content">
           <div className="tp-shop-widget-filter">
-            <div id="slider-range" className="mb-10" style={{ direction: "ltr" }}>
+            <div
+              id="slider-range"
+              className="mb-10"
+              style={{ direction: "ltr" }}
+            >
               <InputRange
                 STEP={1}
                 MIN={0}
@@ -22,9 +31,13 @@ const PriceFilter = ({ priceValue, handleChanges, maxPrice, handleFilterClick })
             </div>
             <div className="tp-shop-widget-filter-info d-flex align-items-center justify-content-between">
               <span className="input-range">
-                SAR {priceValue[0]} - SAR {priceValue[1]}
+                PKR {priceValue[0]} - PKR {priceValue[1]}
               </span>
-              <button className="tp-shop-widget-filter-btn" type="button" onClick={handleFilterClick}>
+              <button
+                className="tp-shop-widget-filter-btn"
+                type="button"
+                onClick={handleFilterClick}
+              >
                 {t("Filter")}
               </button>
             </div>

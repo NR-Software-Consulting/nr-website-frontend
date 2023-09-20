@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from "react";
 import ReviewForm from "../forms/review-form";
 import ReviewItem from "./review-item";
 import { useTranslations } from "next-intl";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const DetailsTabNav = ({ product }) => {
   const { _id, reviews } = product || {};
@@ -56,12 +58,6 @@ const DetailsTabNav = ({ product }) => {
               id="desc"
               title={t("Description")}
             />
-            <NavItem id="additional" title={t("Additional information")} />
-            <NavItem
-              id="review"
-              title={t("Reviews")}
-              {...`${reviews?.length}`}
-            />
             <span
               ref={marker}
               id="productTabMarker"
@@ -86,7 +82,62 @@ const DetailsTabNav = ({ product }) => {
                       <div className="col-lg-12">
                         <div className="tp-product-details-desc-content">
                           {product[0]?.attributes?.description?.length > 0 ? (
-                            <p>{product[0]?.attributes?.description}</p>
+                            <ReactMarkdown
+                              children={product[0]?.attributes?.description}
+                              remarkPlugins={[remarkGfm]}
+                              className="markdown"
+                              components={{
+                                h1: ({ node, ...props }) => (
+                                  <h1
+                                    style={{ fontSize: "32px", color: "black" }}
+                                    {...props}
+                                  />
+                                ),
+                                h2: ({ node, ...props }) => (
+                                  <h2
+                                    style={{ fontSize: "20px", color: "black" }}
+                                    {...props}
+                                  />
+                                ),
+                                h3: ({ node, ...props }) => (
+                                  <h3
+                                    style={{ fontSize: "24px", color: "black" }}
+                                    {...props}
+                                  />
+                                ),
+                                h4: ({ node, ...props }) => (
+                                  <h4
+                                    style={{ fontSize: "20px", color: "black" }}
+                                    {...props}
+                                  />
+                                ),
+                                h5: ({ node, ...props }) => (
+                                  <h5
+                                    style={{ fontSize: "18px", color: "black" }}
+                                    {...props}
+                                  />
+                                ),
+                                h6: ({ node, ...props }) => (
+                                  <h6
+                                    style={{ fontSize: "18px", color: "black" }}
+                                    {...props}
+                                  />
+                                ),
+                                p: ({ node, ...props }) => (
+                                  <p
+                                    style={{ fontSize: "16px", color: "black" }}
+                                    {...props}
+                                  />
+                                ),
+                                ul: ({ node, ...props }) => (
+                                  <p
+                                    style={{ fontSize: "16px", color: "black" }}
+                                    fontWeight={"400"}
+                                    {...props}
+                                  />
+                                ),
+                              }}
+                            />
                           ) : (
                             "No Description"
                           )}
@@ -95,80 +146,6 @@ const DetailsTabNav = ({ product }) => {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          {/* addInfo */}
-          <div
-            className="tab-pane fade"
-            id="nav-additional"
-            role="tabpanel"
-            aria-labelledby="nav-additional-tab"
-            tabIndex="-1"
-          >
-            <div className="tp-product-details-additional-info ">
-              <div className="row justify-content-center">
-                <div className="col-xl-10">
-                  {product.length < 0 ? (
-                    <table>
-                      <tbody>
-                        {product?.map((item, i) => (
-                          <tr key={i}>
-                            <td>{item.key}</td>
-                            <td>{item?.attributes?.description}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    "No Additional Information"
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Review */}
-          <div
-            className="tab-pane fade"
-            id="nav-review"
-            role="tabpanel"
-            aria-labelledby="nav-review-tab"
-            tabIndex="-1"
-          >
-            <div className="tp-product-details-review-wrapper pt-60">
-              <div className="row">
-                Coming Soon
-                {/*
-              <div className="col-lg-6">
-                  <div className="tp-product-details-review-statics">
-                    <div className="tp-product-details-review-list pr-110">
-                      <h3 className="tp-product-details-review-title">
-                        Rating & Review
-                      </h3>
-                      {reviews?.length === 0 && (
-                        <h3 className="tp-product-details-review-title">
-                          There are no reviews yet.
-                        </h3>
-                      )}
-                      {reviews?.length > 0 &&
-                        reviews?.map((item) => (
-                          <ReviewItem key={item._id} review={item} />
-                        ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <div className="tp-product-details-review-form">
-                    <h3 className="tp-product-details-review-form-title">
-                      Review this product
-                    </h3>
-                    <p>
-                      Your email address will not be published. Required fields
-                      are marked *
-                    </p>
-                    <ReviewForm product_id={_id} />
-                  </div>
-                </div>*/}
               </div>
             </div>
           </div>
