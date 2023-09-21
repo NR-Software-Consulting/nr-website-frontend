@@ -13,6 +13,7 @@ import { useWishList } from "@/hooks/use-wishlist";
 import useAuthCheck from "@/hooks/use-auth-check";
 import { useRouter } from "next/router";
 import { notifyError } from "@/utils/toast";
+import NRImage from "../NRImage";
 
 const ShopListItem = ({ product }) => {
   const { reviews, discount, tags } = product || {};
@@ -86,10 +87,19 @@ const ShopListItem = ({ product }) => {
           href={`/product/${product?.attributes?.slug}`}
           className="d-flex align-items-center"
         >
-          <img
+          <NRImage
             src={product?.attributes?.images?.data[0]?.attributes?.url}
-            style={{ width: "100%", height: "300px" }}
-            alt="product-Fashion"
+            alt="product img"
+            width={100}
+            height={100}
+            quality={100}
+            style={{
+              width: "100%",
+              height: "300px",
+              layout: "responsive",
+              objectFit: "fill",
+            }}
+            className="img-fluid"
           />
         </Link>
 

@@ -1,8 +1,8 @@
 import store from "@/redux/store";
 import { Provider } from "react-redux";
 import ReactModal from "react-modal";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import "../styles/index.scss";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ApolloProvider } from "@apollo/client";
@@ -16,7 +16,7 @@ if (typeof window !== "undefined") {
 if (typeof window !== "undefined") {
   ReactModal.setAppElement("body");
 }
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
+// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 export default function App({ Component, pageProps }) {
   return (
@@ -33,11 +33,11 @@ export default function App({ Component, pageProps }) {
           <GoogleOAuthProvider
             clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
           >
-            <Elements stripe={stripePromise}>
-              <div id="root">
-                <Component {...pageProps} />
-              </div>
-            </Elements>
+            {/*<Elements stripe={stripePromise}> */}
+            <div id="root">
+              <Component {...pageProps} />
+            </div>
+            {/*<Elements /> */}
           </GoogleOAuthProvider>
         </ApolloProvider>
       </Provider>

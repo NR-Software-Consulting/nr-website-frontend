@@ -17,6 +17,7 @@ import { uploadFileClient } from "@/graphql/apollo-client";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { ProfileUser } from "@/svg";
+import NRImage from "../NRImage";
 const schema = Yup.object().shape({
   companyName: Yup.string().label("Company Name").required(),
   crNumber: Yup.string().label("CR Number").required(),
@@ -154,7 +155,7 @@ const CompanyProfile = ({ data }) => {
                   <span className="sr-only">Loading...</span>
                 </div>
               ) : (
-                <>
+                <div>
                   {!profileImage?.url ? (
                     <div className="tp-header-login-icon">
                       <span
@@ -166,26 +167,31 @@ const CompanyProfile = ({ data }) => {
                           justifyContent: "center",
                           alignItems: "center",
                           border: "1px solid",
-                          cursor: "auto"
+                          cursor: "auto",
                         }}
                       >
                         <ProfileUser />
                       </span>
                     </div>
                   ) : (
-                    <img
+                    <NRImage
                       src={profileImage.url}
                       alt="Uploaded Preview"
+                      width={100}
+                      height={100}
+                      quality={100}
                       style={{
+                        layout: "responsive",
                         width: "100px",
                         height: "100px",
                         borderRadius: "50%",
                         objectFit: "cover",
-                        cursor: "auto"
+                        cursor: "auto",
                       }}
+                      className="img-fluid"
                     />
                   )}
-                </>
+                </div>
               )}
               <input
                 style={{ width: "178px", cursor: "pointer" }}
@@ -322,25 +328,27 @@ const CompanyProfile = ({ data }) => {
                     name="phoneNumber"
                     id="phoneNumber"
                     className={`form-control rounded-0 p-1`}
-                    style={
-                      {
-                        "--react-international-phone-border-radius": 0,
-                        "--react-international-phone-border-color": "none",
-                        "--react-international-phone-dropdown-item-background-color": "white",
-                        "--react-international-phone-background-color": "transparent",
-                        "--react-international-phone-text-color": "black",
-                        "--react-international-phone-selected-dropdown-item-background-color": "transparent",
-                        "--react-international-phone-selected-dropdown-zindex": "1",
-                        "--react-international-phone-height": "50px"
-                      }
-                    }
+                    style={{
+                      "--react-international-phone-border-radius": 0,
+                      "--react-international-phone-border-color": "none",
+                      "--react-international-phone-dropdown-item-background-color":
+                        "white",
+                      "--react-international-phone-background-color":
+                        "transparent",
+                      "--react-international-phone-text-color": "black",
+                      "--react-international-phone-selected-dropdown-item-background-color":
+                        "transparent",
+                      "--react-international-phone-selected-dropdown-zindex":
+                        "1",
+                      "--react-international-phone-height": "50px",
+                    }}
                     placeholder={t("Enter your phone here")}
                     defaultCountry={leble}
                     value={phone}
                     forceDialCode={true}
                     onChange={(phone, labels) => {
-                      setPhone(phone)
-                      setLeble(labels)
+                      setPhone(phone);
+                      setLeble(labels);
                       setValue("phoneNumber", phone);
                     }}
                   />

@@ -1,4 +1,5 @@
 import React from "react";
+import NRImage from "../NRImage";
 const PopupThumbWrapper = ({
   imageURLs,
   imgWidth = 416,
@@ -11,12 +12,18 @@ const PopupThumbWrapper = ({
         <div className="tab-content m-img">
           <div className="tab-pane fade show active">
             <div className="tp-product-details-nav-main-thumb p-relative">
-              <img
+              <NRImage
                 src={imageURLs}
                 alt="product img"
                 width={imgWidth}
                 height={imgHeight}
-                style={{ objectFit: "contain" }}
+                quality={100}
+                style={{
+                  layout: "responsive",
+                  objectFit: "fill",
+                  cursor: "auto",
+                }}
+                className="img-fluid"
               />
               <div className="tp-product-badge">
                 {status === "out-of-stock" && (

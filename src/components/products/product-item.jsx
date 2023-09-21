@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { notifyError } from "@/utils/toast";
 import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
+import NRImage from "../NRImage";
 
 const ProductItem = ({ product, offer_style = false }) => {
   const { reviews, status, offerExpiryTime } = product || {};
@@ -72,14 +73,18 @@ const ProductItem = ({ product, offer_style = false }) => {
       >
         <div className="tp-product-thumb p-relative fix">
           <Link href={`/product/${product?.attributes?.slug}`}>
-            <img
+            <NRImage
               src={product?.attributes?.images?.data[0]?.attributes?.url}
+              alt="product img"
+              width={100}
+              height={100}
               style={{
                 width: "100%",
-                height: "250px",
+                height: "100%",
                 objectFit: "contain",
+                layout: "responsive",
               }}
-              alt="product-electronic"
+              className="img-fluid"
             />
             <div className="tp-product-badge">
               {status === "out-of-stock" && (

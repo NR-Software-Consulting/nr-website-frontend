@@ -17,6 +17,7 @@ import { uploadFileClient } from "@/graphql/apollo-client";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { ProfileUser } from "@/svg";
+import NRImage from "../NRImage";
 
 const schema = Yup.object().shape({
   first_name: Yup.string().label("First Name").required(),
@@ -25,7 +26,10 @@ const schema = Yup.object().shape({
     .email()
     .label("Email")
     .matches(/^\S+@\S+\.\S{2,}$/i, "Invalid Email Format"),
-  phoneNumber: Yup.string().required("Phone is required").label("Phone").min(10),
+  phoneNumber: Yup.string()
+    .required("Phone is required")
+    .label("Phone")
+    .min(10),
   shipping_address: Yup.string().label("Address").required(),
   profile_image: Yup.string().label("Profile Image").required(),
 });
@@ -68,7 +72,9 @@ const ProfileInfo = ({ data }) => {
     setCookie("userInfo", userData);
   }, [userProfile, loading]);
 
-  const [phone, setPhone] = useState(data?.attributes?.calling_code + data?.attributes?.phoneNumber || "");
+  const [phone, setPhone] = useState(
+    data?.attributes?.calling_code + data?.attributes?.phoneNumber || ""
+  );
   const [leble, setLeble] = useState(data?.country_code || "");
 
   const {
@@ -82,7 +88,8 @@ const ProfileInfo = ({ data }) => {
     defaultValues: {
       first_name: data?.attributes?.first_name,
       last_name: data?.attributes?.last_name,
-      phoneNumber: data?.attributes?.calling_code + data?.attributes?.phoneNumber,
+      phoneNumber:
+        data?.attributes?.calling_code + data?.attributes?.phoneNumber,
       shipping_address: data?.attributes?.shipping_address,
       profile_image: data?.attributes.profile_image?.data?.attributes?.url,
     },
@@ -113,7 +120,7 @@ const ProfileInfo = ({ data }) => {
     const splitPhone = phoneNumber.split(" ");
     const firstPart = splitPhone[0].replace(/[^\d]/g, "");
     const lastPart = splitPhone[1].replace(/[^\d]/g, "");
-    const lebleUpperCase = leble.toUpperCase()
+    const lebleUpperCase = leble.toUpperCase();
     try {
       await updateProfile({
         variables: {
@@ -152,7 +159,7 @@ const ProfileInfo = ({ data }) => {
                   <span class="sr-only">Loading...</span>
                 </div>
               ) : (
-                <>
+                <div>
                   {!profileImage?.url ? (
                     <div className="tp-header-login-icon">
                       <span
@@ -164,26 +171,31 @@ const ProfileInfo = ({ data }) => {
                           justifyContent: "center",
                           alignItems: "center",
                           border: "1px solid",
-                          cursor: "auto"
+                          cursor: "auto",
                         }}
                       >
                         <ProfileUser />
                       </span>
                     </div>
                   ) : (
-                    <img
+                    <NRImage
                       src={profileImage.url}
                       alt="Uploaded Preview"
+                      width={100}
+                      height={100}
+                      quality={100}
                       style={{
+                        layout: "responsive",
                         width: "100px",
                         height: "100px",
                         borderRadius: "50%",
                         objectFit: "cover",
-                        cursor: "auto"
+                        cursor: "auto",
                       }}
+                      className="img-fluid"
                     />
                   )}
-                </>
+                </div>
               )}
               <input
                 style={{ width: "178px", cursor: "pointer" }}
@@ -293,25 +305,27 @@ const ProfileInfo = ({ data }) => {
                     name="phoneNumber"
                     id="phoneNumber"
                     className={`form-control rounded-0 p-1`}
-                    style={
-                      {
-                        "--react-international-phone-border-radius": 0,
-                        "--react-international-phone-border-color": "none",
-                        "--react-international-phone-dropdown-item-background-color": "white",
-                        "--react-international-phone-background-color": "transparent",
-                        "--react-international-phone-text-color": "black",
-                        "--react-international-phone-selected-dropdown-item-background-color": "transparent",
-                        "--react-international-phone-selected-dropdown-zindex": "1",
-                        "--react-international-phone-height": "50px"
-                      }
-                    }
+                    style={{
+                      "--react-international-phone-border-radius": 0,
+                      "--react-international-phone-border-color": "none",
+                      "--react-international-phone-dropdown-item-background-color":
+                        "white",
+                      "--react-international-phone-background-color":
+                        "transparent",
+                      "--react-international-phone-text-color": "black",
+                      "--react-international-phone-selected-dropdown-item-background-color":
+                        "transparent",
+                      "--react-international-phone-selected-dropdown-zindex":
+                        "1",
+                      "--react-international-phone-height": "50px",
+                    }}
                     placeholder={t("Enter your phone here")}
                     defaultCountry={leble}
                     value={phone}
                     forceDialCode={true}
                     onChange={(phone, labels) => {
-                      setPhone(phone)
-                      setLeble(labels)
+                      setPhone(phone);
+                      setLeble(labels);
                       setValue("phoneNumber", phone);
                     }}
                   />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PopupVideo from "../common/popup-video";
+import NRImage from "../NRImage";
 
 const DetailsThumbWrapper = ({ imageURLs, status }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -20,12 +21,13 @@ const DetailsThumbWrapper = ({ imageURLs, status }) => {
                 }`}
                 onClick={() => setSelectedImage(images?.attributes.url)}
               >
-                <img
+                <NRImage
                   src={images?.attributes?.url}
                   alt="image"
-                  width={78}
+                  width={100}
                   height={100}
-                  style={{ width: "100%", height: "100%", quality: 100 }}
+                  style={{ objectFit: "fill", layout: "responsive" }}
+                  className="img-fluid"
                 />
               </button>
             ))
@@ -34,12 +36,13 @@ const DetailsThumbWrapper = ({ imageURLs, status }) => {
       </nav>
       <div className="tab-content m-img">
         <div className="tab-pane fade show active">
-          <img
+          <NRImage
             src={selectedImage}
             alt="product img"
-            width={"100%"}
-            height={670}
-            style={{ objectFit: "fill" }}
+            width={1200}
+            height={600}
+            style={{ layout: "responsive" }}
+            className="img-fluid"
           />
           <div className="tp-product-badge">
             {status === "out-of-stock" && (
