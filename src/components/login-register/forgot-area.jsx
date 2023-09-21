@@ -20,7 +20,10 @@ const ForgotArea = () => {
                   <div className="text-center">
                     <span>
                       {t("Remeber Password")}?{" "}
-                      <Link href="/login" className="text-primary">
+                      <Link
+                        href="/login"
+                        style={{ color: "var(--tp-theme-primary)" }}
+                      >
                         {" "}
                         {t("Login")}
                       </Link>

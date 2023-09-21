@@ -193,7 +193,7 @@ const CheckoutBillingArea = ({ register, errors, setValue, userData }) => {
                     }
                   }
                   placeholder={t("Enter your phone here")}
-                  defaultCountry={"sa"}
+                  defaultCountry="pk"
                   value={phone}
                   forceDialCode={false}
                   onChange={(phone) => {

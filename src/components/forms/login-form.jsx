@@ -37,7 +37,8 @@ const LoginForm = () => {
     handleSubmit,
     register,
     setValue,
-    formState: { errors }, getValues
+    formState: { errors },
+    getValues,
   } = useForm({ mode: "all", resolver: yupResolver(schema) });
   const handleChange = (e) => {
     setFormData({
@@ -58,16 +59,21 @@ const LoginForm = () => {
           },
         },
       });
-      const confirmedUser = response?.data?.login?.user?.confirmed
+      const confirmedUser = response?.data?.login?.user?.confirmed;
       if (confirmedUser === true) {
-        const { jwt, user, company_profile, user_profile } = response?.data?.login;
+        const { jwt, user, company_profile, user_profile } =
+          response?.data?.login;
         let userData = {
           ...user,
-          name: company_profile ? company_profile?.companyName : user_profile?.first_name,
-          profile_image: user_profile ? user_profile?.profile_image : company_profile?.profile_image,
+          name: company_profile
+            ? company_profile?.companyName
+            : user_profile?.first_name,
+          profile_image: user_profile
+            ? user_profile?.profile_image
+            : company_profile?.profile_image,
           company_profile: company_profile,
           user_profile: user_profile,
-          formType: user?.type
+          formType: user?.type,
         };
 
         setCookie("token", jwt);
@@ -82,113 +88,129 @@ const LoginForm = () => {
         notifySuccess("Successfully LoggedIn!");
         router.push("/");
       } else {
-        notifyError(`Please confirm your email first`)
+        notifyError(`Please confirm your email first`);
       }
     } catch (error) {
-      if (error?.message?.includes("confirmed") || error?.message?.includes("disabled")) {
-        notifyError(`Please confirm your email first`)
-        setRegistrationSuccess(true)
+      if (
+        error?.message?.includes("confirmed") ||
+        error?.message?.includes("disabled")
+      ) {
+        notifyError(`Please confirm your email first`);
+        setRegistrationSuccess(true);
       } else
         notifyError(error?.message || "Something went wrong during login.");
     }
   };
   return (
     <>
-      {registrationSuccess ?
-        (<OtpVerification email={email || getValues()?.email} userData={userData} isLogin={true} password={getValues()?.password} />) : (
-          <div className="container my-container">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-md-3 mb-2">
-                <label
-                  htmlFor="email"
-                  className="form-label text-black fw-semibold p-0 m-0"
-                >
-                  {t("Email")} <span className="text-danger">*</span>
-                </label>
+      {registrationSuccess ? (
+        <OtpVerification
+          email={email || getValues()?.email}
+          userData={userData}
+          isLogin={true}
+          password={getValues()?.password}
+        />
+      ) : (
+        <div className="container my-container">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-md-3 mb-2">
+              <label
+                htmlFor="email"
+                className="form-label text-black fw-semibold p-0 m-0"
+              >
+                {t("Email")} <span className="text-danger">*</span>
+              </label>
+              <input
+                {...register("email")}
+                name="email"
+                id="email"
+                type="email"
+                className={`form-control border-0 bg-light shadow-none ${
+                  errors.email ? "is-invalid" : ""
+                }`}
+                placeholder={t("Enter your Email")}
+                aria-describedby="UsernameHelp"
+                onChange={handleChange}
+              />
+              {errors.email && (
+                <span className="invalid-feedback">{errors.email.message}</span>
+              )}
+            </div>
+            <div className="mb-md-3 mb-2">
+              <label
+                htmlFor="password"
+                className="form-label text-black fw-semibold p-0 m-0"
+              >
+                {t("Password")} <span className="text-danger">*</span>
+              </label>
+              <div className="position-relative">
                 <input
-                  {...register("email")}
-                  name="email"
-                  id="email"
-                  type="email"
-                  className={`form-control border-0 bg-light shadow-none ${errors.email ? "is-invalid" : ""
-                    }`}
-                  placeholder={t("Enter your Email")}
-                  aria-describedby="UsernameHelp"
+                  {...register("password")}
+                  name="password"
+                  id="password"
+                  type={showPass ? "text" : "password"}
+                  className={`form-control border-0 bg-light shadow-none ${
+                    errors.password ? "is-invalid" : ""
+                  }`}
+                  placeholder={t("Enter your password here")}
+                  aria-describedby="PasswordHelp"
                   onChange={handleChange}
+                  onChangeCapture={(e) => {
+                    setValue(
+                      "password",
+                      e?.currentTarget?.value
+                        ?.trimStart()
+                        .trimEnd()
+                        .replace(/ +(?= )/g, "")
+                    );
+                  }}
                 />
-                {errors.email && (
-                  <span className="invalid-feedback">{errors.email.message}</span>
-                )}
-              </div>
-              <div className="mb-md-3 mb-2">
-                <label
-                  htmlFor="password"
-                  className="form-label text-black fw-semibold p-0 m-0"
-                >
-                  {t("Password")} <span className="text-danger">*</span>
-                </label>
-                <div className="position-relative">
-                  <input
-                    {...register("password")}
-                    name="password"
-                    id="password"
-                    type={showPass ? "text" : "password"}
-                    className={`form-control border-0 bg-light shadow-none ${errors.password ? "is-invalid" : ""
-                      }`}
-                    placeholder={t("Enter your password here")}
-                    aria-describedby="PasswordHelp"
-                    onChange={handleChange}
-                    onChangeCapture={(e) => {
-                      setValue(
-                        "password",
-                        e?.currentTarget?.value
-                          ?.trimStart()
-                          .trimEnd()
-                          .replace(/ +(?= )/g, "")
-                      );
-                    }}
-                  />
-                  <div className="tp-login-input-eye" id="password-show-toggle">
-                    <span className="eye-icon" onClick={() => setShowPass(!showPass)}>
-                      {showPass ? <OpenEye /> : <CloseEye />}
-                    </span>
-                  </div>
-                </div>
-                {errors.password && (
-                  <span className="text-danger">{errors.password.message}</span>
-                )}
-              </div>
-              <div className="text-primary">
-                <Link href="/forgot">{t("Forget Password")}?</Link>
-              </div>
-              <div className="d-flex flex-column justify-content-center align-items-center">
-                <button
-                  type="submit"
-                  onKeyDown={(e) => onSubmit(e)}
-                  className="btn btn-primary form-control py-md-3 py-2 my-3 shadow-none bg-primary text-white"
-                >
-                  {loading ? (
-                    <span>{t("loading")}...</span>
-                  ) : (
-                    <span>{t("Sign In")}</span>
-                  )}
-                </button>
-                <p className="mt-5">
-                  {t("Dont have an account")}?{" "}
-                  <span>
-                    <Link
-                      href="/register"
-                      className="btn text-primary border-0 shadow-none ps-1"
-                    >
-                      {t("Sign Up")}
-                    </Link>
+                <div className="tp-login-input-eye" id="password-show-toggle">
+                  <span
+                    className="eye-icon"
+                    onClick={() => setShowPass(!showPass)}
+                  >
+                    {showPass ? <OpenEye /> : <CloseEye />}
                   </span>
-                </p>
+                </div>
               </div>
-            </form>
-          </div>
-        )}</>
-
+              {errors.password && (
+                <span className="text-danger">{errors.password.message}</span>
+              )}
+            </div>
+            <div style={{ color: "var(--tp-theme-primary)" }}>
+              <Link href="/forgot">{t("Forget Password")}?</Link>
+            </div>
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <button
+                type="submit"
+                onKeyDown={(e) => onSubmit(e)}
+                className="btn form-control py-md-3 py-2 my-3 shadow-none text-white"
+                style={{ backgroundColor: "var(--tp-theme-primary)" }}
+              >
+                {loading ? (
+                  <span>{t("loading")}...</span>
+                ) : (
+                  <span>{t("Sign In")}</span>
+                )}
+              </button>
+              <p className="mt-5">
+                {t("Dont have an account")}?{" "}
+                <span>
+                  <Link
+                    href="/register"
+                    className="btn border-0 shadow-none ps-1"
+                    style={{ color: "var(--tp-theme-primary)" }}
+                  >
+                    {t("Sign Up")}
+                  </Link>
+                </span>
+              </p>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
   );
 };
 

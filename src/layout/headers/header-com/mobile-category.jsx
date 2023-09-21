@@ -4,7 +4,13 @@ import { useRouter } from "next/router";
 import ErrorMsg from "@/components/common/error-msg";
 import Loader from "@/components/loader/loader";
 
-const MobileCategory = ({ categoryType, isCategoryActive, toggleCategoryDropdown, isError, isLoading }) => {
+const MobileCategory = ({
+  categoryType,
+  isCategoryActive,
+  toggleCategoryDropdown,
+  isError,
+  isLoading,
+}) => {
   const [isActiveSubMenu, setIsActiveSubMenu] = useState("");
   const router = useRouter();
 
@@ -48,29 +54,57 @@ const MobileCategory = ({ categoryType, isCategoryActive, toggleCategoryDropdown
     content = <ErrorMsg msg="No Category found!" />;
   } else {
     content = categoryType?.map((item) => (
-      <li className="has-dropdown" key={item?.id} style={{ direction: "ltr", textAlign: "start" }}>
+      <li
+        className="has-dropdown"
+        key={item?.id}
+        style={{ direction: "ltr", textAlign: "start" }}
+      >
         <a className="cursor-pointer">
-          <button className="cursor-pointer"
-            onClick={() => handleCategoryRoute(item?.id)}>
+          <button
+            className="cursor-pointer"
+            onClick={() => handleCategoryRoute(item?.id)}
+          >
             {item?.attributes?.logo?.data?.attributes?.url && (
               <span className="pe-2">
-                <Image src={item?.attributes?.logo?.data?.attributes?.url} alt="cate img" width={20} height={20} />
+                <Image
+                  src={item?.attributes?.logo?.data?.attributes?.url}
+                  alt="cate img"
+                  width={20}
+                  height={20}
+                />
               </span>
             )}
-            {item?.attributes?.name?.length > 20 ? item?.attributes?.name?.slice(0, 20) + "..." : item?.attributes?.name}
+            {item?.attributes?.name?.length > 20
+              ? item?.attributes?.name?.slice(0, 20) + "..."
+              : item?.attributes?.name}
           </button>
           {item?.attributes?.sub_categories && (
-            <button onClick={() => handleOpenSubMenu(item?.attributes?.name)} className="dropdown-toggle-btn">
-              <i className={`fa ${isActiveSubMenu === item?.attributes?.name ? 'fa-angle-down' : 'fa-angle-right'}`}></i>
-
+            <button
+              onClick={() => handleOpenSubMenu(item?.attributes?.name)}
+              className="dropdown-toggle-btn"
+            >
+              <i
+                className={`fa ${
+                  isActiveSubMenu === item?.attributes?.name
+                    ? "fa-angle-down"
+                    : "fa-angle-right"
+                }`}
+              ></i>
             </button>
           )}
         </a>
 
         {item?.attributes?.sub_categories && (
-          <ul className={`tp-submenu ${isActiveSubMenu === item?.attributes?.name ? 'active' : ''}`}>
+          <ul
+            className={`tp-submenu ${
+              isActiveSubMenu === item?.attributes?.name ? "active" : ""
+            }`}
+          >
             {item?.attributes?.sub_categories?.data?.map((child) => (
-              <li key={child?.id} onClick={() => handleCategoryRoute(item?.id, child?.id)}>
+              <li
+                key={child?.id}
+                onClick={() => handleCategoryRoute(item?.id, child?.id)}
+              >
                 <a className="cursor-pointer">{child?.attributes?.name}</a>
               </li>
             ))}
@@ -80,7 +114,14 @@ const MobileCategory = ({ categoryType, isCategoryActive, toggleCategoryDropdown
     ));
   }
 
-  return <ul style={{ overflow: "auto", height: "50vh" }} className={isCategoryActive ? "active" : ""}>{content}</ul>;
+  return (
+    <ul
+      style={{ overflow: "auto" }}
+      className={isCategoryActive ? "active" : ""}
+    >
+      {content}
+    </ul>
+  );
 };
 
 export default MobileCategory;

@@ -1,14 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import { useState } from "react";
+import { Box } from "@mui/material";
 
 const NRImage = (props) => {
   const [error, setError] = useState(false);
   return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
+    <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
       <Image
-        // fill
-        sizes="(max-width: 768px) 100vw, 33vw"
+        fill
         {...props}
         src={error ? "/images/noImage.jpeg" : props.src}
         style={{
@@ -21,7 +21,7 @@ const NRImage = (props) => {
         placeholder="blur"
         blurDataURL="/images/loaderShim.png"
       />
-    </div>
+    </Box>
   );
 };
 

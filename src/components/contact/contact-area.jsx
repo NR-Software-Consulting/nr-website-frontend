@@ -98,7 +98,6 @@ const ContactArea = (props) => {
                   <div className="tp-contact-wrapper">
                     <div className="tp-contact-form">
                       <ContactForm />
-                      <p className="ajax-response"></p>
                     </div>
                   </div>
                 </div>

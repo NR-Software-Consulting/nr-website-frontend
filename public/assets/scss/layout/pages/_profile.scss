@@ -581,7 +581,6 @@
   padding: 6px 18px;
   border: 1px solid rgba($color: $black, $alpha: 0.12);
   text-align: center;
-
   &:hover {
     background-color: var(--tp-theme-primary);
     border-color: var(--tp-theme-primary);
@@ -596,8 +595,6 @@
     &-box {
       position: relative;
       margin-bottom: 34px;
-      &:not(:last-child) {
-      }
     }
     & input {
       height: 56px;

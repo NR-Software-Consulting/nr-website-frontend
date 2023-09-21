@@ -178,21 +178,14 @@ const ProfileInfo = ({ data }) => {
                       </span>
                     </div>
                   ) : (
-                    <NRImage
+                    <img
                       src={profileImage.url}
-                      alt="Uploaded Preview"
-                      width={100}
-                      height={100}
-                      quality={100}
+                      alt="Uploaded-Preview"
                       style={{
-                        layout: "responsive",
                         width: "100px",
                         height: "100px",
                         borderRadius: "50%",
-                        objectFit: "cover",
-                        cursor: "auto",
                       }}
-                      className="img-fluid"
                     />
                   )}
                 </div>

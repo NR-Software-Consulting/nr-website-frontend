@@ -165,7 +165,10 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
           >
             {t("Enter the 4-digit Code that you received on your email")}
           </label>
-          <div className="d-flex justify-content-center" style={{ direction: "ltr" }}>
+          <div
+            className="d-flex justify-content-center"
+            style={{ direction: "ltr" }}
+          >
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -183,15 +186,20 @@ const OtpVerification = ({ email, userData, isLogin, password }) => {
         <div className="d-flex justify-content-center pt-5">
           <button
             type="button"
-            className="btn btn-lg btn-primary form-control shadow-none bg-primary text-white rounded-1"
+            className="btn btn-lg form-control shadow-none text-white rounded-1"
             onClick={handleSubmit}
             disabled={!allDigitsEntered}
+            style={{ backgroundColor: "var(--tp-theme-primary)" }}
           >
             {t("Verify")}
           </button>
         </div>
         <div className="d-flex justify-content-center pt-3">
-          <button type="button" className="text-primary" onClick={handleResend}>
+          <button
+            type="button"
+            style={{ color: "var(--tp-theme-primary)" }}
+            onClick={handleResend}
+          >
             {t("Resend OTP")}
           </button>
         </div>

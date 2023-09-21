@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { userLoggedIn } from "@/redux/features/auth/authSlice";
 
 const schema = yup.object().shape({
-  phone: yup.string().required("Phone is required").label("Phone").min(10),
+  phone: yup.string().required("Phone is required").label("Phone").min(11),
   email: yup
     .string()
     .email("Invalid email")
@@ -290,7 +290,7 @@ const RegisterFormIndividual = ({ formType }) => {
               className={`form-control border-0 bg-light p-1 ${
                 errors.phone ? "is-invalid" : ""
               }`}
-              defaultCountry="sa"
+              defaultCountry="pk"
               forceDialCode={true}
               placeholder={t("Enter your phone here")}
               value={phone}
@@ -389,7 +389,8 @@ const RegisterFormIndividual = ({ formType }) => {
           <div className="d-flex flex-column justify-content-center align-items-center ">
             <button
               type="submit"
-              className="btn btn-primary form-control py-md-3 py-2 my-3 shadow-none bg-primary text-white"
+              className="btn form-control py-md-3 py-2 my-3 shadow-none text-white"
+              style={{ backgroundColor: "var(--tp-theme-primary)" }}
             >
               {loading ? (
                 <span>{t("loading")}...</span>
@@ -399,7 +400,7 @@ const RegisterFormIndividual = ({ formType }) => {
             </button>
             <p className="mt-5">
               {t("Already have an account")}?{" "}
-              <span className="text-primary">
+              <span style={{ color: "var(--tp-theme-primary)" }}>
                 <Link href="/login">{t("Sign In")}</Link>
               </span>
             </p>

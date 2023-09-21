@@ -70,32 +70,31 @@ const ForgetPasswordComp = () => {
                 <div className="d-flex justify-content-center">
                   <input
                     type="email"
-                    className={`form-control shadow-none ${errors.email ? "is-invalid" : ""
-                      }`}
+                    className={`form-control shadow-none ${
+                      errors.email ? "is-invalid" : ""
+                    }`}
                     id="email"
                     placeholder={t("Enter Your Email")}
                     {...register("email")}
                   />
                 </div>
                 {errors.email && (
-                  <div className="text-danger text-start">{errors.email.message}</div>
+                  <div className="text-danger text-start">
+                    {errors.email.message}
+                  </div>
                 )}
               </div>
               <div className="d-flex justify-content-center pt-5">
                 <button
                   type="submit"
-                  className="btn btn-lg btn-primary form-control bg-primary text-white shadow-none rounded-1"
+                  className="btn btn-lg form-control text-white shadow-none rounded-1"
                   disabled={loading}
+                  style={{ backgroundColor: "var(--tp-theme-primary)" }}
                 >
                   {loading ? t("loading") + "..." : t("Continue")}
                 </button>
               </div>
             </form>
-            {/* {error && (
-              <div className="text-danger text-center mt-3">
-                Please Enter the Valid Email
-              </div>
-            )} */}
           </>
         )}
       </div>

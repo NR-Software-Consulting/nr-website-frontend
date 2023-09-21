@@ -75,8 +75,9 @@ const RegeneratePassword = ({ email, otp }) => {
             <div className="position-relative">
               <input
                 type={showNewPass ? "text" : "password"}
-                className={`form-control shadow-none ${errors.newPassword ? "is-invalid" : ""
-                  }`}
+                className={`form-control shadow-none ${
+                  errors.newPassword ? "is-invalid" : ""
+                }`}
                 id="newPassword"
                 name="newPassword"
                 {...register("newPassword")}
@@ -101,8 +102,9 @@ const RegeneratePassword = ({ email, otp }) => {
             <div className="position-relative">
               <input
                 type={showConfirmPass ? "text" : "password"}
-                className={`form-control shadow-none ${errors.confirmPassword ? "is-invalid" : ""
-                  }`}
+                className={`form-control shadow-none ${
+                  errors.confirmPassword ? "is-invalid" : ""
+                }`}
                 id="confirmPassword"
                 name="confirmPassword"
                 {...register("confirmPassword")}
@@ -127,8 +129,9 @@ const RegeneratePassword = ({ email, otp }) => {
           </div>
           <button
             type="submit"
-            className="btn btn-lg btn-primary form-control shadow-none bg-primary text-white mt-md-4 mt-2"
+            className="btn btn-lg form-control shadow-none text-white mt-md-4 mt-2"
             disabled={loading}
+            style={{ backgroundColor: "var(--tp-theme-primary)" }}
           >
             {loading ? (
               <span>{t("loading")}...</span>

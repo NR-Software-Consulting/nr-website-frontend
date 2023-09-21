@@ -294,7 +294,7 @@ const RegisterFormCompany = ({ formType }) => {
               className={`form-control border-0 bg-light ${
                 errors.phone ? "is-invalid" : ""
               }`}
-              defaultCountry="sa"
+              defaultCountry="pk"
               forceDialCode={true}
               placeholder={t("Enter your phone here")}
               value={phone}

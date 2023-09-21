@@ -6,7 +6,7 @@ import RegisterFormComapany from "../forms/register-form-company";
 import { useTranslations } from "next-intl";
 
 const RegisterArea = () => {
-  const [formType, setFormType] = useState("company");
+  const [formType, setFormType] = useState("user");
   const t = useTranslations("header");
   return (
     <>
@@ -63,9 +63,9 @@ const RegisterArea = () => {
                     </div> 
                   </div>
                   {formType === "user" ? (
-                    <RegisterFormIndividual formType={formType} />
+                    <RegisterFormComapany formType={formType} />
                   ) : ( )}*/}
-                  <RegisterFormComapany formType={formType} />
+                  <RegisterFormIndividual formType={formType} />
                 </div>
               </div>
             </div>

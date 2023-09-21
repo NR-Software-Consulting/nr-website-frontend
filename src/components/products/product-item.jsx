@@ -12,6 +12,7 @@ import { notifyError } from "@/utils/toast";
 import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
 import NRImage from "../NRImage";
+import { Box } from "@mui/material";
 
 const ProductItem = ({ product, offer_style = false }) => {
   const { reviews, status, offerExpiryTime } = product || {};
@@ -73,19 +74,18 @@ const ProductItem = ({ product, offer_style = false }) => {
       >
         <div className="tp-product-thumb p-relative fix">
           <Link href={`/product/${product?.attributes?.slug}`}>
-            <NRImage
-              src={product?.attributes?.images?.data[0]?.attributes?.url}
-              alt="product img"
-              width={100}
-              height={100}
-              style={{
+            <Box
+              sx={{
                 width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                layout: "responsive",
+                height: 250,
               }}
-              className="img-fluid"
-            />
+            >
+              <NRImage
+                src={product?.attributes?.images?.data[0]?.attributes?.url}
+                alt="product img"
+                style={{ objectFit: "contain" }}
+              />
+            </Box>
             <div className="tp-product-badge">
               {status === "out-of-stock" && (
                 <span className="product-hot">out-stock</span>

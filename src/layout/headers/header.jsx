@@ -16,6 +16,7 @@ import { CartTwo, CategoryMenu, Menu, Phone, Wishlist } from "@/svg";
 import { useTranslations } from "next-intl";
 import { useCart } from "@/hooks/use-cart";
 import useAuthCheck from "@/hooks/use-auth-check";
+import Marquee from "react-fast-marquee";
 
 const Header = ({ categories } = props) => {
   const { wishlist } = useSelector((state) => state.wishlist);
@@ -33,19 +34,20 @@ const Header = ({ categories } = props) => {
     <>
       <header>
         <div className="tp-header-area p-relative z-index-11">
-          {/*
-        <div className="tp-header-top black-bg p-relative z-index-1 d-none d-md-block">
-            <div className="container">
-              <div className="row align-items-center">
-                <div className="col-md-12">
-                  <div className="tp-header-top-right d-flex align-items-center justify-content-end">
-                    <HeaderTopRight />
-                  </div>
-                </div>
+          <div className="tp-header-top black-bg p-relative z-index-1">
+            <div className="row align-items-center">
+              <div className="col-md-12">
+                <Marquee
+                  style={{ color: "white", fontSize: "14px", padding: "5px" }}
+                >
+                  NR Mobile & Accessories Company is a rapidly expanding brand
+                  that offers its customers high-quality, and long-lasting
+                  products. Our aim is to enhance our customers lifestyles by
+                  providing them with products which they can enjoy.
+                </Marquee>
               </div>
             </div>
           </div>
-        */}
           <div className="tp-header-main tp-header-sticky">
             <div className="container">
               <div className="row align-items-center">

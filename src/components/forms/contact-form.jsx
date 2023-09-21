@@ -142,7 +142,7 @@ const ContactForm = () => {
               className={`form-control border-0 bg-light p-1 ${
                 errors.phone ? "is-invalid" : ""
               }`}
-              defaultCountry="sa"
+              defaultCountry="pk"
               forceDialCode={true}
               placeholder={t("Enter your phone here")}
               value={phone}
@@ -190,7 +190,8 @@ const ContactForm = () => {
         <div className="d-flex flex-column justify-content-center align-items-center">
           <button
             type="submit"
-            className="btn btn-primary form-control py-md-3 py-2 shadow-none bg-primary text-white"
+            className="btn form-control py-md-3 py-2 shadow-none text-white"
+            style={{ backgroundColor: "var(--tp-theme-primary)" }}
           >
             {loading ? t("Sending") + "..." : t("Send")}
           </button>

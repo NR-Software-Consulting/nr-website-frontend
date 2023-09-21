@@ -15,7 +15,7 @@ const ForgotPage = ({ category, footerLinks }) => {
       <SEO pageTitle="Forgot" />
       <Header categories={category} />
       <CommonBreadcrumb
-        title="Forget Password"
+        title="Forgot Password"
         subtitle="Reset Password"
         center={true}
       />
