@@ -14,6 +14,7 @@ import useAuthCheck from "@/hooks/use-auth-check";
 import { useRouter } from "next/router";
 import { notifyError } from "@/utils/toast";
 import NRImage from "../NRImage";
+import { Box } from "@mui/material";
 
 const ShopListItem = ({ product }) => {
   const { reviews, discount, tags } = product || {};
@@ -87,20 +88,18 @@ const ShopListItem = ({ product }) => {
           href={`/product/${product?.attributes?.slug}`}
           className="d-flex align-items-center"
         >
-          <NRImage
-            src={product?.attributes?.images?.data[0]?.attributes?.url}
-            alt="product img"
-            width={100}
-            height={100}
-            quality={100}
-            style={{
-              width: "100%",
-              height: "300px",
-              layout: "responsive",
-              objectFit: "fill",
-            }}
-            className="img-fluid"
-          />
+          <Box sx={{ width: "100%", height: "300px" }}>
+            <NRImage
+              src={product?.attributes?.images?.data[0]?.attributes?.url}
+              alt="product img"
+              quality={100}
+              style={{
+                layout: "responsive",
+                objectFit: "fill",
+              }}
+              className="img-fluid"
+            />
+          </Box>
         </Link>
 
         {/* <!-- product action --> */}
