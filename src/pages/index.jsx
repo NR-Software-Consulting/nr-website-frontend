@@ -29,7 +29,17 @@ export default function Home(props) {
   } = props;
   return (
     <Wrapper>
-      <SEO pageTitle="NR Mobiles & Accessories Company" />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <p style={{ fontSize: "48px" }}>Coming Soon</p>
+      </div>
+      {/*<SEO pageTitle="NR Mobiles & Accessories Company" />
       <Header categories={category} />
       <HomeHeroSlider />
       <Scores scores={scores} />
@@ -38,6 +48,7 @@ export default function Home(props) {
       <ProductArea products={trending} />
       <Accessories products={accessories} />
       <Footer socialLinks={footerLinks} />
+      */}
     </Wrapper>
   );
 }
