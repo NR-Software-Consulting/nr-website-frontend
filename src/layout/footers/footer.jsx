@@ -30,8 +30,8 @@ const Footer = ({ socialLinks }) => {
                           src={logo}
                           alt="logo"
                           style={{
-                            height: 45,
-                            width: 155,
+                            height: 60,
+                            width: 200,
                           }}
                         />
                       </Link>

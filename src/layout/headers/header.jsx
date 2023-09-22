@@ -57,7 +57,7 @@ const Header = ({ categories } = props) => {
                       <Image
                         src={logo}
                         alt="logo"
-                        style={{ height: 45, width: 155 }}
+                        style={{ height: 60, width: 200, objectFit: "contain" }}
                       />
                     </Link>
                   </div>
