@@ -36,7 +36,7 @@ const ProductArea = ({ products, isError, isLoading }) => {
   return (
     <section className="tp-product-area pb-55">
       <div className="container">
-        <div className="row  align-items-center mb-40">
+        <div className="row align-items-center mb-40">
           <div className="col-xl-5 col-lg-6 col-md-5">
             <div className="tp-section-title-wrapper">
               <h3 className="tp-section-title">
@@ -44,9 +44,6 @@ const ProductArea = ({ products, isError, isLoading }) => {
                 <ShapeLine />
               </h3>
             </div>
-          </div>
-          <div className="col-xl-7 col-lg-6 col-md-7">
-            <div className="tp-product-arrival-border"></div>
           </div>
         </div>
         <div className="row">{content}</div>

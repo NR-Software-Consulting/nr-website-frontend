@@ -32,7 +32,7 @@ const ProductDetailsArea = ({ productItem }) => {
           </div>
         </div>
       </div>
-      <div className="tp-product-details-bottom pb-140">
+      <div className="tp-product-details-bottom pb-50">
         <div className="container">
           <div className="row">
             <div className="col-xl-12">

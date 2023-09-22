@@ -7,7 +7,7 @@ import {
   LinkedinShareButton,
 } from "react-share";
 
-const DetailsBottomInfo = ({ sku, category, tag, brand }) => {
+const DetailsBottomInfo = ({ category, tag, brand }) => {
   const t = useTranslations("header");
   const router = useRouter();
   const shareUrl =
@@ -15,12 +15,7 @@ const DetailsBottomInfo = ({ sku, category, tag, brand }) => {
 
   return (
     <>
-      {/* product-details-query */}
       <div className="tp-product-details-query">
-        <div className="tp-product-details-query-item d-flex align-items-center">
-          <span>{t("SKU")}: </span>
-          <p>{sku}</p>
-        </div>
         <div className="tp-product-details-query-item d-flex align-items-center">
           <span>{t("Category")}: </span>
           <p>{category}</p>

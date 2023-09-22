@@ -507,11 +507,12 @@ const ShopArea = ({
 
   return (
     <>
-      <section className="tp-shop-area pb-120">
+      <section className="tp-shop-area">
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-lg-4 d-none d-lg-block">
               <div className="tp-shop-sidebar mr-10">
+                <ResetButton handleResetFilters={handleResetFilters} />
                 {/* filter */}
                 <PriceFilter
                   priceValue={priceValue}
@@ -536,7 +537,6 @@ const ShopArea = ({
                   handleBrandFilter={handleBrandFilter}
                   selectedBrands={selectedBrands}
                 />
-                <ResetButton handleResetFilters={handleResetFilters} />
               </div>
             </div>
             <div className="col-xl-9 col-lg-8">

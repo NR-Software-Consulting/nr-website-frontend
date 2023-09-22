@@ -7,22 +7,20 @@ import slider_img_1 from "@assets/img/slider/slider-img-1.png";
 import slider_img_2 from "@assets/img/slider/slider-img-2.png";
 import slider_img_3 from "@assets/img/slider/slider-img-3.png";
 import shape_1 from "@assets/img/slider/shape/slider-shape-1.png";
-import shape_2 from "@assets/img/slider/shape/slider-shape-2.png";
-import shape_3 from "@assets/img/slider/shape/slider-shape-3.png";
 import shape_4 from "@assets/img/slider/shape/slider-shape-4.png";
 import { ArrowRightLong, SliderNextBtn, SliderPrevBtn, TextShape } from "@/svg";
+import NRImage from "../NRImage";
+import { Box } from "@mui/material";
 
 const sliderData = [
   {
     id: 1,
-    pre_title: { text: "Starting at", price: 5000 },
-    title: "The best Watches Collection 2023",
+    pre_title: { text: "Starting at", price: 4000 },
+    title: "New Headphone collection 2023",
     subtitle: {
-      text_1: "Exclusive offer ",
-      percent: 10,
-      text_2: "off this week",
+      text_1: "Exclusive offers on multiple products",
     },
-    img: slider_img_1,
+    img: slider_img_3,
     green_bg: true,
   },
   {
@@ -30,23 +28,20 @@ const sliderData = [
     pre_title: { text: "Starting at", price: 5000 },
     title: "New Airpods collection 2023",
     subtitle: {
-      text_1: "Exclusive offer ",
-      percent: 10,
-      text_2: "off this week",
+      text_1: "Exclusive offers on multiple products",
     },
     img: slider_img_2,
     green_bg: true,
   },
+
   {
     id: 3,
-    pre_title: { text: "Starting at", price: 4000 },
-    title: "New Headphone collection 2023",
+    pre_title: { text: "Starting at", price: 5000 },
+    title: "The best Watches Collection 2023",
     subtitle: {
-      text_1: "Exclusive offer ",
-      percent: 10,
-      text_2: "off this week",
+      text_1: "Exclusive offers on multiple products",
     },
-    img: slider_img_3,
+    img: slider_img_1,
     green_bg: true,
   },
 ];
@@ -86,44 +81,27 @@ const HomeHeroSlider = () => {
           pagination={{ el: ".tp-slider-dot", clickable: true }}
           autoplay={true}
           modules={[Navigation, Pagination, EffectFade, Autoplay]}
-          className={`tp-slider-active tp-slider-variation swiper-container ${
-            active ? "is-light" : ""
-          }`}
+          className={`tp-slider-active tp-slider-variation swiper-container`}
         >
           {sliderData.map((item) => (
             <SwiperSlide
               key={item.id}
-              className={`tp-slider-item tp-slider-height d-flex align-items-center ${
-                item?.green_bg
-                  ? "green-dark-bg"
-                  : item?.is_light
-                  ? "is-light"
-                  : ""
-              }`}
-              style={{ backgroundColor: item.is_light && "#E3EDF6" }}
+              className={`tp-slider-item tp-slider-height d-flex align-items-center`}
+              style={{ backgroundColor: "black" }}
             >
               <div className="tp-slider-shape">
                 <Shape img={shape_1} num="1" />
-                <Shape img={shape_2} num="2" />
-                <Shape img={shape_3} num="3" />
                 <Shape img={shape_4} num="4" />
               </div>
               <div className="container">
                 <div className="row align-items-center">
-                  <div className="col-xl-5 col-lg-6 col-md-6">
+                  <div className="col-xl-8 col-lg-7 col-md-7">
                     <div className="tp-slider-content p-relative z-index-1">
                       <span>
                         {item.pre_title.text} <b>PKR {item.pre_title.price}</b>
                       </span>
                       <h3 className="tp-slider-title">{item.title}</h3>
-                      <p>
-                        {item.subtitle.text_1}
-                        <span>
-                          -{item.subtitle.percent}%
-                          <TextShape />
-                        </span>{" "}
-                        {item.subtitle.text_2}
-                      </p>
+                      <p>{item.subtitle.text_1}</p>
 
                       <div className="tp-slider-btn">
                         <Link
@@ -135,9 +113,19 @@ const HomeHeroSlider = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-xl-7 col-lg-6 col-md-6">
+                  <div className="col-xl-4 col-lg-5 col-md-5">
                     <div className="tp-slider-thumb text-end">
-                      <Image src={item.img} alt="slider-img" />
+                      <Box sx={{ height: 400, width: "100%" }}>
+                        <NRImage
+                          src={item.img}
+                          alt="slider-img"
+                          style={{
+                            // height: 400,
+                            // width: 400,
+                            objectFit: "contain",
+                          }}
+                        />
+                      </Box>
                     </div>
                   </div>
                 </div>

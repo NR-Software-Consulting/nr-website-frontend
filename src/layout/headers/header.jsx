@@ -35,18 +35,19 @@ const Header = ({ categories } = props) => {
       <header>
         <div className="tp-header-area p-relative z-index-11">
           <div className="tp-header-top black-bg p-relative z-index-1">
-            <div className="row align-items-center">
-              <div className="col-md-12">
-                <Marquee
-                  style={{ color: "white", fontSize: "14px", padding: "5px" }}
-                >
-                  NR Mobile & Accessories Company is a rapidly expanding brand
-                  that offers its customers high-quality, and long-lasting
-                  products. Our aim is to enhance our customers lifestyles by
-                  providing them with products which they can enjoy.
-                </Marquee>
-              </div>
-            </div>
+            <Marquee
+              style={{
+                color: "white",
+                fontSize: "14px",
+                paddingTop: "5px",
+                paddingBottom: "5px",
+              }}
+            >
+              NR Mobile & Accessories Company is a rapidly expanding brand that
+              offers its customers high-quality, and long-lasting products. Our
+              aim is to enhance our customers lifestyles by providing them with
+              products which they can enjoy.
+            </Marquee>
           </div>
           <div className="tp-header-main tp-header-sticky">
             <div className="container">

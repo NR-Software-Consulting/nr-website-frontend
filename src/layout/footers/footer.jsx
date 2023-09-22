@@ -17,7 +17,7 @@ const Footer = ({ socialLinks }) => {
   }, []);
   return (
     <footer>
-      <div className="primary_style pt-100">
+      <div className="primary_style pt-50">
         <div className="tp-footer-top">
           <div className="container">
             <div className="row">

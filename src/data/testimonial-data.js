@@ -1,60 +1,30 @@
-import user_1 from '@assets/img/users/user-1.jpg';
-import user_2 from '@assets/img/users/user-2.jpg';
-import user_3 from '@assets/img/users/user-3.jpg';
-import user_4 from '@assets/img/users/user-4.jpg';
+import user_1 from "@assets/img/users/user-1.jpg";
+import user_2 from "@assets/img/users/user-2.jpg";
+import user_3 from "@assets/img/users/user-3.jpg";
 
-// fashion_testi_data
-export const fashion_testi_data = [
-  {
-    id:1,
-    review:4,
-    desc:'“ How you use the city or town name is up to you. All results may be freely used in any work.”',
-    user:user_2,
-    name:'Theodore Handle',
-    designation:'CO Founder'
-  },
-  {
-    id:2,
-    review:5,
-    desc:'“Very happy with our choice to take our daughter to Brave care. The entire team was great! Thank you!”',
-    user:user_3,
-    name:'John Smith',
-    designation:'UI/UX Designer'
-  },
-  {
-    id:3,
-    review:3,
-    desc:'“Thanks for all your efforts and teamwork over the last several months!  Thank you so much”',
-    user:user_4,
-    name:'Salim Rana',
-    designation:'Web Developer'
-  },
-]
-
-// beauty testimonial data 
 export const Review_Data = [
   {
-    id:1,
-    review:4,
-    desc:'Suscipit tellus mauris a diam maecenas. Ut faucibus pulvinar elementum integer enim neque volutpat ac. Auctor urna nunc id cursus. Scelerisque purus semper eget duis at. Pharetra vel turpis nunc eget.',
-    user:user_1,
-    name:'Jake Weary',
-    designation:'CO Founder'
+    id: 1,
+    review: 4,
+    desc: "NR Mobiles stands out as a premier destination for accessories. I've acquired numerous items from them and I'm thoroughly impressed with the superior quality and swift delivery. Their services are both prompt and dependable. They offer an excellent range of top-notch mobile accessories, encompassing stellar stereo handsfree options, bass-enhanced handsfree devices, as well as fast-charging solutions and robust data cables.....",
+    user: user_1,
+    name: "Faiq Nadeem",
+    designation: "Founder of LahoreStore.pk",
   },
   {
-    id:2,
-    review:3.5,
-    desc:'Suscipit tellus mauris a diam maecenas. Ut faucibus pulvinar elementum integer enim neque volutpat ac. Auctor urna nunc id cursus. Scelerisque purus semper eget duis at. Pharetra vel turpis nunc eget.',
-    user:user_2,
-    name:'Salim Rana',
-    designation:'Web Developer'
+    id: 2,
+    review: 5,
+    desc: "NR Mobiles has truly exceeded my expectations. Their customer service is outstanding, providing prompt and knowledgeable assistance. The quality of the mobile phone accessories  I purchased is top-notch, and it has been a joy to use. I highly recommend NR Mobiles to anyone in search of a reliable and customer-centric accessories provider. They have won me over as a loyal customer, and I look forward to future interactions with this exceptional.....",
+    user: user_3,
+    name: "Ali Raza",
+    designation: "Pakistani Actor",
   },
   {
-    id:3,
-    review:5,
-    desc:'Suscipit tellus mauris a diam maecenas. Ut faucibus pulvinar elementum integer enim neque volutpat ac. Auctor urna nunc id cursus. Scelerisque purus semper eget duis at. Pharetra vel turpis nunc eget.',
-    user:user_3,
-    name:'Selina Gomz',
-    designation:'CO Founder'
+    id: 3,
+    review: 4.5,
+    desc: "NR Mobiles consistently delivers top-tier products. The AeroBuds Pro impress with stellar sound quality and seamless noise cancellation. The Lumina Smartwatch combines style with advanced health features seamlessly. The PowerCharge 10000mAh power bank ensures your devices stay charged on the move. NR Mobiles' dedication to quality and innovation shines through, making them a go-to for cutting-edge tech enthusiasts.....",
+    user: user_2,
+    name: "Daniyal Saqib",
+    designation: "Founder of Mr.Tech Guru",
   },
-]
+];

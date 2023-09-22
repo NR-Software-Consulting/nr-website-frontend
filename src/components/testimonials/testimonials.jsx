@@ -1,6 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper";
+import { Pagination, Navigation, Autoplay } from "swiper";
 import Image from "next/image";
 import { Rating } from "react-simple-star-rating";
 import { Review_Data } from "@/data/testimonial-data";
@@ -53,6 +53,8 @@ const Testimonials = () => {
             <div className="col-xl-12">
               <div className="tp-testimonial-slider-3">
                 <Swiper
+                  // autoplay={true}
+                  loop={false}
                   {...slider_setting}
                   modules={[Pagination, Navigation]}
                   className="tp-testimoinal-slider-active-3 swiper-container"
@@ -62,13 +64,6 @@ const Testimonials = () => {
                       key={item.id}
                       className="tp-testimonial-item-3 grey-bg-7 p-relative z-index-1"
                     >
-                      <div className="tp-testimonial-shape-3">
-                        <Image
-                          className="tp-testimonial-shape-3-quote"
-                          src={quote}
-                          alt="quote img"
-                        />
-                      </div>
                       <div className="tp-testimonial-rating tp-testimonial-rating-3">
                         <Rating
                           fillColor="#010F1C"
@@ -82,17 +77,17 @@ const Testimonials = () => {
                         className="tp-testimonial-content-3"
                         style={{ direction: "ltr" }}
                       >
-                        <p>{item.desc}</p>
+                        <p style={{ fontSize: "14px" }}>{item.desc}</p>
                       </div>
                       <div className="tp-testimonial-user-wrapper-3 d-flex">
                         <div className="tp-testimonial-user-3 d-flex align-items-center">
-                          <div className="tp-testimonial-avater-3 mr-10">
+                          {/*<div className="tp-testimonial-avater-3 mr-10">
                             <Image src={item.user} alt="user img" />
-                          </div>
+                          </div> */}
                           <div className="tp-testimonial-user-3-info tp-testimonial-user-translate">
                             <h3 className="tp-testimonial-user-3-title">
                               {item.name} /
-                            </h3>
+                            </h3>{" "}
                             <span className="tp-testimonial-3-designation">
                               {item.designation}
                             </span>
