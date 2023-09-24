@@ -6,6 +6,7 @@ import SearchPrdLoader from "../loader/search-prd-loader";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EmailIcon from "@mui/icons-material/Email";
 import CallIcon from "@mui/icons-material/Call";
+import Link from "next/link";
 const ContactArea = (props) => {
   const t = useTranslations("header");
   const { attributes: { Address, email, phoneNumber } = {} } = props;
@@ -63,10 +64,8 @@ const ContactArea = (props) => {
                               </div>
                             </div>
                           </a>
-                          <a
-                            href={`https://www.google.com/maps/place/${encodeURIComponent(
-                              Address
-                            )}`}
+                          <Link
+                            href={"https://maps.app.goo.gl/m5BARCbA3v4AB2ym7"}
                             target="_blank"
                             className="list-group-item list-group-item-action d-flex gap-3 py-3"
                             aria-current="true"
@@ -80,7 +79,7 @@ const ContactArea = (props) => {
                                 <p className="mb-0 ">{Address}</p>
                               </div>
                             </div>
-                          </a>
+                          </Link>
                         </div>
                       </>
                     </div>
