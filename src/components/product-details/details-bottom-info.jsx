@@ -26,7 +26,11 @@ const DetailsBottomInfo = ({ category, tag, brand }) => {
         </div>
         <div className="tp-product-details-query-item d-flex align-items-center">
           <span>{t("Brand")}: </span>
-          <p>{brand}</p>
+          {brand ? <p>{brand}</p> : "Not A Specific Brand"}
+        </div>
+        <div className="tp-product-details-query-item d-flex align-items-center">
+          <span>Note:</span>
+          <p>Your Product will be deliverd in 3-4 Bussiness Days</p>
         </div>
       </div>
     </>

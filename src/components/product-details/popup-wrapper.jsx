@@ -131,15 +131,9 @@ const PopUpWrapper = ({
             </button>
           </div>
         </div>
-        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
-          <button className="tp-product-details-buy-now-btn w-100">
-            {t("Buy Now")}
-          </button>
-        </Link> */}
       </div>
-      <div className="tp-product-details-action-sm">
+      <div className="tp-product-details-add-to-cart mb-15 w-100">
         <button
-          disabled={status === "out-of-stock"}
           onClick={() =>
             isAddedToWishlist
               ? removeProductToWishList({
@@ -147,10 +141,13 @@ const PopUpWrapper = ({
                 })
               : handleWishlistProduct(productItem)
           }
-          type="button"
-          className="tp-product-details-action-sm-btn"
+          className="tp-product-details-add-to-cart-btn w-100"
+          style={{
+            backgroundColor: isAddedToWishlist
+              ? "var(--tp-theme-primary)"
+              : "var(--tp-common-black)",
+          }}
         >
-          <WishlistTwo />
           {!isAddedToWishlist
             ? t("Add to Wishlist")
             : t("Remove from Wishlist")}
@@ -158,8 +155,7 @@ const PopUpWrapper = ({
       </div>
       <DetailsBottomInfo
         category={productItem?.attributes?.category?.data?.attributes?.name}
-        sku={productItem?.attributes?.sku}
-        tag={productItem?.attributes?.category?.data?.attributes?.name}
+        tag={productItem?.attributes?.sub_category?.data?.attributes?.name}
         brand={productItem?.attributes?.brands?.data?.attributes?.name}
       />
     </div>

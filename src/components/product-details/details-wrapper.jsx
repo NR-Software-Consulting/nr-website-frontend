@@ -94,26 +94,6 @@ const DetailsWrapper = ({
         <span>{product?.attributes?.category?.data?.attributes?.name}</span>
       </div>
       <h3 className="tp-product-details-title">{product?.attributes?.title}</h3>
-      {/*<div className="tp-product-details-inventory d-flex align-items-center mb-10">
-        <div className="tp-product-details-stock mb-10">
-          <span>{status}</span>
-        </div>
-        <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
-          <div className="tp-product-details-rating">
-            <Rating
-              allowFraction
-              size={16}
-              initialValue={ratingVal}
-              readonly={true}
-            />
-          </div>
-          <div className="tp-product-details-reviews">
-            <span>
-              ({reviews && reviews.length > 0 ? reviews.length : 0} Review)
-            </span>
-          </div>
-        </div>
-      </div> */}
       <div className="tp-product-details-price-wrapper mb-20">
         {product?.attributes?.discount > 0 ? (
           <>
@@ -164,15 +144,9 @@ const DetailsWrapper = ({
             </button>
           </div>
         </div>
-        {/* <Link href="/cart" onClick={() => dispatch(handleModalClose())}>
-          <button className="tp-product-details-buy-now-btn w-100">
-            {t("Buy Now")}
-          </button>
-        </Link> */}
       </div>
-      <div className="tp-product-details-action-sm">
+      <div className="tp-product-details-add-to-cart mb-15 w-100">
         <button
-          disabled={status === "out-of-stock"}
           onClick={() =>
             isAddedToWishlist
               ? removeProductToWishList({
@@ -180,10 +154,13 @@ const DetailsWrapper = ({
                 })
               : handleWishlistProduct(product)
           }
-          type="button"
-          className="tp-product-details-action-sm-btn"
+          className="tp-product-details-add-to-cart-btn w-100"
+          style={{
+            backgroundColor: isAddedToWishlist
+              ? "var(--tp-theme-primary)"
+              : "var(--tp-common-black)",
+          }}
         >
-          <WishlistTwo />
           {!isAddedToWishlist
             ? t("Add to Wishlist")
             : t("Remove from Wishlist")}

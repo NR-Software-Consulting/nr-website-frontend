@@ -28,7 +28,7 @@ const SEO = ({ seoData, pageTitle }) => {
         <meta property="og:url" content={"https://nrmobiles.com/"} />
         <meta
           property="og:image"
-          content="https://storage.googleapis.com/nr-mobiles.appspot.com/Image/NR_Image_797ad5ddae/NR_Image_797ad5ddae.jpg"
+          content="https://storage.googleapis.com/nr-mobiles.appspot.com/Image/NR_Image_ede2fcf097/NR_Image_ede2fcf097.jpg"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
@@ -40,7 +40,7 @@ const SEO = ({ seoData, pageTitle }) => {
         />
         <meta
           name="twitter:image"
-          content="https://storage.googleapis.com/nr-mobiles.appspot.com/Image/NR_Image_797ad5ddae/NR_Image_797ad5ddae.jpg"
+          content="https://storage.googleapis.com/nr-mobiles.appspot.com/Image/NR_Image_ede2fcf097/NR_Image_ede2fcf097.jpg"
         />
         <meta
           name="viewport"
