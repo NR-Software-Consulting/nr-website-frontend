@@ -36,10 +36,9 @@ const Footer = ({ socialLinks }) => {
                         />
                       </Link>
                     </div>
-                    <p className="tp-footer-desc">
-                      {t(
-                        "Elevate Your Workspace: Where Office Efficiency Meets Quality Excellence"
-                      )}
+                    <p className="tp-footer-desc" style={{ fontSize: "14px" }}>
+                      A Website where you can find the best quality products.
+                      Which can help you in your daily life style.
                     </p>
                     <div className="tp-footer-social">
                       {socialLinks?.attributes?.facebookUrl && (
