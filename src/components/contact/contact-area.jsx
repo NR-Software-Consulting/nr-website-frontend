@@ -1,13 +1,11 @@
 import React from "react";
-import Image from "next/image";
 import ContactForm from "../forms/contact-form";
-import call_icon from "@assets/img/contact/phone.png";
-import mail_icon from "@assets/img/contact/mail.png";
-import location_icon from "@assets/img/contact/location.png";
 import { useTranslations } from "next-intl";
 import useLoadingState from "@/hooks/use-loading";
 import SearchPrdLoader from "../loader/search-prd-loader";
-
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import EmailIcon from "@mui/icons-material/Email";
+import CallIcon from "@mui/icons-material/Call";
 const ContactArea = (props) => {
   const t = useTranslations("header");
   const { attributes: { Address, email, phoneNumber } = {} } = props;
@@ -40,10 +38,8 @@ const ContactArea = (props) => {
                             className="list-group-item list-group-item-action d-flex gap-3 py-3"
                             aria-current="true"
                           >
-                            <Image
-                              src={call_icon}
-                              alt="twbs"
-                              className=" flex-shrink-0"
+                            <CallIcon
+                              sx={{ color: "var(--tp-theme-primary)" }}
                             />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                               <div>
@@ -57,10 +53,8 @@ const ContactArea = (props) => {
                             className="list-group-item list-group-item-action d-flex gap-3 py-3"
                             aria-current="true"
                           >
-                            <Image
-                              src={mail_icon}
-                              alt="twbs"
-                              className=" flex-shrink-0"
+                            <EmailIcon
+                              sx={{ color: "var(--tp-theme-primary)" }}
                             />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                               <div>
@@ -77,10 +71,8 @@ const ContactArea = (props) => {
                             className="list-group-item list-group-item-action d-flex gap-3 py-3"
                             aria-current="true"
                           >
-                            <Image
-                              src={location_icon}
-                              alt="twbs"
-                              className=" flex-shrink-0"
+                            <LocationOnIcon
+                              sx={{ color: "var(--tp-theme-primary)" }}
                             />
                             <div className="d-flex gap-2 w-100 justify-content-between">
                               <div>

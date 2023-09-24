@@ -7,7 +7,6 @@ import Wrapper from "@/layout/wrapper";
 import Footer from "@/layout/footers/footer";
 import logo from "@assets/img/logo/headerlogo.png";
 import ErrorMsg from "@/components/common/error-msg";
-import PrdDetailsLoader from "@/components/loader/prd-details-loader";
 import Header from "@/layout/headers/header";
 import { useLazyQuery } from "@apollo/client";
 import { GET_ORDER_DETAIL } from "@/graphql/query/orderdetails";
@@ -53,7 +52,6 @@ const SingleOrder = ({ params }) => {
         products,
         city,
         country,
-        discount,
         address,
         phoneNumber,
       },
@@ -77,7 +75,7 @@ const SingleOrder = ({ params }) => {
             </div>
             <div
               ref={printRef}
-              className="invoice__wrapper grey-bg-2 pt-40 pb-40 pl-40 pr-40 tp-invoice-print-wrapper"
+              className="invoice__wrapper pt-40 pb-40 pl-40 pr-40 tp-invoice-print-wrapper border"
             >
               <div className="invoice__header-wrapper border-2 border-bottom border-white mb-40">
                 <div className="row">
@@ -173,6 +171,10 @@ const SingleOrder = ({ params }) => {
                   </tbody>
                 </table>
               </div>
+              <div className="d-flex">
+                <strong>Note:</strong>{" "}
+                {"Your Order will be Delivered in 3 - 4 Bussiness Days"}
+              </div>
               <div className="invoice__total pt-40 pb-10 alert-success pl-40 pr-40 mb-30">
                 <div className="row d-flex justify-content-between">
                   <div className="col-lg-3 col-md-4">
@@ -181,16 +183,6 @@ const SingleOrder = ({ params }) => {
                       <p className="tp-font-medium text-uppercase">COD</p>
                     </div>
                   </div>
-                  {/*
-                <div className="col-lg-3 col-md-4">
-                    <div className="invoice__discount-cost mb-30">
-                      <h5 className="mb-0">{t("Discount")}</h5>
-                      <p className="tp-font-medium">
-                        PKR {Number(discount).toFixed(2) || "0.00"}
-                      </p>
-                    </div>
-                  </div>
-                */}
                   <div className="col-lg-3 col-md-4">
                     <div className="invoice__total-ammount mb-30">
                       <h5 className="mb-0">{t("Total Ammount")}</h5>
