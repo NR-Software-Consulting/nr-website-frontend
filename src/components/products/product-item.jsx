@@ -164,7 +164,7 @@ const ProductItem = ({ product, offer_style = false }) => {
           <h3 className="tp-product-title">
             <Link href={`/product/${product?.attributes?.slug}`}>
               {product?.attributes?.title.length > 25
-                ? `${product.attributes.title.slice(0, 25)}...`
+                ? `${product.attributes.title.slice(0, 20)}...`
                 : product.attributes.title}
             </Link>
           </h3>

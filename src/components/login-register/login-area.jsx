@@ -19,15 +19,6 @@ const LoginArea = () => {
                   <p>{t("Login to your account to view products")}</p>
                 </div>
                 <div className="tp-login-option">
-                  {/*
-                <div className="tp-login-social mb-10 d-flex flex-wrap align-items-center justify-content-center">
-                    <div className="tp-login-option-item has-google">
-                      <GoogleSignUp />
-                    </div>
-                  </div>
-                  <div className="tp-login-mail text-center mb-40">
-                    <p>{t("or Sign in with Email")}</p>
-                  </div> */}
                   <LoginForm />
                 </div>
               </div>
