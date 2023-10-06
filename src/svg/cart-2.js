@@ -8,6 +8,8 @@ const CartTwo = () => {
       viewBox="0 0 21 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="link"
+      aria-label="cart-icon"
     >
       <path
         fillRule="evenodd"
@@ -17,6 +19,8 @@ const CartTwo = () => {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        aria-label="cart-icon"
+        role="link"
       />
       <path
         d="M6.34902 5.5984C6.34902 3.21232 8.28331 1.27803 10.6694 1.27803V1.27803C11.8184 1.27316 12.922 1.72619 13.7362 2.53695C14.5504 3.3477 15.0081 4.44939 15.0081 5.5984V5.5984"
@@ -24,6 +28,8 @@ const CartTwo = () => {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        aria-label="cart-icon"
+        role="link"
       />
       <path
         d="M7.70365 10.1018H7.74942"
@@ -31,6 +37,8 @@ const CartTwo = () => {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        aria-label="cart-icon"
+        role="link"
       />
       <path
         d="M13.5343 10.1018H13.5801"
@@ -38,6 +46,8 @@ const CartTwo = () => {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        aria-label="cart-icon"
+        role="link"
       />
     </svg>
   );

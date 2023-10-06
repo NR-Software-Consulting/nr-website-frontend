@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { CartTwo, Menu, User, Wishlist } from "@/svg";
 import { openCartMini } from "@/redux/features/cartSlice";
-import { deleteCookie, getCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
 import { useTranslations } from "next-intl";
 import useAuthCheck from "@/hooks/use-auth-check";
@@ -106,6 +106,7 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
           <Link
             href={!authChecked ? "/login" : "/wishlist"}
             className="tp-header-action-btn"
+            aria-label="button"
           >
             <Wishlist />
             <span className="tp-header-action-badge">
@@ -118,7 +119,7 @@ const HeaderMainRight = ({ setIsCanvasOpen, totalCount }) => {
             onClick={handleCartButtonClick}
             type="button"
             className="tp-header-action-btn cartmini-open-btn"
-            aria-label="cart-icon"
+            aria-label="button"
           >
             <CartTwo />
             <span className="tp-header-action-badge">
