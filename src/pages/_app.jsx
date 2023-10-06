@@ -1,22 +1,17 @@
 import store from "@/redux/store";
 import { Provider } from "react-redux";
 import ReactModal from "react-modal";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
 import "../styles/index.scss";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ApolloProvider } from "@apollo/client";
 import client from "../graphql/apollo-client";
 import { NextIntlClientProvider } from "next-intl";
 import NextNProgress from "nextjs-progressbar";
-
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
 }
 if (typeof window !== "undefined") {
   ReactModal.setAppElement("body");
 }
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 export default function App({ Component, pageProps }) {
   return (
@@ -30,15 +25,9 @@ export default function App({ Component, pageProps }) {
           showOnShallow={true}
         />
         <ApolloProvider client={client}>
-          <GoogleOAuthProvider
-            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-          >
-            {/*<Elements stripe={stripePromise}> */}
-            <div id="root">
-              <Component {...pageProps} />
-            </div>
-            {/*<Elements /> */}
-          </GoogleOAuthProvider>
+          <div id="root">
+            <Component {...pageProps} />
+          </div>
         </ApolloProvider>
       </Provider>
     </NextIntlClientProvider>

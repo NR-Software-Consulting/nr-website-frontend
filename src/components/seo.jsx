@@ -46,8 +46,8 @@ const SEO = ({ seoData, pageTitle }) => {
           name="viewport"
           content={"width=device-width, initial-scale=1, maximum-scale=5"}
         />
-        <meta name="author" content="NR Mobiles" />
-        <meta name="publisher" content="NR Mobiles" />
+        <meta name="author" content="NR Mobiles & Accessories Company" />
+        <meta name="publisher" content="NR Mobiles & Accessories Company" />
         <link rel="canonical" href={"https://nrmobiles.com/"} />
         <link rel="icon" href="/favicon.png" />
       </Head>

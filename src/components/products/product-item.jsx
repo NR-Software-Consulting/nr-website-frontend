@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { Rating } from "react-simple-star-rating";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { Cart, QuickView, Wishlist } from "@/svg";
@@ -15,7 +14,7 @@ import NRImage from "../NRImage";
 import { Box } from "@mui/material";
 
 const ProductItem = ({ product, offer_style = false }) => {
-  const { reviews, status, offerExpiryTime } = product || {};
+  const { status, offerExpiryTime } = product || {};
   const { onAddToCart, cartItems } = useCart();
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
@@ -30,20 +29,8 @@ const ProductItem = ({ product, offer_style = false }) => {
     (prd) => prd?.attributes?.product?.data?.id === product?.id
   );
   const dispatch = useDispatch();
-  const [ratingVal, setRatingVal] = useState(0);
   const authChecked = useAuthCheck();
   const route = useRouter();
-  // useEffect(() => {
-  //   if (reviews && reviews.length > 0) {
-  //     const rating =
-  //       reviews.reduce((acc, review) => acc + review.rating, 0) /
-  //       reviews.length;
-  //     setRatingVal(rating);
-  //   } else {
-  //     setRatingVal(0);
-  //   }
-  // }, [reviews]);
-
   const handleAddProduct = () => {
     if (!authChecked) {
       notifyError("Please login to purchase!");
@@ -191,30 +178,6 @@ const ProductItem = ({ product, offer_style = false }) => {
               </span>
             )}
           </div>
-          {offer_style && (
-            <div className="tp-product-countdown">
-              <div className="tp-product-countdown-inner">
-                {dayjs().isAfter(offerExpiryTime) ? (
-                  <ul>
-                    <li>
-                      <span>{0}</span> Day
-                    </li>
-                    <li>
-                      <span>{0}</span> Hrs
-                    </li>
-                    <li>
-                      <span>{0}</span> Min
-                    </li>
-                    <li>
-                      <span>{0}</span> Sec
-                    </li>
-                  </ul>
-                ) : (
-                  <Timer expiryTimestamp={new Date(offerExpiryTime)} />
-                )}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </>

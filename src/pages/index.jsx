@@ -4,29 +4,18 @@ import Header from "@/layout/headers/header";
 import HomeHeroSlider from "@/components/hero-banner/home-hero-slider";
 import ProductArea from "@/components/products/product-area";
 import NewArrivals from "@/components/products/new-arrivals";
-// import CtaArea from "@/components/cta/cta-area";
 import Footer from "@/layout/footers/footer";
-import AboutPage from "@/components/about-us/about";
 import Accessories from "@/components/products/accessories";
 import Scores from "@/components/scores/scores";
 import Testimonials from "@/components/testimonials/testimonials";
-// import HomeButtons from "@/components/homeButton/homeButtons";
 import client from "@/graphql/apollo-client";
-import { ABOUT_US_DATA } from "@/graphql/query/about";
 import { PRODUCTS_DATA } from "@/graphql/query/products";
 import { CATEGORIES_LIST, SCORES_DATA } from "@/graphql/query/home";
 import { SOCIAL_LINKS } from "@/graphql/query/footer";
 
 export default function Home(props) {
-  const {
-    about,
-    newarrival,
-    trending,
-    accessories,
-    scores,
-    category,
-    footerLinks,
-  } = props;
+  const { newarrival, trending, accessories, scores, category, footerLinks } =
+    props;
   return (
     <Wrapper>
       <SEO pageTitle="NR Mobiles & Accessories Company" />
@@ -47,9 +36,6 @@ export async function getStaticProps(context) {
     .default;
   try {
     const queries = [
-      client.query({
-        query: ABOUT_US_DATA,
-      }),
       client.query({
         query: SCORES_DATA,
       }),
@@ -95,17 +81,15 @@ export async function getStaticProps(context) {
       }),
     ];
     const response = await Promise.all(queries);
-    const about = response[0]?.data?.aboutUs?.data;
-    const scores = response[1]?.data?.scores?.data;
-    const category = response[2]?.data?.categories?.data;
-    const newarrival = response[3]?.data?.products?.data;
-    const trending = response[4]?.data?.products?.data;
-    const accessories = response[5]?.data?.products?.data;
-    const footerLinks = response[6]?.data?.socialMedia?.data;
+    const scores = response[0]?.data?.scores?.data;
+    const category = response[1]?.data?.categories?.data;
+    const newarrival = response[2]?.data?.products?.data;
+    const trending = response[3]?.data?.products?.data;
+    const accessories = response[4]?.data?.products?.data;
+    const footerLinks = response[5]?.data?.socialMedia?.data;
     if (response) {
       return {
         props: {
-          about,
           scores,
           category,
           newarrival,

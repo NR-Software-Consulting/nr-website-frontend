@@ -16,28 +16,23 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
-
 const ProductModal = () => {
   const { productItem, isModalOpen } = useSelector(
     (state) => state.productModal
   );
-  const { status } = productItem || {};
   const img = productItem?.attributes?.images?.data[0]?.attributes?.url;
   const [activeImg, setActiveImg] = useState(img);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
   useEffect(() => {
     setActiveImg(img);
     dispatch(initialOrderQuantity());
     setLoading(false);
   }, [img, dispatch]);
-
   const handleImageActive = () => {
     setActiveImg(img);
     setLoading(true);
   };
-
   useEffect(() => {
     const handleBodyScroll = (event) => {
       if (isModalOpen) {
@@ -79,10 +74,7 @@ const ProductModal = () => {
               activeImg={img}
               handleImageActive={handleImageActive}
               imageURLs={img}
-              imgWidth={416}
-              imgHeight={416}
               loading={loading}
-              status={status}
             />
             <PopUpWrapper
               productItem={productItem}
