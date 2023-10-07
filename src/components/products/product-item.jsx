@@ -14,7 +14,6 @@ import NRImage from "../NRImage";
 import { Box } from "@mui/material";
 
 const ProductItem = ({ product, offer_style = false }) => {
-  const { status, offerExpiryTime } = product || {};
   const { onAddToCart, cartItems } = useCart();
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
@@ -73,11 +72,6 @@ const ProductItem = ({ product, offer_style = false }) => {
                 style={{ objectFit: "contain" }}
               />
             </Box>
-            <div className="tp-product-badge">
-              {status === "out-of-stock" && (
-                <span className="product-hot">out-stock</span>
-              )}
-            </div>
           </Link>
           <div className="tp-product-action">
             <div className="tp-product-action-item d-flex flex-column">
@@ -97,7 +91,6 @@ const ProductItem = ({ product, offer_style = false }) => {
                   className={`tp-product-action-btn rounded-circle ${
                     isAddedToCart ? "active" : ""
                   } tp-product-add-cart-btn`}
-                  disabled={status === "out-of-stock"}
                 >
                   <Cart />
                   <span className="tp-product-tooltip">Add to Cart</span>
@@ -123,7 +116,6 @@ const ProductItem = ({ product, offer_style = false }) => {
                       })
                     : handleWishlistProduct(product)
                 }
-                disabled={status === "out-of-stock"}
               >
                 <Wishlist />
                 {!isAddedToWishlist ? (
