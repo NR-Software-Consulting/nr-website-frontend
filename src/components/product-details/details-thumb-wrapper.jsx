@@ -1,10 +1,8 @@
 import { useState } from "react";
-import PopupVideo from "../common/popup-video";
 import NRImage from "../NRImage";
 import { Box } from "@mui/material";
 
-const DetailsThumbWrapper = ({ imageURLs, status }) => {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+const DetailsThumbWrapper = ({ imageURLs }) => {
   const [selectedImage, setSelectedImage] = useState(
     imageURLs?.[0]?.attributes?.images?.data[0].attributes.url
   );
@@ -45,11 +43,6 @@ const DetailsThumbWrapper = ({ imageURLs, status }) => {
           >
             <NRImage src={selectedImage} alt="product img" />
           </Box>
-          <div className="tp-product-badge">
-            {status === "out-of-stock" && (
-              <span className="product-hot">out-stock</span>
-            )}
-          </div>
         </div>
       </div>
     </div>

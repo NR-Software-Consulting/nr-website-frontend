@@ -5,24 +5,20 @@ import { Minus, Plus } from "@/svg";
 const ProductQuantity = ({ productId, onQuantityChange }) => {
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
   const cartItem =
     cartItems?.find((prd) => prd.attributes.product.data.id === productId) ||
     {};
-
   const [quantity, setQuantity] = useState(cartItem?.attributes?.quantity || 1);
   const handleIncrease = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
     onQuantityChange(quantity + 1);
   };
-
   const handleDecrease = () => {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
       onQuantityChange(quantity - 1);
     }
   };
-
   return (
     <div className="tp-product-details-quantity">
       <div className="tp-product-quantity mb-15 mr-15">

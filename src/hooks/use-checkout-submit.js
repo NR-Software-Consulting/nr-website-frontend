@@ -11,7 +11,7 @@ import { CREATE_ORDER } from "@/graphql/mutation/cart";
 import { getCookie } from "cookies-next";
 
 const useCheckoutSubmit = () => {
-  const [CreateOrder, { loading, error }] = useMutation(CREATE_ORDER);
+  const [CreateOrder] = useMutation(CREATE_ORDER);
   const [isProductData, setIsProductData] = useState([]);
   const { cartItems, totalPrice, deleteCartItem } = useCart();
   const totalAmount = totalPrice.toString();
@@ -27,7 +27,7 @@ const useCheckoutSubmit = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { total, setTotal } = useCartInfo();
   const [cartTotal, setCartTotal] = useState("");
-  const [shippingCost, setShippingCost] = useState(0);
+  const [shippingCost, setShippingCost] = useState(250);
   const [discountAmount, setDiscountAmount] = useState(0);
   const [discountPercentage, setDiscountPercentage] = useState(0);
   const [discountProductType, setDiscountProductType] = useState("");

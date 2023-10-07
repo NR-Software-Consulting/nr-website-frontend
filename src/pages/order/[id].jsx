@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import dayjs from "dayjs";
 import ReactToPrint from "react-to-print";
@@ -16,13 +16,17 @@ import client from "@/graphql/apollo-client";
 import { CATEGORIES_LIST } from "@/graphql/query/home";
 import { SOCIAL_LINKS } from "@/graphql/query/footer";
 import SearchPrdLoader from "@/components/loader/search-prd-loader";
+import { Box } from "@mui/material";
+import NRImage from "@/components/NRImage";
 
 const SingleOrder = ({ params }) => {
   const t = useTranslations("header");
   const orderId = params.id;
   const token = getCookie("token");
+  const [shippingCost, setShippingCost] = useState(250);
   const printRef = useRef();
   const [Order, { loading, error, data }] = useLazyQuery(GET_ORDER_DETAIL);
+
   useEffect(() => {
     Order({
       variables: {
@@ -84,13 +88,9 @@ const SingleOrder = ({ params }) => {
                       <div className="row align-items-end">
                         <div className="col-md-4 col-sm-6">
                           <div className="invoice__left">
-                            <Image
-                              src={logo}
-                              alt="logo"
-                              height={60}
-                              width={200}
-                            />
-                            <br />
+                            <Box sx={{ height: 70, width: 220 }}>
+                              <NRImage src={logo} alt="logo" />
+                            </Box>
                           </div>
                         </div>
                         <div className="col-md-8 col-sm-6">
@@ -185,10 +185,23 @@ const SingleOrder = ({ params }) => {
                   </div>
                   <div className="col-lg-3 col-md-4">
                     <div className="invoice__total-ammount mb-30">
+                      <h5 className="mb-0">{"Shipping Charges"}</h5>
+                      <p className="tp-font-medium text-danger">
+                        <strong>
+                          PKR {parseInt(shippingCost).toFixed(2) || "0.00"}
+                        </strong>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-lg-3 col-md-4">
+                    <div className="invoice__total-ammount mb-30">
                       <h5 className="mb-0">{t("Total Ammount")}</h5>
                       <p className="tp-font-medium text-danger">
                         <strong>
-                          PKR {parseInt(total).toFixed(2) || "0.00"}
+                          PKR{" "}
+                          {(
+                            parseFloat(total) + parseFloat(shippingCost)
+                          ).toFixed(2) || "0.00"}
                         </strong>
                       </p>
                     </div>

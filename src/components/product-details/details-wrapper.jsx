@@ -1,26 +1,14 @@
 import React, { useState } from "react";
-import { Rating } from "react-simple-star-rating";
-import { useDispatch } from "react-redux";
-import Link from "next/link";
-import { AskQuestion, WishlistTwo } from "@/svg";
 import DetailsBottomInfo from "./details-bottom-info";
-import ProductDetailsCountdown from "./product-details-countdown";
 import ProductQuantity from "./product-quantity";
 import { notifySuccess, notifyError } from "@/utils/toast";
-import { setCookie, getCookie } from "cookies-next";
 import useAuthCheck from "@/hooks/use-auth-check";
-import { add_to_compare } from "@/redux/features/compareSlice";
 import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
-const DetailsWrapper = ({
-  productItem,
-  handleImageActive,
-  activeImg,
-  detailsBottom = false,
-}) => {
-  const { imageURLs, discount, status, offerExpiryTime } = productItem || {};
+
+const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
   const { onAddToCart, cartItems, deleteCartItem } = useCart();
@@ -40,25 +28,9 @@ const DetailsWrapper = ({
   const wishlistItem = wishlist.find(
     (prd) => prd?.attributes?.product?.data?.id === product?.id
   );
-  const [ratingVal, setRatingVal] = useState(0);
-  const [textMore, setTextMore] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch();
-  const token = getCookie("token");
   const authChecked = useAuthCheck();
   const route = useRouter();
-  // useEffect(() => {
-  //   if (reviews && reviews.length > 0) {
-  //     const rating =
-  //       reviews.reduce((acc, review) => acc + review.rating, 0) /
-  //       reviews.length;
-  //     setRatingVal(rating);
-  //   } else {
-  //     setRatingVal(0);
-  //   }
-  // }, [reviews]);
-
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
@@ -88,6 +60,10 @@ const DetailsWrapper = ({
       });
     }
   };
+  const [selectedColor, setSelectedColor] = useState("");
+  const handleChange = (event) => {
+    setSelectedColor(event.target.value);
+  };
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
@@ -116,9 +92,6 @@ const DetailsWrapper = ({
           </span>
         )}
       </div>
-      {offerExpiryTime && (
-        <ProductDetailsCountdown offerExpiryTime={offerExpiryTime} />
-      )}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">

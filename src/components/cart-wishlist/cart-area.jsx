@@ -41,9 +41,9 @@ const CartArea = () => {
               <div className="row">
                 <div className="col-xl-9 col-lg-8">
                   <div className="tp-cart-list mb-25 mr-30">
-                    {/* <div className="cartmini__shipping">
-                    <RenderCartProgress />
-                  </div> */}
+                    {/*<div className="cartmini__shipping">
+                      <RenderCartProgress />
+                    </div> */}
                     <table className="table">
                       <thead>
                         <tr>
@@ -65,21 +65,6 @@ const CartArea = () => {
                         ))}
                       </tbody>
                     </table>
-                  </div>
-                  <div className="tp-cart-bottom">
-                    <div className="row align-items-end">
-                      <div className="col-xl-6 col-md-4">
-                        <div className="tp-cart-update text-md-end mr-30">
-                          {/* <button
-                          onClick={clearCartItems}
-                          type="button"
-                          className="tp-cart-update-btn"
-                        >
-                          Clear Cart
-                        </button> */}
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="col-xl-3 col-lg-4 col-md-6">

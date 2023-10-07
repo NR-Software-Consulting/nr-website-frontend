@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 const RenderCartProgress = () => {
   const { totalPrice } = useCart();
   const t = useTranslations("header");
-  const freeShippingThreshold = 200;
+  const freeShippingThreshold = 10000;
   const progress = (totalPrice / freeShippingThreshold) * 100;
   if (totalPrice < freeShippingThreshold) {
     const remainingAmount = freeShippingThreshold - totalPrice;

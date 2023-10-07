@@ -2,23 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/hooks/use-cart";
-import { notifySuccess } from "@/utils/toast";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/router";
+import { Typography } from "@mui/material";
 
 const CartCheckout = () => {
   const { totalPrice } = useCart();
   const [isLoading, setLoading] = useState(false);
   const t = useTranslations("header");
-  const [shipCost, setShipCost] = useState(0);
-  const route = useRouter();
-  const handleShippingCost = (value) => {
-    if (value === "free") {
-      setShipCost(0);
-    } else {
-      setShipCost(value);
-    }
-  };
+  const [shipCost, setShipCost] = useState(250);
   const formattedTotalPrice = (totalPrice + shipCost).toFixed(2);
   const handleCheckout = () => {
     setLoading(true);
@@ -26,7 +17,23 @@ const CartCheckout = () => {
   return (
     <div className="tp-cart-checkout-wrapper">
       <div className="tp-cart-checkout-top d-flex align-items-center justify-content-between">
-        <span className="tp-cart-checkout-top-title">{t("Subtotal")}</span>
+        <Typography className="tp-cart-checkout-top-title">
+          {"Total"}
+        </Typography>
+        <Typography className="tp-cart-checkout-top-price">
+          PKR {totalPrice}
+        </Typography>
+      </div>
+      <div className="tp-cart-checkout-top d-flex align-items-center justify-content-between">
+        <Typography className="tp-cart-checkout-top-title">
+          {"Shipping"}
+        </Typography>
+        <Typography className="tp-cart-checkout-top-price">
+          PKR {shipCost}
+        </Typography>
+      </div>
+      <div className="tp-cart-checkout-top d-flex align-items-center justify-content-between">
+        <span className="tp-cart-checkout-top-title">{"SubTotal"}</span>
         <span className="tp-cart-checkout-top-price">
           PKR {formattedTotalPrice}
         </span>

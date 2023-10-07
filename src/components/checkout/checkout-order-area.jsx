@@ -1,4 +1,5 @@
 import { useCart } from "@/hooks/use-cart";
+import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 const CheckoutOrderArea = ({ checkoutData }) => {
@@ -27,9 +28,7 @@ const CheckoutOrderArea = ({ checkoutData }) => {
                 {item.attributes.product.data.attributes.title.slice(0, 30)}{" "}
                 <span> x {item.attributes.quantity}</span>
               </p>
-              {/* <span>
-                PKR {item.attributes.product.data.attributes.discount || 0}
-              </span> */}
+
               <span>
                 PKR{" "}
                 {(
@@ -41,11 +40,34 @@ const CheckoutOrderArea = ({ checkoutData }) => {
               </span>
             </li>
           ))}
-          {/* total */}
-          <li className="tp-order-info-list-total">
-            <span>{t("Total")}</span>
-            <span>PKR {parseFloat(totalPrice).toFixed(2)}</span>
-          </li>
+          <div className="d-flex justify-content-between mt-5 mb-5">
+            <Typography fontSize={"14px"}>{t("Total")}</Typography>
+            <Typography fontSize={"14px"}>
+              PKR {totalPrice.toFixed(2)}
+            </Typography>
+          </div>
+          <div className="d-flex justify-content-between mb-5">
+            <Typography fontSize={"14px"}>{"Shipping"}</Typography>
+            <Typography fontSize={"14px"}>
+              PKR {shippingCost.toFixed(2)}
+            </Typography>
+          </div>
+          <div className="d-flex justify-content-between mb-5">
+            <Typography
+              fontSize={"16px"}
+              fontWeight={500}
+              sx={{ color: "black" }}
+            >
+              {"SubTotal"}
+            </Typography>
+            <Typography
+              fontSize={"16px"}
+              fontWeight={500}
+              sx={{ color: "black" }}
+            >
+              PKR {parseFloat(totalPrice + shippingCost).toFixed(2)}
+            </Typography>
+          </div>
         </ul>
       </div>
       {/* <div className='tp-checkout-payment'>

@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Rating } from "react-simple-star-rating";
-import { useDispatch } from "react-redux";
-import Link from "next/link";
-import { AskQuestion, WishlistTwo } from "@/svg";
+import React, { useState } from "react";
 import DetailsBottomInfo from "./details-bottom-info";
-import ProductDetailsCountdown from "./product-details-countdown";
 import ProductQuantity from "./product-quantity";
-import { handleModalClose } from "@/redux/features/productModalSlice";
 import { useCart } from "@/hooks/use-cart";
 import useAuthCheck from "@/hooks/use-auth-check";
 import { useRouter } from "next/router";
@@ -14,17 +8,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import { useWishList } from "@/hooks/use-wishlist";
 import { useTranslations } from "next-intl";
 
-const PopUpWrapper = ({
-  productItem,
-  handleImageActive,
-  activeImg,
-  detailsBottom = false,
-}) => {
-  const { imageURLs, discount, status, reviews, offerExpiryTime } =
-    productItem || {};
-  const [ratingVal, setRatingVal] = useState(0);
-  const [textMore, setTextMore] = useState(false);
-  const dispatch = useDispatch();
+const PopUpWrapper = ({ productItem }) => {
   const { deleteCartItem, onAddToCart, cartItems } = useCart();
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();

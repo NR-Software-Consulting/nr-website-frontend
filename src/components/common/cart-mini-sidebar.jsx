@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import RenderCartProgress from "./render-cart-progress";
 import empty_cart_img from "@assets/img/product/cartmini/empty-cart.png";
 import { closeCartMini } from "@/redux/features/cartSlice";
 import { getCookie } from "cookies-next";
 import { useCart } from "@/hooks/use-cart";
 import { useTranslations } from "next-intl";
 import { notifySuccess } from "@/utils/toast";
+import { Box, Typography } from "@mui/material";
+import NRImage from "../NRImage";
 
 const CartMiniSidebar = () => {
   const t = useTranslations("header");
@@ -16,6 +17,7 @@ const CartMiniSidebar = () => {
   const dispatch = useDispatch();
   const token = getCookie("token");
   const { deleteCartItem, cartItems, totalPrice } = useCart();
+  const [shipCost, setShipCost] = useState(250);
   const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
     const userCookie = getCookie("userInfo");
@@ -40,12 +42,10 @@ const CartMiniSidebar = () => {
       window.removeEventListener("scroll", handleBodyScroll);
     };
   }, [cartMiniOpen]);
-
   const handleRemovePrd = async (productId) => {
     await deleteCartItem(productId);
     notifySuccess("Successfully Removed from cart");
   };
-
   const handleCloseCartMini = () => {
     dispatch(closeCartMini());
   };
@@ -82,15 +82,15 @@ const CartMiniSidebar = () => {
                       <Link
                         href={`/product/${item?.attributes?.product?.data?.attributes?.slug}`}
                       >
-                        <Image
-                          src={
-                            item?.attributes?.product?.data?.attributes?.images
-                              ?.data[0]?.attributes?.url
-                          }
-                          width={70}
-                          height={60}
-                          alt="product img"
-                        />
+                        <Box sx={{ height: 70, width: 70 }}>
+                          <NRImage
+                            src={
+                              item?.attributes?.product?.data?.attributes
+                                ?.images?.data[0]?.attributes?.url
+                            }
+                            alt="product img"
+                          />
+                        </Box>
                       </Link>
                     </div>
                     <div className="cartmini__content">
@@ -140,9 +140,21 @@ const CartMiniSidebar = () => {
             )}
           </div>
           <div className="cartmini__checkout">
+            <div className="cartmini__checkout-title d-flex justify-content-between">
+              <Typography fontSize={"14px"}>{t("Total")}</Typography>
+              <Typography fontSize={"14px"}>
+                PKR {totalPrice.toFixed(2)}
+              </Typography>
+            </div>
+            <div className="cartmini__checkout-title d-flex justify-content-between">
+              <Typography fontSize={"14px"}>{t("Shipping")}</Typography>
+              <Typography fontSize={"14px"}>
+                PKR {shipCost.toFixed(2)}
+              </Typography>
+            </div>
             <div className="cartmini__checkout-title mb-30">
               <h4>{t("Subtotal")}</h4>
-              <span>PKR {totalPrice.toFixed(2)}</span>
+              <span>PKR {(totalPrice + shipCost).toFixed(2)}</span>
             </div>
             <div className="cartmini__checkout-btn">
               <Link
