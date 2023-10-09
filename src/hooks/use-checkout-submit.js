@@ -107,6 +107,7 @@ const useCheckoutSubmit = () => {
       total: totalAmount,
       discount: discountAmount,
       user: userInfo.id,
+      colour: "white",
       status: "pending",
       products: isProductData,
       detailedStatus: data.orderNote,
