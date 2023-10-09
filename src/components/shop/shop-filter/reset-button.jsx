@@ -13,7 +13,7 @@ const ResetButton = ({ shop_right = false, handleResetFilters }) => {
   };
 
   return (
-    <div className="tp-shop-widget mb-50">
+    <div className="c-widget mb-50">
       <button onClick={handleResetFilter} className="tp-btn">
         {t("Reset Filter")}
       </button>

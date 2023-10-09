@@ -1,18 +1,14 @@
 @use "../utils" as *;
 
-/*----------------------------------------*/
-/*  2.3 Buttons
-/*----------------------------------------*/
-
 .#{$theme-prifix}-btn {
   display: inline-block;
   font-family: var(--tp-ff-jost);
   font-weight: 400;
   font-size: 16px;
-  background-color: var(--tp-common-black);
+  background-color: var(--tp-theme-primary);
   padding: 9px 26px;
   color: var(--tp-common-white);
-  border: 1px solid var(--tp-common-black);
+  border: 1px solid var(--tp-theme-primary);
 
   & svg {
     @extend %tp-svg-y-2;
@@ -20,11 +16,12 @@
 
   &:hover {
     color: var(--tp-common-black);
-    background-color: transparent;
+    background-color: var(--tp-common-black);
+    border: 1px solid var(--tp-common-black);
+    color: var(--tp-common-white);
   }
 
   &-2 {
-    /* for home electronic */
     font-family: var(--tp-ff-roboto);
     font-weight: 500;
     font-size: 14px;
@@ -32,7 +29,6 @@
     padding: 9px 26px 7px;
     border-radius: 6px;
     border: 0;
-
     &:hover {
       background-color: var(--tp-common-black);
       color: var(--tp-common-white);
