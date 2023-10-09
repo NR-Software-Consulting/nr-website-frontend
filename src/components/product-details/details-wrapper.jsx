@@ -142,7 +142,9 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
       {detailsBottom && (
         <DetailsBottomInfo
           category={product?.attributes?.category?.data?.attributes?.name}
-          tag={product?.attributes?.sub_category?.data?.attributes?.name}
+          SubCategory={
+            product?.attributes?.sub_category?.data?.attributes?.name
+          }
           brand={product?.attributes?.brands?.data?.attributes?.name}
         />
       )}

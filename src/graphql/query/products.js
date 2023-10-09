@@ -117,6 +117,7 @@ export const PRODUCT_DETAIL_DATA = gql`
           }
           sub_category {
             data {
+              id
               attributes {
                 name
               }

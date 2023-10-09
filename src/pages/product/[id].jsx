@@ -33,23 +33,25 @@ const ProductDetailsPage = (props) => {
           title={product[0]?.attributes?.title}
         />
         <ProductDetailsArea productItem={product} />
-        {/*
-      <section className="tp-related-product pt-95 pb-50">
-          <div className="container">
-            <div className="row">
-              <div className="tp-section-title-wrapper-6 text-center mb-40">
-                <span className="tp-section-title-pre-6">
-                  {t("Next day Products")}
-                </span>
-                <h3 className="tp-section-title-6">{t("Related Products")}</h3>
+        {products?.length > 0 ? (
+          <section className="tp-related-product pt-95 pb-50">
+            <div className="container">
+              <div className="row">
+                <div className="tp-section-title-wrapper-6 text-center mb-40">
+                  <span className="tp-section-title-pre-6">
+                    {t("Next day Products")}
+                  </span>
+                  <h3 className="tp-section-title-6">
+                    {t("Related Products")}
+                  </h3>
+                </div>
+              </div>
+              <div className="row">
+                <RelatedProducts product={products} />
               </div>
             </div>
-            <div className="row">
-              <RelatedProducts product={products} />
-            </div>
-          </div>
-        </section>
-      */}
+          </section>
+        ) : null}
       </div>
     );
   }
@@ -100,6 +102,27 @@ export const getServerSideProps = async (context) => {
     ];
     const response = await Promise.all(queries);
     const product = response[0]?.data?.products?.data || [];
+    let relatedProducts = [];
+    if (product[0]?.attributes?.sub_category?.data?.id) {
+      relatedProducts = await Promise.resolve(
+        client.query({
+          query: PRODUCTS_DATA,
+          variables: {
+            filters: {
+              sub_category: {
+                id: {
+                  eq: product[0]?.attributes?.sub_category?.data?.id,
+                },
+              },
+            },
+          },
+        })
+      );
+    }
+    const filteredRelatedProducts =
+      relatedProducts?.data?.products?.data.filter(
+        (item) => item?.id !== product[0]?.id
+      );
     const category = response[1]?.data?.categories?.data;
     const products = response[2]?.data?.products?.data;
     const footerLinks = response[3]?.data?.socialMedia?.data;
@@ -108,7 +131,7 @@ export const getServerSideProps = async (context) => {
         props: {
           product,
           category,
-          products,
+          products: filteredRelatedProducts,
           messages,
           footerLinks,
         },

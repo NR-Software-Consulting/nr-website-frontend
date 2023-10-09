@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NRImage from "../NRImage";
 import { Box } from "@mui/material";
 
@@ -6,7 +6,11 @@ const DetailsThumbWrapper = ({ imageURLs }) => {
   const [selectedImage, setSelectedImage] = useState(
     imageURLs?.[0]?.attributes?.images?.data[0].attributes.url
   );
-
+  useEffect(() => {
+    setSelectedImage(
+      imageURLs?.[0]?.attributes?.images?.data[0].attributes.url
+    );
+  }, [imageURLs]);
   return (
     <div className="tp-product-details-thumb-wrapper tp-tab d-sm-flex justify-content-evenly">
       <nav>
