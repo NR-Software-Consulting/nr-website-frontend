@@ -79,7 +79,7 @@ const SingleOrder = ({ params }) => {
             </div>
             <div
               ref={printRef}
-              className="invoice__wrapper pt-40 pb-40 pl-40 pr-40 tp-invoice-print-wrapper border"
+              className="invoice__wrapper pt-40 pb-40 pl-10 pr-10 tp-invoice-print-wrapper border"
             >
               <div className="invoice__header-wrapper border-2 border-bottom border-white mb-40">
                 <div className="row">
@@ -141,7 +141,7 @@ const SingleOrder = ({ params }) => {
                   </div>
                 </div>
               </div>
-              <div className="invoice__order-table table-responsive pt-30 pb-30 pl-40 pr-40 bg-white mb-30">
+              <div className="invoice__order-table table-responsive pt-30 pb-30 pl-10 pr-10 bg-white mb-30">
                 <table className="table overflow-scroll">
                   <thead className="table-light">
                     <tr>
@@ -175,7 +175,7 @@ const SingleOrder = ({ params }) => {
                 <strong>Note:</strong>{" "}
                 {"Your Order will be Delivered in 3 - 4 Bussiness Days"}
               </div>
-              <div className="invoice__total pt-40 pb-10 alert-success pl-40 pr-40 mb-30">
+              <div className="invoice__total pt-40 pb-10 alert-success pl-10 pr-10 mb-30">
                 <div className="row d-flex justify-content-between">
                   <div className="col-lg-3 col-md-4">
                     <div className="invoice__payment-method mb-30">
