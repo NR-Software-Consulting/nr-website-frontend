@@ -93,6 +93,7 @@ const useCheckoutSubmit = () => {
     setTotalDiscount();
   }, [cart_products]);
   const submitHandler = async (data) => {
+    console.log("SubmitedData", data);
     dispatch(set_shipping(data));
     setIsCheckoutSubmit(true);
     let orderInfo = {
@@ -108,7 +109,7 @@ const useCheckoutSubmit = () => {
       user: userInfo.id,
       status: "pending",
       products: isProductData,
-      detailedStatus: "pending",
+      detailedStatus: data.orderNote,
       publishedAt: new Date(),
     };
     try {
