@@ -60,10 +60,6 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
       });
     }
   };
-  const [selectedColor, setSelectedColor] = useState("");
-  const handleChange = (event) => {
-    setSelectedColor(event.target.value);
-  };
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
@@ -92,6 +88,33 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
           </span>
         )}
       </div>
+      {/*
+    <div className="tp-product-details-variation">
+        <div className="tp-product-details-variation-item">
+          <h4 className="tp-product-details-variation-title">Color :</h4>
+          <div className="tp-product-details-variation-list">
+            {product?.attributes?.Colour.map((item, i) => (
+              <button
+                // onClick={() => handleImageActive(item)}
+                key={i}
+                type="button"
+                className={`color tp-color-variation-btn`}
+              >
+                <span
+                  data-bg-color={`${item.title}`}
+                  style={{ backgroundColor: `${item.title}` }}
+                ></span>
+                {item.title && (
+                  <span className="tp-color-variation-tootltip">
+                    {item.title}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    */}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">
