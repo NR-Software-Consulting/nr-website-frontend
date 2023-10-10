@@ -20,19 +20,13 @@ const ProductModal = () => {
   const { productItem, isModalOpen } = useSelector(
     (state) => state.productModal
   );
+  const [colour, setColour] = useState("");
+  const [activeColor, setActiveColor] = useState(null);
   const img = productItem?.attributes?.images?.data[0]?.attributes?.url;
-  const [activeImg, setActiveImg] = useState(img);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    setActiveImg(img);
     dispatch(initialOrderQuantity());
-    setLoading(false);
   }, [img, dispatch]);
-  const handleImageActive = () => {
-    setActiveImg(img);
-    setLoading(true);
-  };
   useEffect(() => {
     const handleBodyScroll = (event) => {
       if (isModalOpen) {
@@ -51,7 +45,10 @@ const ProductModal = () => {
       window.removeEventListener("scroll", handleBodyScroll);
     };
   }, [isModalOpen]);
-
+  const handleProductColour = (item) => {
+    setColour(item?.title);
+    setActiveColor(item);
+  };
   return (
     <div>
       <ReactModal
@@ -70,16 +67,13 @@ const ProductModal = () => {
             >
               <i className="fa-regular fa-xmark"></i>
             </button>
-            <PopupThumbWrapper
-              activeImg={img}
-              handleImageActive={handleImageActive}
-              imageURLs={img}
-              loading={loading}
-            />
+            <PopupThumbWrapper imageURLs={img} />
             <PopUpWrapper
               productItem={productItem}
-              handleImageActive={handleImageActive}
-              activeImg={activeImg}
+              colour={colour}
+              setColour={setColour}
+              handleProductColour={handleProductColour}
+              activeColor={activeColor}
             />
           </div>
         </div>

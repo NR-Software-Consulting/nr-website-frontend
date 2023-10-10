@@ -8,7 +8,12 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import { useWishList } from "@/hooks/use-wishlist";
 import { useTranslations } from "next-intl";
 
-const PopUpWrapper = ({ productItem }) => {
+const PopUpWrapper = ({
+  productItem,
+  handleProductColour,
+  colour,
+  activeColor,
+}) => {
   const { deleteCartItem, onAddToCart, cartItems } = useCart();
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
@@ -41,6 +46,7 @@ const PopUpWrapper = ({ productItem }) => {
       const data = {
         product: productItem?.id,
         quantity: quantity,
+        colour: colour,
       };
       onAddToCart(data);
     }
@@ -90,34 +96,39 @@ const PopUpWrapper = ({ productItem }) => {
           </span>
         )}
       </div>
-      <div className="tp-product-details-variation">
-        <div className="tp-product-details-variation-item">
-          <h4 className="tp-product-details-variation-title">Color :</h4>
-          <div className="tp-product-details-variation-list">
-            {productItem?.attributes?.colour.map((item, i) => (
-              <button
-                // onClick={() => handleImageActive(item)}
-                key={i}
-                type="button"
-                className={`color tp-color-variation-btn`}
-              >
-                <span
-                  data-bg-color={`${item.title}`}
-                  style={{
-                    backgroundColor: `${item.title}`,
-                    border: "1.5px solid",
-                  }}
-                ></span>
-                {item.title && (
-                  <span className="tp-color-variation-tootltip">
-                    {item.title}
-                  </span>
-                )}
-              </button>
-            ))}
+      {productItem?.attributes?.colour &&
+        productItem?.attributes?.colour.length > 0 && (
+          <div className="tp-product-details-variation">
+            <div className="tp-product-details-variation-item">
+              <h4 className="tp-product-details-variation-title">Color :</h4>
+              <div className="tp-product-details-variation-list">
+                {productItem?.attributes?.colour.map((item, i) => (
+                  <button
+                    onClick={() => handleProductColour(item)}
+                    key={i}
+                    type="button"
+                    className={`color tp-color-variation-btn ${
+                      activeColor === item ? "active" : ""
+                    }`}
+                  >
+                    <span
+                      data-bg-color={`${item.title}`}
+                      style={{
+                        backgroundColor: `${item.title}`,
+                        border: "1.5px solid",
+                      }}
+                    ></span>
+                    {item.title && (
+                      <span className="tp-color-variation-tootltip">
+                        {item.title}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">

@@ -13,6 +13,7 @@ const DetailsWrapper = ({
   detailsBottom = false,
   handleProductColour,
   colour,
+  activeColor,
 }) => {
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
@@ -95,34 +96,39 @@ const DetailsWrapper = ({
           </span>
         )}
       </div>
-      <div className="tp-product-details-variation">
-        <div className="tp-product-details-variation-item">
-          <h4 className="tp-product-details-variation-title">Color :</h4>
-          <div className="tp-product-details-variation-list">
-            {product?.attributes?.colour.map((item, i) => (
-              <button
-                onClick={() => handleProductColour(item)}
-                key={i}
-                type="button"
-                className={`color tp-color-variation-btn`}
-              >
-                <span
-                  data-bg-color={`${item.title}`}
-                  style={{
-                    backgroundColor: `${item.title}`,
-                    border: "1.5px solid",
-                  }}
-                ></span>
-                {item.title && (
-                  <span className="tp-color-variation-tootltip">
-                    {item.title}
-                  </span>
-                )}
-              </button>
-            ))}
+      {product?.attributes?.colour &&
+        product?.attributes?.colour.length > 0 && (
+          <div className="tp-product-details-variation">
+            <div className="tp-product-details-variation-item">
+              <h4 className="tp-product-details-variation-title">Color :</h4>
+              <div className="tp-product-details-variation-list">
+                {product?.attributes?.colour.map((item, i) => (
+                  <button
+                    onClick={() => handleProductColour(item)}
+                    key={i}
+                    type="button"
+                    className={`color tp-color-variation-btn ${
+                      activeColor === item ? "active" : ""
+                    }`}
+                  >
+                    <span
+                      data-bg-color={`${item.title}`}
+                      style={{
+                        backgroundColor: `${item.title}`,
+                        border: "1.5px solid",
+                      }}
+                    ></span>
+                    {item.title && (
+                      <span className="tp-color-variation-tootltip">
+                        {item.title}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">

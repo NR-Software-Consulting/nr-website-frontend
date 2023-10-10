@@ -1,7 +1,7 @@
 import React from "react";
 import NRImage from "../NRImage";
 import { Box } from "@mui/material";
-const PopupThumbWrapper = ({ imageURLs, status }) => {
+const PopupThumbWrapper = ({ imageURLs }) => {
   return (
     <>
       <div className="tp-product-details-thumb-wrapper tp-tab d-sm-flex">

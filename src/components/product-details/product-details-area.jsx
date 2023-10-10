@@ -8,6 +8,7 @@ const ProductDetailsArea = ({ productItem }) => {
     productItem?.[0]?.attributes?.images?.data[0].attributes.url
   );
   const [colour, setColour] = useState("");
+  const [activeColor, setActiveColor] = useState(null);
   useEffect(() => {
     setSelectedImage(
       productItem?.[0]?.attributes?.images?.data[0].attributes.url
@@ -21,6 +22,7 @@ const ProductDetailsArea = ({ productItem }) => {
   }, [productItem]);
   const handleProductColour = (item) => {
     setColour(item?.title);
+    setActiveColor(item);
   };
   return (
     <section className="tp-product-details-area">
@@ -39,8 +41,8 @@ const ProductDetailsArea = ({ productItem }) => {
                 productItem={productItem}
                 detailsBottom={true}
                 colour={colour}
-                setColour={setColour}
                 handleProductColour={handleProductColour}
+                activeColor={activeColor}
               />
             </div>
           </div>
