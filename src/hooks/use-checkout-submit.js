@@ -72,7 +72,7 @@ const useCheckoutSubmit = () => {
         discount: item?.attributes?.product?.data?.attributes?.discount || "",
         productId: item?.attributes?.product?.data?.id || "" || "",
         quantity: item?.attributes?.quantity || "",
-        colour: item?.attributes?.colour || "white",
+        colour: item?.attributes?.colour || "",
         imageUrl:
           item?.attributes?.product?.data?.attributes?.images?.data[0]
             ?.attributes?.url || "",
