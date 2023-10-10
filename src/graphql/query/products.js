@@ -92,7 +92,7 @@ export const PRODUCT_DETAIL_DATA = gql`
           isTrending
           description
           condition
-          Colour {
+          colour {
             title
           }
           category {

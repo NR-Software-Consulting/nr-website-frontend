@@ -93,7 +93,7 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
         <div className="tp-product-details-variation-item">
           <h4 className="tp-product-details-variation-title">Color :</h4>
           <div className="tp-product-details-variation-list">
-            {product?.attributes?.Colour.map((item, i) => (
+            {product?.attributes?.colour.map((item, i) => (
               <button
                 // onClick={() => handleImageActive(item)}
                 key={i}
