@@ -178,7 +178,9 @@ const PopUpWrapper = ({
       </div>
       <DetailsBottomInfo
         category={productItem?.attributes?.category?.data?.attributes?.name}
-        tag={productItem?.attributes?.sub_category?.data?.attributes?.name}
+        SubCategory={
+          productItem?.attributes?.sub_category?.data?.attributes?.name
+        }
         brand={productItem?.attributes?.brands?.data?.attributes?.name}
       />
     </div>
