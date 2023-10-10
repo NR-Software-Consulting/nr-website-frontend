@@ -15,6 +15,7 @@ const Footer = ({ socialLinks }) => {
     const address = "NR Mobiles, Millat Road, Sandha, Lahore Pakistan.";
     setEncodedAddress(encodeURIComponent(address));
   }, []);
+  console.log("sociallink", socialLinks?.attributes?.youtubeUrl);
   return (
     <footer>
       <div className="primary_style pt-50">
@@ -137,14 +138,6 @@ const Footer = ({ socialLinks }) => {
                       fontFamily: "var(--tp-ff-roboto)",
                     }}
                   >
-                    <div>
-                      <Link href="/privacy-policy">{t("Privacy Policy")}</Link>
-                    </div>
-                    <div>
-                      <Link href="./terms-and-condition">
-                        {t("Terms & Conditions")}
-                      </Link>
-                    </div>
                     <div>
                       <Link href="/contact">{t("Contact Us")}</Link>
                     </div>

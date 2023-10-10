@@ -41,29 +41,3 @@ export const CATEGORIES_LIST = gql`
     }
   }
 `;
-
-export const PRIVACY_POLICY = gql`
-  query {
-    privacyPolicy {
-      data {
-        attributes {
-          title
-          description
-        }
-      }
-    }
-  }
-`;
-
-export const TERMS_AND_CONDITION = gql`
-  query {
-    termsAndCondition {
-      data {
-        attributes {
-          title
-          description
-        }
-      }
-    }
-  }
-`;
