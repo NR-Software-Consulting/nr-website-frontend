@@ -7,11 +7,21 @@ const ProductDetailsArea = ({ productItem }) => {
   const [selectedImage, setSelectedImage] = useState(
     productItem?.[0]?.attributes?.images?.data[0].attributes.url
   );
+  const [colour, setColour] = useState("");
   useEffect(() => {
     setSelectedImage(
       productItem?.[0]?.attributes?.images?.data[0].attributes.url
     );
+    if (
+      productItem?.[0]?.attributes?.colour &&
+      productItem?.[0]?.attributes?.colour?.length > 0
+    ) {
+      setColour(productItem?.[0]?.attributes?.colour[0]?.title);
+    }
   }, [productItem]);
+  const handleProductColour = (item) => {
+    setColour(item?.title);
+  };
   return (
     <section className="tp-product-details-area">
       <div className="tp-product-details-top">
@@ -28,8 +38,9 @@ const ProductDetailsArea = ({ productItem }) => {
               <DetailsWrapper
                 productItem={productItem}
                 detailsBottom={true}
-                selectedImage={selectedImage}
-                setSelectedImage={setSelectedImage}
+                colour={colour}
+                setColour={setColour}
+                handleProductColour={handleProductColour}
               />
             </div>
           </div>

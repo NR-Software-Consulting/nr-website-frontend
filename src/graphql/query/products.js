@@ -19,6 +19,9 @@ export const PRODUCTS_DATA = gql`
           description
           isTrending
           discount
+          colour {
+            title
+          }
           images {
             data {
               attributes {

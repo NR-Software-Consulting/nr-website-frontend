@@ -8,7 +8,12 @@ import { useWishList } from "@/hooks/use-wishlist";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 
-const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
+const DetailsWrapper = ({
+  productItem,
+  detailsBottom = false,
+  handleProductColour,
+  colour,
+}) => {
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
   const { onAddToCart, cartItems, deleteCartItem } = useCart();
@@ -42,6 +47,7 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
       onAddToCart({
         product: product.id,
         quantity: quantity,
+        colour: colour,
       });
     }
   };
@@ -60,6 +66,7 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
       });
     }
   };
+
   return (
     <div className="tp-product-details-wrapper">
       <div className="tp-product-details-category">
@@ -88,21 +95,23 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
           </span>
         )}
       </div>
-      {/*
-    <div className="tp-product-details-variation">
+      <div className="tp-product-details-variation">
         <div className="tp-product-details-variation-item">
           <h4 className="tp-product-details-variation-title">Color :</h4>
           <div className="tp-product-details-variation-list">
             {product?.attributes?.colour.map((item, i) => (
               <button
-                // onClick={() => handleImageActive(item)}
+                onClick={() => handleProductColour(item)}
                 key={i}
                 type="button"
                 className={`color tp-color-variation-btn`}
               >
                 <span
                   data-bg-color={`${item.title}`}
-                  style={{ backgroundColor: `${item.title}` }}
+                  style={{
+                    backgroundColor: `${item.title}`,
+                    border: "1.5px solid",
+                  }}
                 ></span>
                 {item.title && (
                   <span className="tp-color-variation-tootltip">
@@ -114,7 +123,6 @@ const DetailsWrapper = ({ productItem, detailsBottom = false }) => {
           </div>
         </div>
       </div>
-    */}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">

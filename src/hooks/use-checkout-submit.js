@@ -94,7 +94,6 @@ const useCheckoutSubmit = () => {
     setTotalDiscount();
   }, [cart_products]);
   const submitHandler = async (data) => {
-    console.log("SubmitedData", data);
     dispatch(set_shipping(data));
     setIsCheckoutSubmit(true);
     let orderInfo = {
