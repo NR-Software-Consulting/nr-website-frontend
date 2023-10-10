@@ -438,7 +438,7 @@
     }
   }
   &-query {
-    margin-bottom: 22px;
+    margin-bottom: 5px;
     &-item {
       &:not(:last-child) {
         margin-bottom: 3px;
@@ -457,7 +457,6 @@
     }
   }
   &-social {
-    margin-bottom: 22px;
     & span {
       font-size: 15px;
       color: var(--tp-common-black);
