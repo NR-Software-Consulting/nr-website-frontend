@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import logo from "@assets/img/logo/headerlogo.png";
-import pay from "@assets/img/footer/footer-pay.png";
 import { Email, Location } from "@/svg";
 import { useTranslations } from "next-intl";
 import useAuthCheck from "@/hooks/use-auth-check";
+import { Box } from "@mui/material";
+import NRImage from "@/components/NRImage";
 
 const Footer = ({ socialLinks }) => {
   const t = useTranslations("header");
@@ -15,7 +15,6 @@ const Footer = ({ socialLinks }) => {
     const address = "NR Mobiles, Millat Road, Sandha, Lahore Pakistan.";
     setEncodedAddress(encodeURIComponent(address));
   }, []);
-  console.log("sociallink", socialLinks?.attributes?.youtubeUrl);
   return (
     <footer>
       <div className="primary_style pt-50">
@@ -27,14 +26,18 @@ const Footer = ({ socialLinks }) => {
                   <div className="tp-footer-widget-content">
                     <div className="tp-footer-logo">
                       <Link href="/">
-                        <Image
-                          src={logo}
-                          alt="logo"
-                          style={{
-                            height: 60,
+                        <Box
+                          sx={{
+                            height: 66,
                             width: 200,
                           }}
-                        />
+                        >
+                          <NRImage
+                            src={logo}
+                            alt="Footer-logo"
+                            ObjectFit="contain"
+                          />
+                        </Box>
                       </Link>
                     </div>
                     <p className="tp-footer-desc" style={{ fontSize: "14px" }}>

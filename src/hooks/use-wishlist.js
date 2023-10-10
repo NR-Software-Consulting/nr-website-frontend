@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "cookies-next";
-import { gql, useMutation } from "@apollo/client";
-import { on_update_product } from "@/redux/features/cartSlice";
+import { gql } from "@apollo/client";
 import client from "@/graphql/apollo-client";
 import { update_wishlist } from "@/redux/features/wishlist-slice";
 import { notifyError, notifySuccess } from "@/utils/toast";

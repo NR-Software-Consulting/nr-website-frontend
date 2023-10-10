@@ -88,7 +88,7 @@ const ProductItem = ({ product, offer_style = false }) => {
                 <button
                   onClick={() => handleAddProduct()}
                   type="button"
-                  className={`tp-product-action-btn rounded-circle ${
+                  className={`tp-product-action-btn mb-10 rounded-circle ${
                     isAddedToCart ? "active" : ""
                   } tp-product-add-cart-btn`}
                 >
@@ -99,7 +99,7 @@ const ProductItem = ({ product, offer_style = false }) => {
               <button
                 onClick={() => dispatch(handleProductModal(product))}
                 type="button"
-                className="tp-product-action-btn tp-product-quick-view-btn rounded-circle mt-10 mb-10"
+                className="tp-product-action-btn tp-product-quick-view-btn rounded-circle mb-10 md-none d-none d-lg-block"
               >
                 <QuickView />
                 <span className="tp-product-tooltip">Quick View</span>

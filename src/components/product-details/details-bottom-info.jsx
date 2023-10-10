@@ -1,18 +1,16 @@
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  LinkedinShareButton,
-} from "react-share";
+// import {
+//   FacebookShareButton,
+//   WhatsappShareButton,
+//   LinkedinShareButton,
+// } from "react-share";
 
 const DetailsBottomInfo = ({ category, SubCategory, brand }) => {
   const t = useTranslations("header");
   const router = useRouter();
-  const shareUrl =
-    process.env.NEXT_PUBLIC_SITE_URL + `/${router.locale + router.asPath}`;
-
+  // const shareUrl = "https://nrmobiles.com" + `${router.asPath}`;
   return (
     <>
       <div className="tp-product-details-query">
@@ -33,6 +31,31 @@ const DetailsBottomInfo = ({ category, SubCategory, brand }) => {
           <p>Your Product will be deliverd in 3-4 Bussiness Days</p>
         </div>
       </div>
+      {/*
+    <div className="tp-product-details-social">
+        <span>Share: </span>
+        <FacebookShareButton url={shareUrl}>
+          <Link href={shareUrl} target="_blank" aria-label="Facebook">
+            <i className="fa-brands fa-facebook-f" />
+          </Link>
+        </FacebookShareButton>
+        <WhatsappShareButton url={shareUrl}>
+          <Link href={shareUrl} target="blank" aria-label="whatsapp">
+            <i className="fa-brands fa-whatsapp" />
+          </Link>
+        </WhatsappShareButton>
+        <LinkedinShareButton url={shareUrl}>
+          <Link href={shareUrl} target="_blank" aria-label="instagram">
+            <i className="fa-brands fa-instagram" />
+          </Link>
+        </LinkedinShareButton>
+        <LinkedinShareButton url={shareUrl}>
+          <Link href={shareUrl} target="_blank" aria-label="instagram">
+            <i className="fa-brands fa-linkedin" />
+          </Link>
+        </LinkedinShareButton>
+      </div>
+    */}
     </>
   );
 };
