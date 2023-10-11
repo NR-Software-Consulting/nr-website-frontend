@@ -70,7 +70,8 @@ const CheckoutOrderArea = ({ checkoutData }) => {
           </div>
         </ul>
       </div>
-      {/* <div className='tp-checkout-payment'>
+      {/* 
+      <div className='tp-checkout-payment'>
         <div className='tp-checkout-payment-item'>
           <input
             {...register(`payment`, {
@@ -125,7 +126,8 @@ const CheckoutOrderArea = ({ checkoutData }) => {
           <label htmlFor='cod'>Cash on Delivery</label>
           <ErrorMsg msg={errors?.payment?.message} />
         </div>
-      </div> */}
+      </div> 
+    */}
       <div className="tp-checkout-btn-wrapper">
         <button
           type="submit"

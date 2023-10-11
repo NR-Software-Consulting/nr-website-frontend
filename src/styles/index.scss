@@ -3,3 +3,24 @@
 @import "swiper/css/bundle";
 @import "node_modules/react-modal-video/scss/modal-video.scss";
 @import "../../public/assets/scss/main.scss";
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--tp-theme-primary);
+}
+::-moz-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-moz-scrollbar-thumb {
+  background-color: var(--tp-theme-primary);
+}
+::-ms-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-ms-scrollbar-thumb {
+  background-color: var(--tp-theme-primary);
+}

@@ -6,13 +6,15 @@ import { ApolloProvider } from "@apollo/client";
 import client from "../graphql/apollo-client";
 import { NextIntlClientProvider } from "next-intl";
 import NextNProgress from "nextjs-progressbar";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
 }
 if (typeof window !== "undefined") {
   ReactModal.setAppElement("body");
 }
-
+// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 export default function App({ Component, pageProps }) {
   return (
     <NextIntlClientProvider messages={pageProps.messages}>
@@ -25,9 +27,11 @@ export default function App({ Component, pageProps }) {
           showOnShallow={true}
         />
         <ApolloProvider client={client}>
+          {/*<Elements stripe={stripePromise}> */}
           <div id="root">
             <Component {...pageProps} />
           </div>
+          {/*</Elements> */}
         </ApolloProvider>
       </Provider>
     </NextIntlClientProvider>
