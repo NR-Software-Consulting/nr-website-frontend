@@ -175,7 +175,7 @@ const SingleOrder = ({ params }) => {
               container
               sx={{
                 padding: "30px 0px 30px 0px",
-                display: { xs: "none", sm: "flex" },
+                display: { xs: "flex", sm: "flex" },
               }}
             >
               <Grid
@@ -195,12 +195,20 @@ const SingleOrder = ({ params }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "11px", sm: "16px" }}
+                    fontWeight={700}
+                    sx={{ color: "black" }}
+                  >
                     {"No."}
                   </Typography>
                 </Grid>
                 <Grid item sm={5} lg={6}>
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "11px", sm: "16px" }}
+                    fontWeight={700}
+                    sx={{ color: "black" }}
+                  >
                     {t("Product Name")}
                   </Typography>
                 </Grid>
@@ -213,7 +221,11 @@ const SingleOrder = ({ params }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "11px", sm: "16px" }}
+                    fontWeight={700}
+                    sx={{ color: "black" }}
+                  >
                     {t("Quantity")}
                   </Typography>
                 </Grid>
@@ -226,7 +238,11 @@ const SingleOrder = ({ params }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "11px", sm: "16px" }}
+                    fontWeight={700}
+                    sx={{ color: "black" }}
+                  >
                     {t("Item Price")}
                   </Typography>
                 </Grid>
@@ -239,7 +255,11 @@ const SingleOrder = ({ params }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "11px", sm: "16px" }}
+                    fontWeight={700}
+                    sx={{ color: "black" }}
+                  >
                     {t("Discount")}
                   </Typography>
                 </Grid>
@@ -252,7 +272,11 @@ const SingleOrder = ({ params }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "11px", sm: "16px" }}
+                    fontWeight={700}
+                    sx={{ color: "black" }}
+                  >
                     {t("Amount")}
                   </Typography>
                 </Grid>
@@ -265,160 +289,99 @@ const SingleOrder = ({ params }) => {
                 }}
               />
               {products.map((item, i) => (
-                <Grid
-                  container
-                  sx={{
-                    display: { xs: "none", sm: "flex" },
-                    justifyContent: "space-between",
-                    padding: "0.5rem",
-                  }}
-                >
+                <Grid container key={i}>
                   <Grid
-                    item
-                    sm={0.5}
+                    container
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
+                      display: { xs: "flex", sm: "flex" },
+                      justifyContent: "space-between",
+                      padding: "0.5rem",
                     }}
                   >
-                    <Typography sx={{ color: "black" }}>{i + 1}</Typography>
-                  </Grid>
-                  <Grid item sm={5} lg={6}>
-                    <Typography sx={{ color: "black" }}>
-                      {item.title}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    sm={1.1}
-                    md={1}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typography sx={{ color: "black" }}>
-                      {item.quantity}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    sm={1.9}
-                    lg={1}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typography sx={{ color: "black" }}>
-                      PKR {item.price}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    sm={1.1}
-                    md={1}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typography sx={{ color: "black" }}>
-                      {item.discount || 0}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    sm={1.5}
-                    lg={1}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typography sx={{ color: "black" }}>
-                      PKR{" "}
-                      {(
-                        (item.price - (item.price * item.discount) / 100) *
-                        item.quantity
-                      ).toFixed(0)}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              ))}
-            </Grid>
-            <Grid
-              container
-              sx={{
-                padding: "30px 0px 30px 0px",
-                display: { xs: "flex", sm: "none" },
-              }}
-            >
-              <Grid container item xs={4}>
-                <Grid item xs={12}>
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
-                    {"No."}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
-                    {t("Product Name")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
-                    {t("Quantity")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
-                    {t("Item Price")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
-                    {t("Discount")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography fontWeight={700} sx={{ color: "black" }}>
-                    {t("Amount")}
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={8}
-                sx={{ display: "flex", justifyContent: "end" }}
-              >
-                {products.map((item, i) => (
-                  <Grid>
-                    <Grid item xs={12}>
-                      <Typography sx={{ color: "black" }}>{i + 1}</Typography>
+                    <Grid
+                      item
+                      sm={0.5}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography
+                        fontSize={{ xs: "10px", sm: "14px" }}
+                        sx={{ color: "black" }}
+                      >
+                        {i + 1}
+                      </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography sx={{ color: "black" }}>
+                    <Grid item sm={5} lg={6}>
+                      <Typography
+                        fontSize={{ xs: "10px", sm: "14px" }}
+                        sx={{ color: "black" }}
+                      >
                         {item.title}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography sx={{ color: "black" }}>
+                    <Grid
+                      item
+                      sm={1.1}
+                      md={1}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography
+                        fontSize={{ xs: "10px", sm: "14px" }}
+                        sx={{ color: "black" }}
+                      >
                         {item.quantity}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography sx={{ color: "black" }}>
+                    <Grid
+                      item
+                      sm={1.9}
+                      lg={1}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography
+                        fontSize={{ xs: "10px", sm: "14px" }}
+                        sx={{ color: "black" }}
+                      >
                         PKR {item.price}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography sx={{ color: "black" }}>
+                    <Grid
+                      item
+                      sm={1.1}
+                      md={1}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography
+                        fontSize={{ xs: "10px", sm: "14px" }}
+                        sx={{ color: "black" }}
+                      >
                         {item.discount || 0}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography sx={{ color: "black" }}>
+                    <Grid
+                      item
+                      sm={1.5}
+                      lg={1}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography
+                        fontSize={{ xs: "10px", sm: "14px" }}
+                        sx={{ color: "black" }}
+                      >
                         PKR{" "}
                         {(
                           (item.price - (item.price * item.discount) / 100) *
@@ -427,8 +390,8 @@ const SingleOrder = ({ params }) => {
                       </Typography>
                     </Grid>
                   </Grid>
-                ))}
-              </Grid>
+                </Grid>
+              ))}
             </Grid>
             <Grid item xs={12} sx={{ display: "flex", marginBottom: "40px" }}>
               <Typography sx={{ color: "black" }}>
