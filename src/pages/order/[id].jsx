@@ -107,7 +107,7 @@ const SingleOrder = ({ params }) => {
               marginBottom: "30px",
             }}
           >
-            <Grid container sx={{ marginBottom: "40px" }}>
+            <Grid container sx={{ marginBottom: "30px" }}>
               <Grid item xs={12} sm={9.5} md={10} lg={10.6}>
                 <Box sx={{ height: 70, width: 220 }}>
                   <NRImage src={logo} alt="logo" />
@@ -131,17 +131,26 @@ const SingleOrder = ({ params }) => {
               </Grid>
               <Grid container item xs={12} sm={6}>
                 <Grid item xs={12}>
-                  <Typography sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "14px", sm: "16px" }}
+                    sx={{ color: "black" }}
+                  >
                     <strong>{t("Invoice ID")}:</strong> {id}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "14px", sm: "16px" }}
+                    sx={{ color: "black" }}
+                  >
                     <strong>{t("Contact")}:</strong> +{phoneNumber}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "14px", sm: "16px" }}
+                    sx={{ color: "black" }}
+                  >
                     <strong>{t("Address")}:</strong> {address.slice(0, 90)}
                   </Typography>
                 </Grid>
@@ -154,17 +163,26 @@ const SingleOrder = ({ params }) => {
                 sx={{ textAlign: { sm: "end" } }}
               >
                 <Grid item xs={12}>
-                  <Typography sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "14px", sm: "16px" }}
+                    sx={{ color: "black" }}
+                  >
                     <strong>{t("City")}:</strong> {city}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "14px", sm: "16px" }}
+                    sx={{ color: "black" }}
+                  >
                     <strong>{t("Country")}:</strong> {country}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography sx={{ color: "black" }}>
+                  <Typography
+                    fontSize={{ xs: "14px", sm: "16px" }}
+                    sx={{ color: "black" }}
+                  >
                     <strong>{t("Date")}:</strong>{" "}
                     {dayjs(publishedAt).format("MMMM D, YYYY")}
                   </Typography>
@@ -393,66 +411,84 @@ const SingleOrder = ({ params }) => {
                 </Grid>
               ))}
             </Grid>
-            <Grid item xs={12} sx={{ display: "flex", marginBottom: "40px" }}>
-              <Typography sx={{ color: "black" }}>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                marginBottom: "40px",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                fontSize={{ xs: "13px", sm: "16px" }}
+                sx={{ color: "black" }}
+              >
                 <strong>Note:</strong>
               </Typography>
-              <Typography>
+              <Typography fontSize={{ xs: "13px", sm: "16px" }}>
                 {"Your Order will be Delivered in 3 - 4 Bussiness Days."}
               </Typography>
             </Grid>
             <Grid container>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={4}>
                 <Typography
-                  fontSize={"20px"}
+                  fontSize={{ xs: "12px", sm: "20px" }}
                   fontWeight={700}
                   sx={{ color: "black" }}
                 >
                   {t("Payment Method")}
                 </Typography>
-                <Typography sx={{ color: "black" }}>COD</Typography>
-              </Grid>
-              <Grid item xs={12} sm={4}>
                 <Typography
-                  fontSize={"20px"}
+                  fontSize={{ xs: "12px", sm: "20px" }}
+                  sx={{ color: "black" }}
+                >
+                  COD
+                </Typography>
+              </Grid>
+              <Grid item xs={4.5}>
+                <Typography
+                  fontSize={{ xs: "12px", sm: "20px" }}
                   fontWeight={700}
                   sx={{
                     color: "black",
                     display: "flex",
-                    justifyContent: { xs: "start", sm: "center" },
+                    justifyContent: "center",
                   }}
                 >
                   {"Shipping Charges"}
                 </Typography>
                 <Typography
+                  fontSize={{ xs: "12px", sm: "20px" }}
                   fontWeight={700}
                   sx={{
                     color: "#DC3545",
                     display: "flex",
-                    justifyContent: { xs: "start", sm: "center" },
+                    justifyContent: "center",
                   }}
                 >
                   PKR {parseInt(shippingCost).toFixed(2) || "0.00"}
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={3.5}>
                 <Typography
-                  fontSize={"20px"}
+                  fontSize={{ xs: "12px", sm: "20px" }}
                   fontWeight={700}
                   sx={{
                     color: "black",
                     display: "flex",
-                    justifyContent: { xs: "start", sm: "end" },
+                    justifyContent: "end",
                   }}
                 >
                   {t("Total Ammount")}
                 </Typography>
                 <Typography
+                  fontSize={{ xs: "12px", sm: "20px" }}
                   fontWeight={700}
                   sx={{
                     color: "#DC3545",
                     display: "flex",
-                    justifyContent: { xs: "start", sm: "end" },
+                    justifyContent: "end",
                   }}
                 >
                   PKR{" "}
@@ -474,7 +510,16 @@ const SingleOrder = ({ params }) => {
               trigger={() => (
                 <Button
                   type="button"
-                  className="tp-invoice-print tp-btn tp-btn-black"
+                  sx={{
+                    backgroundColor: "var(--tp-theme-primary)",
+                    padding: "9px 26px",
+                    color: "var(--tp-common-white)",
+                    border: "1px solid var(--tp-theme-primary)",
+                    "&:hover": {
+                      backgroundColor: "var(--tp-theme-primary)",
+                      color: "var(--tp-common-white)",
+                    },
+                  }}
                 >
                   <span className="mr-5">
                     <i className="fa-regular fa-print"></i>
