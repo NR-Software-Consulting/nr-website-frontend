@@ -221,7 +221,7 @@ const SingleOrder = ({ params }) => {
                     {"No."}
                   </Typography>
                 </Grid>
-                <Grid item sm={5} lg={6}>
+                <Grid item xs={6} sm={5} lg={6}>
                   <Typography
                     fontSize={{ xs: "11px", sm: "16px" }}
                     fontWeight={700}
@@ -232,6 +232,7 @@ const SingleOrder = ({ params }) => {
                 </Grid>
                 <Grid
                   item
+                  xs={1}
                   sm={1.1}
                   md={1}
                   sx={{
@@ -244,7 +245,7 @@ const SingleOrder = ({ params }) => {
                     fontWeight={700}
                     sx={{ color: "black" }}
                   >
-                    {t("Quantity")}
+                    {"Qty"}
                   </Typography>
                 </Grid>
                 <Grid
@@ -252,7 +253,7 @@ const SingleOrder = ({ params }) => {
                   sm={1.9}
                   lg={1}
                   sx={{
-                    display: "flex",
+                    display: { xs: "none", sm: "flex" },
                     justifyContent: "center",
                   }}
                 >
@@ -318,10 +319,11 @@ const SingleOrder = ({ params }) => {
                   >
                     <Grid
                       item
-                      sm={0.5}
+                      xs={0.5}
                       sx={{
                         display: "flex",
                         justifyContent: "center",
+                        backgroundColour: "red",
                       }}
                     >
                       <Typography
@@ -331,7 +333,7 @@ const SingleOrder = ({ params }) => {
                         {i + 1}
                       </Typography>
                     </Grid>
-                    <Grid item sm={5} lg={6}>
+                    <Grid item xs={5.5} sm={5} lg={6}>
                       <Typography
                         fontSize={{ xs: "10px", sm: "14px" }}
                         sx={{ color: "black" }}
@@ -341,6 +343,7 @@ const SingleOrder = ({ params }) => {
                     </Grid>
                     <Grid
                       item
+                      xs={1}
                       sm={1.1}
                       md={1}
                       sx={{
@@ -360,7 +363,7 @@ const SingleOrder = ({ params }) => {
                       sm={1.9}
                       lg={1}
                       sx={{
-                        display: "flex",
+                        display: { xs: "none", sm: "flex" },
                         justifyContent: "center",
                       }}
                     >
