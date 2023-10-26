@@ -7,6 +7,8 @@ const ProductDetailsArea = ({ productItem }) => {
   const [selectedImage, setSelectedImage] = useState(
     productItem?.[0]?.attributes?.images?.data[0].attributes.url
   );
+  const [modal, setModal] = useState("");
+  const [activeModal, setActiveModal] = useState(null);
   const [colour, setColour] = useState("");
   const [activeColor, setActiveColor] = useState(null);
   useEffect(() => {
@@ -19,10 +21,20 @@ const ProductDetailsArea = ({ productItem }) => {
     ) {
       setColour(productItem?.[0]?.attributes?.colour[0]?.title);
     }
+    if (
+      productItem?.[0]?.attributes?.modal &&
+      productItem?.[0]?.attributes?.modal?.length > 0
+    ) {
+      setModal(productItem?.[0]?.attributes?.modal[0]?.title);
+    }
   }, [productItem]);
   const handleProductColour = (item) => {
     setColour(item?.title);
     setActiveColor(item);
+  };
+  const handleProductModal = (item) => {
+    setModal(item?.title);
+    setActiveModal(item);
   };
   return (
     <section className="tp-product-details-area">
@@ -41,8 +53,11 @@ const ProductDetailsArea = ({ productItem }) => {
                 productItem={productItem}
                 detailsBottom={true}
                 colour={colour}
-                handleProductColour={handleProductColour}
                 activeColor={activeColor}
+                handleProductColour={handleProductColour}
+                modal={modal}
+                activeModal={activeModal}
+                handleProductModal={handleProductModal}
               />
             </div>
           </div>

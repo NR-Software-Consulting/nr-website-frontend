@@ -22,6 +22,9 @@ export const PRODUCTS_DATA = gql`
           colour {
             title
           }
+          modal {
+            title
+          }
           images {
             data {
               attributes {
@@ -96,6 +99,9 @@ export const PRODUCT_DETAIL_DATA = gql`
           description
           condition
           colour {
+            title
+          }
+          modal {
             title
           }
           category {

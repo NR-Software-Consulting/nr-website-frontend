@@ -7,13 +7,17 @@ import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
+import { Box, Typography } from "@mui/material";
 
 const DetailsWrapper = ({
   productItem,
   detailsBottom = false,
   handleProductColour,
+  handleProductModal,
   colour,
   activeColor,
+  modal,
+  activeModal,
 }) => {
   const { addProductToWishList, removeProductToWishList, wishlist } =
     useWishList();
@@ -49,6 +53,7 @@ const DetailsWrapper = ({
         product: product.id,
         quantity: quantity,
         colour: colour,
+        modal: modal,
       });
     }
   };
@@ -129,6 +134,37 @@ const DetailsWrapper = ({
             </div>
           </div>
         )}
+      {product?.attributes?.modal && product?.attributes?.modal.length > 0 && (
+        <div className="tp-product-details-variation">
+          <h4 className="tp-product-details-variation-title">Modal:</h4>
+          {product?.attributes?.modal.map((item, i) => (
+            <button
+              onClick={() => handleProductModal(item)}
+              key={i}
+              type="button"
+              className="mr-10"
+            >
+              <Box
+                sx={{
+                  border: "1px solid black",
+                  width: "100%",
+                  margin: "0px 0px 10px 0px",
+                  backgroundColor: activeModal === item ? "#f3f5f6" : "white",
+                  boxShadow:
+                    activeModal === item
+                      ? "0px 1px 2px rgba(1, 15, 28, 0.2)"
+                      : "",
+                  borderColor: activeModal === item ? "#f3f5f6" : "black",
+                }}
+              >
+                <Typography sx={{ padding: "3px 10px" }}>
+                  {item.title}
+                </Typography>
+              </Box>
+            </button>
+          ))}
+        </div>
+      )}
       <div className="tp-product-details-action-wrapper">
         <h3 className="tp-product-details-action-title">{t("Quantity")}</h3>
         <div className="tp-product-details-action-item-wrapper d-sm-flex align-items-center">

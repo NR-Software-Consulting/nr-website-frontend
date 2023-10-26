@@ -7,12 +7,16 @@ import { useRouter } from "next/router";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { useWishList } from "@/hooks/use-wishlist";
 import { useTranslations } from "next-intl";
+import { Box, Typography } from "@mui/material";
 
 const PopUpWrapper = ({
   productItem,
   handleProductColour,
   colour,
   activeColor,
+  handleProductModal,
+  modal,
+  activeModal,
 }) => {
   const { deleteCartItem, onAddToCart, cartItems } = useCart();
   const { addProductToWishList, removeProductToWishList, wishlist } =
@@ -47,6 +51,7 @@ const PopUpWrapper = ({
         product: productItem?.id,
         quantity: quantity,
         colour: colour,
+        modal: modal,
       };
       onAddToCart(data);
     }
@@ -127,6 +132,38 @@ const PopUpWrapper = ({
                 ))}
               </div>
             </div>
+          </div>
+        )}
+      {productItem?.attributes?.modal &&
+        productItem?.attributes?.modal.length > 0 && (
+          <div className="tp-product-details-variation">
+            <h4 className="tp-product-details-variation-title">Modal:</h4>
+            {productItem?.attributes?.modal.map((item, i) => (
+              <button
+                onClick={() => handleProductModal(item)}
+                key={i}
+                type="button"
+                className="mr-10"
+              >
+                <Box
+                  sx={{
+                    border: "1px solid black",
+                    width: "100%",
+                    margin: "0px 0px 10px 0px",
+                    backgroundColor: activeModal === item ? "#f3f5f6" : "white",
+                    boxShadow:
+                      activeModal === item
+                        ? "0px 1px 2px rgba(1, 15, 28, 0.2)"
+                        : "",
+                    borderColor: activeModal === item ? "#f3f5f6" : "black",
+                  }}
+                >
+                  <Typography sx={{ padding: "3px 10px" }}>
+                    {item.title}
+                  </Typography>
+                </Box>
+              </button>
+            ))}
           </div>
         )}
       <div className="tp-product-details-action-wrapper">

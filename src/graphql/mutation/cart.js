@@ -28,6 +28,7 @@ export const ADD_TO_CART = gql`
             }
           }
           colour
+          modal
         }
       }
     }
@@ -101,6 +102,7 @@ export const GET_ALL_CART_PRODUCT = gql`
           }
           quantity
           colour
+          modal
         }
       }
     }

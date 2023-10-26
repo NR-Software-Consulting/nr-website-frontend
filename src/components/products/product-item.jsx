@@ -99,7 +99,7 @@ const ProductItem = ({ product, offer_style = false }) => {
               <button
                 onClick={() => dispatch(handleProductModal(product))}
                 type="button"
-                className="tp-product-action-btn tp-product-quick-view-btn rounded-circle mb-10 md-none d-none d-lg-block"
+                className="tp-product-action-btn tp-product-quick-view-btn rounded-circle mb-10 md-none d-none d-xl-block"
               >
                 <QuickView />
                 <span className="tp-product-tooltip">Quick View</span>

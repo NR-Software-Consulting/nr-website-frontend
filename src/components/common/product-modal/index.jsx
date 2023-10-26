@@ -22,6 +22,8 @@ const ProductModal = () => {
   );
   const [colour, setColour] = useState("");
   const [activeColor, setActiveColor] = useState(null);
+  const [modal, setModal] = useState("");
+  const [activeModal, setActiveModal] = useState(null);
   const img = productItem?.attributes?.images?.data[0]?.attributes?.url;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -49,6 +51,10 @@ const ProductModal = () => {
     setColour(item?.title);
     setActiveColor(item);
   };
+  const handleProductModal = (item) => {
+    setModal(item?.title);
+    setActiveModal(item);
+  };
   return (
     <div>
       <ReactModal
@@ -72,8 +78,12 @@ const ProductModal = () => {
               productItem={productItem}
               colour={colour}
               setColour={setColour}
-              handleProductColour={handleProductColour}
               activeColor={activeColor}
+              handleProductColour={handleProductColour}
+              modal={modal}
+              setModal={setModal}
+              activeModal={activeModal}
+              handleProductModal={handleProductModal}
             />
           </div>
         </div>
