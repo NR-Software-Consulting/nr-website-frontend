@@ -58,16 +58,14 @@ const NavProfileTab = () => {
         counts.pending++;
       } else if (status === "processing") {
         counts.processing++;
-      } else if (status === "completed" || status === "delivered") {
-        counts.completed++;
+      } else if (status === "delivered") {
+        counts.delivered++;
       } else if (status === "canceled") {
         counts.canceled++;
-      } else if (status === "Tracking") {
-        counts.Tracking++;
       }
       return counts;
     },
-    { pending: 0, processing: 0, completed: 0, canceled: 0, Tracking: 0 }
+    { pending: 0, processing: 0, delivered: 0, canceled: 0, Tracking: 0 }
   );
   const handleLogout = () => {
     setShowPopup(true);
@@ -172,29 +170,12 @@ const NavProfileTab = () => {
               <div className="profile__main-info-icon">
                 <span>
                   <span className="profile-icon-count profile-wishlist">
-                    {OrderStatus?.Tracking || 0}
+                    {OrderStatus?.delivered || 0}
                   </span>
                   <DeliveryTwo />
                 </span>
               </div>
-              <h4 className="profile__main-info-title">
-                {t("Tracking Order")}
-              </h4>
-            </div>
-          </div>
-          <div className="col-md-3 col-sm-6">
-            <div className="profile__main-info-item">
-              <div className="profile__main-info-icon">
-                <span>
-                  <span className="profile-icon-count profile-wishlist">
-                    {OrderStatus?.completed || 0}
-                  </span>
-                  <DeliveryTwo />
-                </span>
-              </div>
-              <h4 className="profile__main-info-title">
-                {t("Complete Order")}
-              </h4>
+              <h4 className="profile__main-info-title">{"Delivered Order"}</h4>
             </div>
           </div>
         </div>
