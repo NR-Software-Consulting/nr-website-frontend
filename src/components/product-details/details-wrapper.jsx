@@ -7,7 +7,7 @@ import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
-import { Box, Typography } from "@mui/material";
+import { Box, Rating, Typography } from "@mui/material";
 
 const DetailsWrapper = ({
   productItem,
@@ -24,6 +24,17 @@ const DetailsWrapper = ({
   const { onAddToCart, cartItems, deleteCartItem } = useCart();
   const t = useTranslations("header");
   const product = productItem[0];
+  const productRating = product?.attributes?.user_review.map((item) => {
+    return item?.rating;
+  });
+  const filteredRatings = productRating.filter(
+    (rating) => rating !== undefined
+  );
+  const averageRating =
+    filteredRatings.length > 0
+      ? filteredRatings.reduce((acc, rating) => acc + rating, 0) /
+        filteredRatings.length
+      : 0;
   const isAddedToCart =
     cartItems?.some(
       (prd) => prd.attributes.product?.data?.id === product?.id
@@ -79,7 +90,16 @@ const DetailsWrapper = ({
         <span>{product?.attributes?.category?.data?.attributes?.name}</span>
       </div>
       <h3 className="tp-product-details-title">{product?.attributes?.title}</h3>
-      <div className="tp-product-details-price-wrapper mb-20">
+      {product?.attributes?.user_review.length > 0 ? (
+        <div className="tp-product-details-price-wrapper d-flex align-item-center mb-10">
+          <Rating value={averageRating} readOnly precision={0.5} />
+          <span style={{ color: "grey" }}>
+            ({filteredRatings.length}{" "}
+            {filteredRatings.length === 1 ? "review" : "reviews"})
+          </span>
+        </div>
+      ) : null}
+      <div className="tp-product-details-price-wrapper mb-10">
         {product?.attributes?.discount > 0 ? (
           <>
             <span className="tp-product-details-price old-price">

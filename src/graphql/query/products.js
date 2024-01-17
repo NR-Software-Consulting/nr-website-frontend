@@ -78,6 +78,11 @@ export const PRODUCTS_DATA = gql`
               }
             }
           }
+          user_review {
+            user
+            rating
+            comment
+          }
         }
       }
     }
@@ -134,6 +139,11 @@ export const PRODUCT_DETAIL_DATA = gql`
                 name
               }
             }
+          }
+          user_review {
+            user
+            rating
+            comment
           }
         }
       }

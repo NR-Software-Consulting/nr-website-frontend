@@ -3,18 +3,13 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-// internal
-import { useGetProductTypeQuery } from "@/redux/features/productApi";
-import { NextArr, PrevArr, ShapeLine } from "@/svg";
+import { ShapeLine } from "@/svg";
 import ErrorMsg from "@/components/common/error-msg";
 import ProductItem from "./product-item";
 import HomeNewArrivalPrdLoader from "@/components/loader/home/home-newArrival-prd-loader";
 import { useTranslations } from "next-intl";
 import useAuthCheck from "@/hooks/use-auth-check";
-import Loader from "@/components/loader/loader";
-import { BarLoader, DotLoader } from "react-spinners";
 
-// slider setting
 const slider_setting = {
   slidesPerView: 4,
   spaceBetween: 30,
@@ -47,7 +42,6 @@ const slider_setting = {
 
 const NewArrivals = ({ products, isError, isLoading }) => {
   const t = useTranslations("header");
-  // decide what to render
   let content = null;
   const authChecked = useAuthCheck();
   if (isLoading) {

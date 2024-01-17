@@ -1,12 +1,11 @@
 import React, { useRef, useEffect } from "react";
-import ReviewForm from "../forms/review-form";
 import ReviewItem from "./review-item";
 import { useTranslations } from "next-intl";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const DetailsTabNav = ({ product }) => {
-  const { _id, reviews } = product || {};
+  const reviews = product[0]?.attributes?.user_review;
   const activeRef = useRef(null);
   const marker = useRef(null);
   const t = useTranslations("header");
@@ -45,7 +44,7 @@ const DetailsTabNav = ({ product }) => {
 
   return (
     <>
-      <div className="tp-product-details-tab-nav tp-tab">
+      <div className="tp-product-details-tab-nav tp-tab pt-30">
         <nav>
           <div
             className="nav nav-tabs d-flex justify-content-evenly p-relative tp-product-tab"
@@ -58,6 +57,7 @@ const DetailsTabNav = ({ product }) => {
               id="desc"
               title={t("Description")}
             />
+            <NavItem id="review" title={t("Reviews")} />
             <span
               ref={marker}
               id="productTabMarker"
@@ -74,7 +74,7 @@ const DetailsTabNav = ({ product }) => {
             aria-labelledby="nav-desc-tab"
             tabIndex="-1"
           >
-            <div className="tp-product-details-desc-wrapper pt-60">
+            <div className="tp-product-details-desc-wrapper pt-30">
               <div className="row">
                 <div className="col-xl-12">
                   <div className="tp-product-details-desc-item">
@@ -147,6 +147,21 @@ const DetailsTabNav = ({ product }) => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div
+            className="tab-pane fade"
+            id="nav-review"
+            role="tabpanel"
+            aria-labelledby="nav-review-tab"
+            tabIndex="-1"
+          >
+            <div className="tp-product-details-review-wrapper pt-30">
+              {reviews.length > 0 ? (
+                <ReviewItem review={reviews} />
+              ) : (
+                <p>No Review</p>
+              )}
             </div>
           </div>
         </div>

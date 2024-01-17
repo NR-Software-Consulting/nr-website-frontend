@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { Cart, QuickView, Wishlist } from "@/svg";
-import Timer from "@/components/common/timer";
 import { handleProductModal } from "@/redux/features/productModalSlice";
 import useAuthCheck from "@/hooks/use-auth-check";
 import { useRouter } from "next/router";
@@ -11,7 +9,7 @@ import { notifyError } from "@/utils/toast";
 import { useCart } from "@/hooks/use-cart";
 import { useWishList } from "@/hooks/use-wishlist";
 import NRImage from "../NRImage";
-import { Box } from "@mui/material";
+import { Box, Rating } from "@mui/material";
 
 const ProductItem = ({ product, offer_style = false }) => {
   const { onAddToCart, cartItems } = useCart();
@@ -51,6 +49,17 @@ const ProductItem = ({ product, offer_style = false }) => {
       });
     }
   };
+  const productRating = product?.attributes?.user_review?.map((item) => {
+    return item?.rating;
+  });
+  const filteredRatings = productRating?.filter(
+    (rating) => rating !== undefined
+  );
+  const averageRating =
+    filteredRatings?.length > 0
+      ? filteredRatings?.reduce((acc, rating) => acc + rating, 0) /
+        filteredRatings?.length
+      : 0;
   return (
     <>
       <div
@@ -169,6 +178,13 @@ const ProductItem = ({ product, offer_style = false }) => {
                 PKR {parseFloat(product?.attributes?.price).toFixed(2)}
               </span>
             )}
+          </div>
+          <div className="tp-product-details-price-wrapper d-flex align-item-center">
+            <Rating value={averageRating} readOnly precision={0.5} />
+            <span style={{ color: "grey" }}>
+              ({filteredRatings.length}{" "}
+              {filteredRatings.length === 1 ? "review" : "reviews"})
+            </span>
           </div>
         </div>
       </div>

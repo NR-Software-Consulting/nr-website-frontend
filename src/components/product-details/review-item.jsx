@@ -1,33 +1,31 @@
-import dayjs from "dayjs";
-import Image from "next/image";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
-import { Rating } from "react-simple-star-rating";
+import Rating from "@mui/material/Rating";
 
 const ReviewItem = ({ review }) => {
-  const { comment, createdAt, rating, userId } = review || {};
   return (
-    <div className="tp-product-details-review-avater d-flex align-items-start">
-      <div className="tp-product-details-review-avater-thumb">
-        {!userId?.imageURL && <h5 className="review-name">{userId?.name[0]}</h5>}
-        <a href="#">
-          {userId?.imageURL && <Image src={userId?.imageURL} alt="user img" width={60} height={60} />}
-        </a>
-      </div>
-      <div className="tp-product-details-review-avater-content">
-        <div className="tp-product-details-review-avater-rating d-flex align-items-center">
-          <Rating allowFraction size={16} initialValue={rating} readonly={true} />
-        </div>
-        <h3 className="tp-product-details-review-avater-title">{userId?.name}</h3>
-        <span className="tp-product-details-review-avater-meta">
-          {dayjs(createdAt).format("MMMM D, YYYY")}
-        </span>
-
-        <div className="tp-product-details-review-avater-comment">
-          <p>
-            {comment}
-          </p>
-        </div>
-      </div>
+    <div>
+      {review.map((item, index) => {
+        return (
+          <Grid containerkey={`${item.id}-${index}`} sx={{ display: "flex",flexDirection:"column" }}>
+            <Grid item xs={12}>
+              <Typography
+                fontSize={"18px"}
+                fontWeight={700}
+                sx={{ color: "black" }}
+              >
+                {item?.user}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Rating value={item?.rating} readOnly />
+            </Grid>
+            <Grid item xs={12}>
+              <p>{item?.comment}</p>
+            </Grid>
+          </Grid>
+        );
+      })}
     </div>
   );
 };
