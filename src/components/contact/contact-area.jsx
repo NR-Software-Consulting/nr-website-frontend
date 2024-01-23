@@ -35,7 +35,7 @@ const ContactArea = (props) => {
                       <>
                         <div className="">
                           <a
-                            href={`tel:${phoneNumber}`}
+                            href={"https://wa.me/+923160430485"}
                             className="list-group-item list-group-item-action d-flex gap-3 py-3"
                             aria-current="true"
                           >
