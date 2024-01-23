@@ -154,7 +154,9 @@ const Footer = ({ socialLinks }) => {
                     <div className="tp-footer-talk mb-15">
                       <span>{t("Got Questions? Call us")}</span>
                       <h4 className="pt-10">
-                        <Link href="tel:923160430485">+92 316 0430485</Link>
+                        <Link href="https://wa.me/+923160430485">
+                          +92 316 0430485
+                        </Link>
                       </h4>
                     </div>
                     <div className="tp-footer-contact">

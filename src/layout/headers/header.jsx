@@ -119,7 +119,9 @@ const Header = ({ categories } = props) => {
                       <div className="tp-header-contact-content">
                         <h5>{t("Hotline:")}</h5>
                         <p>
-                          <a href="tel:0316-0430485">+92 316-0430485</a>
+                          <a href="https://wa.me/+923160430485">
+                            +92 316-0430485
+                          </a>
                         </p>
                       </div>
                     </div>
