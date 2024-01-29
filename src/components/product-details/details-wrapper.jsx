@@ -239,6 +239,7 @@ const DetailsWrapper = ({
             product?.attributes?.sub_category?.data?.attributes?.name
           }
           brand={product?.attributes?.brands?.data?.attributes?.name}
+          productLink={product?.attributes?.yt_link}
         />
       )}
     </div>

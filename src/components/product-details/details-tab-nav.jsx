@@ -156,7 +156,7 @@ const DetailsTabNav = ({ product }) => {
             aria-labelledby="nav-review-tab"
             tabIndex="-1"
           >
-            <div className="tp-product-details-review-wrapper pt-30">
+            <div className="pt-30">
               {reviews.length > 0 ? (
                 <ReviewItem review={reviews} />
               ) : (

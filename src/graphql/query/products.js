@@ -100,6 +100,7 @@ export const PRODUCT_DETAIL_DATA = gql`
           sku
           price
           discount
+          yt_link
           isTrending
           description
           condition
@@ -144,6 +145,7 @@ export const PRODUCT_DETAIL_DATA = gql`
             user
             rating
             comment
+            link
           }
         }
       }
