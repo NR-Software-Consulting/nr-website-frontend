@@ -29,6 +29,10 @@ class MyDocument extends Document {
             })(window, document, "script", "dataLayer", "GTM-WSBC9MMB");`,
             }}
           ></script>
+          <meta
+            name="google-site-verification"
+            content="hWhMfE9cAI0NYuwOIr7Htc8sh7csM1dep9TY4R3_NVM"
+          />
         </Head>
         <body>
           <Main />
