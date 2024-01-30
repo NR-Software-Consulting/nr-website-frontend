@@ -64,22 +64,6 @@ const ContactArea = (props) => {
                               </div>
                             </div>
                           </a>
-                          <Link
-                            href={"https://maps.app.goo.gl/m5BARCbA3v4AB2ym7"}
-                            target="_blank"
-                            className="list-group-item list-group-item-action d-flex gap-3 py-3"
-                            aria-current="true"
-                          >
-                            <LocationOnIcon
-                              sx={{ color: "var(--tp-theme-primary)" }}
-                            />
-                            <div className="d-flex gap-2 w-100 justify-content-between">
-                              <div>
-                                <h6 className="mb-0">Address</h6>
-                                <p className="mb-0 ">{Address}</p>
-                              </div>
-                            </div>
-                          </Link>
                         </div>
                       </>
                     </div>

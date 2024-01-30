@@ -174,25 +174,6 @@ const Footer = ({ socialLinks }) => {
                           </p>
                         </div>
                       </div>
-                      <div className="tp-footer-contact-item d-flex align-items-center text-align-center">
-                        <div className="tp-footer-contact-icon">
-                          <span>
-                            <Location />
-                          </span>
-                        </div>
-                        <div className="tp-footer-contact-content">
-                          <p className="mb-0">
-                            <Link
-                              href={"https://maps.app.goo.gl/m5BARCbA3v4AB2ym7"}
-                              target="_blank"
-                              className="list-group-item list-group-item-action d-flex gap-3"
-                              aria-current="true"
-                            >
-                              NR Mobiles, Millat Road, Sandha, Lahore Pakistan.
-                            </Link>
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
