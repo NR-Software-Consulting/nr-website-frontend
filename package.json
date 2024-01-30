@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-sitemap": "next-sitemap"
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
@@ -33,6 +34,7 @@
     "next": "13.2.4",
     "next-cookies": "^2.0.3",
     "next-intl": "^2.19.0",
+    "next-sitemap": "^4.2.3",
     "nextjs-progressbar": "^0.0.16",
     "react": "18.2.0",
     "react-copy-to-clipboard": "^5.1.0",

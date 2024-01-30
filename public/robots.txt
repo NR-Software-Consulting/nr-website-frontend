@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://nrmobiles.com
+
+# Sitemaps
+Sitemap: https://nrmobiles.com/sitemap.xml
