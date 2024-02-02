@@ -19,6 +19,7 @@ export const GET_ORDER_DETAIL = gql`
             imageUrl
             quantity
             discount
+            colour
           }
           city
           country

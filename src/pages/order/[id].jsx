@@ -338,7 +338,8 @@ const SingleOrder = ({ params }) => {
                         fontSize={{ xs: "10px", sm: "14px" }}
                         sx={{ color: "black" }}
                       >
-                        {item.title}
+                        {item.title}{" "}
+                        {item.colour ? <span>({item.colour})</span> : null}
                       </Typography>
                     </Grid>
                     <Grid
