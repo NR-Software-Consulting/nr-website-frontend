@@ -11,7 +11,7 @@ const CheckoutBillingArea = ({ register, errors, setValue, userData }) => {
   const t = useTranslations("header");
   const { user } = useSelector((state) => state.auth);
   const defultPhoneNumer1 = user?.phoneNumber?.replace(/[^\d]/g, "")
-  const defultPhoneNumer2 = UserValues?.calling_code + UserValues?.phoneNumber
+  const defultPhoneNumer2 = UserValues?.calling_code + ""
   const [phone, setPhone] = useState(defultPhoneNumer1 || defultPhoneNumer2);
   return (
     <div className="tp-checkout-bill-area">
