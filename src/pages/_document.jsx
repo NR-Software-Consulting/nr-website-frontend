@@ -29,6 +29,11 @@ class MyDocument extends Document {
             })(window, document, "script", "dataLayer", "GTM-WSBC9MMB");`,
             }}
           ></script>
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1682562140112029"
+            crossorigin="anonymous"
+          ></script>
           <meta
             name="google-site-verification"
             content="hWhMfE9cAI0NYuwOIr7Htc8sh7csM1dep9TY4R3_NVM"
