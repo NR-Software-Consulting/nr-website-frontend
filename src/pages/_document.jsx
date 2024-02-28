@@ -38,6 +38,10 @@ class MyDocument extends Document {
             name="google-site-verification"
             content="hWhMfE9cAI0NYuwOIr7Htc8sh7csM1dep9TY4R3_NVM"
           />
+          <meta
+            name="google-adsense-account"
+            content="ca-pub-1682562140112029"
+          />
         </Head>
         <body>
           <Main />
