@@ -57,7 +57,10 @@ const ProductDetailsPage = (props) => {
   }
   return (
     <Wrapper>
-      <SEO pageTitle={product[0]?.attributes?.title} />
+      <SEO
+        pageTitle={product[0]?.attributes?.title}
+        productImage={product[0]?.attributes?.images?.data[0]?.attributes?.url}
+      />
       <Header categories={category} />
       {content}
       <Footer socialLinks={footerLinks} />
