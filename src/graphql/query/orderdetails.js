@@ -52,6 +52,7 @@ export const GET_ALL_ORDERS = gql`
           publishedAt
           total
           status
+          trackingid
         }
         id
       }

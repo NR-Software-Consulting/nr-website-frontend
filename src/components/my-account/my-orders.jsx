@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import Link from "next/link";
@@ -9,13 +7,11 @@ import { getCookie } from "cookies-next";
 import Pagination from "react-js-pagination";
 import { useTranslations } from "next-intl";
 import SearchPrdLoader from "../loader/search-prd-loader";
-import useLoadingState from "@/hooks/use-loading";
 
 const ITEMS_PER_PAGE = 10;
 
 const MyOrders = () => {
   const [userInfo, setUserInfo] = useState(null);
-  const isLoading = useLoadingState();
   const token = getCookie("token");
   const [Orders, { loading, error, data }] = useLazyQuery(GET_ALL_ORDERS);
   const [activePage, setActivePage] = useState(1);
@@ -112,6 +108,7 @@ const MyOrders = () => {
                     <th scope="col">{t("Order Time")}</th>
                     <th scope="col">{t("Status")}</th>
                     <th scope="col">{t("View")}</th>
+                    <th scope="col">{"Track Order"}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -147,6 +144,14 @@ const MyOrders = () => {
                           className="tp-logout-btn"
                         >
                           {t("Invoice")}
+                        </Link>
+                      </td>
+                      <td>
+                        <Link
+                          href={`https://www.blue-ex.com/tracking?trackno=${item?.attributes?.trackingid}`}
+                          target="blank"
+                        >
+                          {item?.attributes?.trackingid}
                         </Link>
                       </td>
                     </tr>
