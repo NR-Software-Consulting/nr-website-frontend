@@ -147,12 +147,16 @@ const MyOrders = () => {
                         </Link>
                       </td>
                       <td>
-                        <Link
-                          href={`https://www.blue-ex.com/tracking?trackno=${item?.attributes?.trackingid}`}
-                          target="blank"
-                        >
-                          {item?.attributes?.trackingid}
-                        </Link>
+                        {item?.attributes?.trackingid ? (
+                          <Link
+                            href={`https://www.blue-ex.com/tracking?trackno=${item?.attributes?.trackingid}`}
+                            target="blank"
+                          >
+                            {item?.attributes?.trackingid}
+                          </Link>
+                        ) : (
+                          "Waiting for proccessing"
+                        )}
                       </td>
                     </tr>
                   ))}
